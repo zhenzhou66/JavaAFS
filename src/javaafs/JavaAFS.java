@@ -17,6 +17,8 @@ public class JavaAFS {
         // TODO code application logic here
         System.out.println("hello im zhenzhou");
         System.out.println("hello im lijun");
+        System.out.println("hello im zhenzhou 2 ");
+        System.out.println("hello im lijun 2");
     }
     
 }
