@@ -15,7 +15,7 @@ public class JavaAFS {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println("hello update 2");
+        System.out.println("hello im zhenzhou");
     }
     
 }
