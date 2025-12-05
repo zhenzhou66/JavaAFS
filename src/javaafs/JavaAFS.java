@@ -19,6 +19,7 @@ public class JavaAFS {
         System.out.println("hello im lijun");
         System.out.println("hello im zhenzhou 2 ");
         System.out.println("hello im lijun 2");
+        System.out.println("hello, im carrie.");
     }
     
 }
