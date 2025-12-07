@@ -4,22 +4,24 @@
  */
 package javaafs;
 
+import java.util.ArrayList;
+
+
+
 /**
  *
  * @author zhenz
  */
 public class JavaAFS {
 
-    /**
-     * @param args the command line arguments
-     */
+    
+    
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println("hello im zhenzhou");
-        System.out.println("hello im lijun");
-        System.out.println("hello im zhenzhou 2 ");
-        System.out.println("hello im lijun 2");
-        System.out.println("hello, im carrie.");
+        ArrayList<String[]> userArray = Functions.readCSV("users.txt");
+        for (String[] user : userArray) {
+            System.out.println(user[1]); // username
+        }
     }
     
 }

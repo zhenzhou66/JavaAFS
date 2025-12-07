@@ -1,0 +1,5 @@
+userID, password, role, name
+admin, carrie, admin, Carrie Yap
+lijun, lijun, acadLeader, Lew Li Jun
+TP000, zhenzhou, lecturer, Steve
+TP333, zhenzhou, student, John
