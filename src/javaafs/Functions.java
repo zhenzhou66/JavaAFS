@@ -20,7 +20,7 @@ public class Functions {
 
             while ((line = br.readLine()) != null) {
                 if (!line.trim().isEmpty()) {
-                    data.add(line.split(","));
+                    data.add(line.split(", "));
                 }
             }
 

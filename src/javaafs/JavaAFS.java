@@ -17,11 +17,11 @@ public class JavaAFS {
     
     
     public static void main(String[] args) {
-        // TODO code application logic here
-        ArrayList<String[]> userArray = Functions.readCSV("users.txt");
-        for (String[] user : userArray) {
-            System.out.println(user[1]); // username
+        java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            new Login().setVisible(true);
         }
+        });
     }
     
 }

@@ -116,9 +116,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="InputUserID">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Enter UserID"/>
-          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="InputUserIDActionPerformed"/>
           </Events>
@@ -132,9 +129,6 @@
           </Events>
         </Component>
         <Component class="javax.swing.JPasswordField" name="InputPassword">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jPasswordField1"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="Status">
           <Properties>

@@ -54,7 +54,6 @@ public class Login extends javax.swing.JFrame {
         Password.setForeground(new java.awt.Color(0, 0, 0));
         Password.setText("Password");
 
-        InputUserID.setText("Enter UserID");
         InputUserID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 InputUserIDActionPerformed(evt);
@@ -67,8 +66,6 @@ public class Login extends javax.swing.JFrame {
                 LoginActionPerformed(evt);
             }
         });
-
-        InputPassword.setText("jPasswordField1");
 
         Status.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         Status.setForeground(new java.awt.Color(0, 0, 0));
@@ -136,8 +133,37 @@ public class Login extends javax.swing.JFrame {
         boolean auth = func.authUser(userArray, username, password);
         String userType = func.userType(userArray, username);
         
-        if (auth){
-            Status.setText("Success");
+        if (auth) {
+            if (userType.equals("admin")) {
+                Status.setText("Access granted!");
+                AdminMainMenu adminMainMenu = new AdminMainMenu();
+                this.setVisible(false);
+                adminMainMenu.setVisible(true);
+
+            } else if (userType.equals("acadLeader")) {
+                Status.setText("Access granted!");
+                AcadLeaderMenu menu = new AcadLeaderMenu();
+                this.setVisible(false);
+                menu.setVisible(true);
+
+            } else if (userType.equals("lecturer")) {
+                Status.setText("Access granted!");
+                LecturerMainMenu menu = new LecturerMainMenu();
+                this.setVisible(false);
+                menu.setVisible(true);
+
+            } else if (userType.equals("student")) {
+                Status.setText("Access granted!");
+                StudentMainMenu menu = new StudentMainMenu();
+                this.setVisible(false);
+                menu.setVisible(true);
+
+            } else {
+                Status.setText("Unknown role");
+            }
+
+        } else {
+            Status.setText("Incorrect credentials");
         }
     }//GEN-LAST:event_LoginActionPerformed
 
