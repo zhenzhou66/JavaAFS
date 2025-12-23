@@ -12,9 +12,8 @@ public class AcadLeadProfile extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AcadLeadProfile.class.getName());
 
-    /**
-     * Creates new form AcadLeadProfile
-     */
+    
+            
     public AcadLeadProfile() {
         initComponents();
     }
@@ -29,6 +28,16 @@ public class AcadLeadProfile extends javax.swing.JFrame {
     private void initComponents() {
 
         backbtn = new javax.swing.JButton();
+        profilelbl = new javax.swing.JLabel();
+        namelbl = new javax.swing.JLabel();
+        nametxt = new javax.swing.JTextField();
+        rolelbl = new javax.swing.JLabel();
+        phonetxt = new javax.swing.JTextField();
+        emailtxt = new javax.swing.JTextField();
+        roletxt = new javax.swing.JTextField();
+        emaillbl = new javax.swing.JLabel();
+        phonelbl = new javax.swing.JLabel();
+        editbtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -39,21 +48,96 @@ public class AcadLeadProfile extends javax.swing.JFrame {
             }
         });
 
+        profilelbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        profilelbl.setText("PROFILE");
+
+        namelbl.setText("Name");
+
+        nametxt.setText("jTextField1");
+
+        rolelbl.setText("Role");
+
+        phonetxt.setText("jTextField2");
+
+        emailtxt.setText("jTextField3");
+
+        roletxt.setText("jTextField4");
+
+        emaillbl.setText("Email");
+
+        phonelbl.setText("Phone Number");
+
+        editbtn.setText("Edit Password");
+        editbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editbtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(154, 154, 154)
+                .addGap(166, 166, 166)
+                .addComponent(profilelbl)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(rolelbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(roletxt, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(namelbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(nametxt, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(phonelbl)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(phonetxt, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(emaillbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(emailtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(72, 72, 72))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(98, Short.MAX_VALUE)
+                .addComponent(editbtn)
+                .addGap(18, 18, 18)
                 .addComponent(backbtn)
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addGap(108, 108, 108))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(228, Short.MAX_VALUE)
-                .addComponent(backbtn)
-                .addGap(49, 49, 49))
+                .addGap(17, 17, 17)
+                .addComponent(profilelbl)
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(namelbl)
+                    .addComponent(nametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(emailtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emaillbl))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(phonetxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(roletxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rolelbl)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(phonelbl)
+                        .addGap(57, 57, 57)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(backbtn)
+                    .addComponent(editbtn))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
@@ -64,6 +148,12 @@ public class AcadLeadProfile extends javax.swing.JFrame {
         acadleadermenu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_backbtnActionPerformed
+
+    private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtnActionPerformed
+        AcadLeadChangePassword acadleadchangepassword = new AcadLeadChangePassword();
+        this.setVisible(false);
+        acadleadchangepassword.setVisible(true);
+    }//GEN-LAST:event_editbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -92,5 +182,15 @@ public class AcadLeadProfile extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backbtn;
+    private javax.swing.JButton editbtn;
+    private javax.swing.JLabel emaillbl;
+    private javax.swing.JTextField emailtxt;
+    private javax.swing.JLabel namelbl;
+    private javax.swing.JTextField nametxt;
+    private javax.swing.JLabel phonelbl;
+    private javax.swing.JTextField phonetxt;
+    private javax.swing.JLabel profilelbl;
+    private javax.swing.JLabel rolelbl;
+    private javax.swing.JTextField roletxt;
     // End of variables declaration//GEN-END:variables
 }

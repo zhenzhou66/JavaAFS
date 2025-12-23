@@ -20,7 +20,6 @@ public class JavaAFS {
         java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
             new Login().setVisible(true);
-            System.out.println("hi carrie");
         }
         
         });
