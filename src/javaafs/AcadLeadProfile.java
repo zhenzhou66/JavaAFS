@@ -4,6 +4,8 @@
  */
 package javaafs;
 
+import java.util.List;
+
 /**
  *
  * @author junjun
@@ -11,12 +13,17 @@ package javaafs;
 public class AcadLeadProfile extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AcadLeadProfile.class.getName());
-
     
+    protected List<String[]> userArray;
+    Functions func = new Functions();
+
             
     public AcadLeadProfile() {
+        userArray = func.readCSV("users.txt");
         initComponents();
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -55,12 +62,20 @@ public class AcadLeadProfile extends javax.swing.JFrame {
 
         namelbl.setText("Name");
 
+        nametxt.setEditable(false);
         nametxt.setText("jTextField1");
+        nametxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nametxtActionPerformed(evt);
+            }
+        });
 
         rolelbl.setText("Role");
 
+        phonetxt.setEditable(false);
         phonetxt.setText("jTextField2");
 
+        emailtxt.setEditable(false);
         emailtxt.setText("jTextField3");
         emailtxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -68,6 +83,7 @@ public class AcadLeadProfile extends javax.swing.JFrame {
             }
         });
 
+        roletxt.setEditable(false);
         roletxt.setText("jTextField4");
 
         emaillbl.setText("Email");
@@ -83,6 +99,7 @@ public class AcadLeadProfile extends javax.swing.JFrame {
 
         jLabel1.setText("Username");
 
+        jTextField1.setEditable(false);
         jTextField1.setText("jTextField1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -147,16 +164,14 @@ public class AcadLeadProfile extends javax.swing.JFrame {
                     .addComponent(rolelbl)
                     .addComponent(roletxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(backbtn)
-                            .addComponent(editbtn)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(backbtn)
+                    .addComponent(editbtn))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -177,6 +192,10 @@ public class AcadLeadProfile extends javax.swing.JFrame {
     private void emailtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailtxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailtxtActionPerformed
+
+    private void nametxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nametxtActionPerformed
+        
+    }//GEN-LAST:event_nametxtActionPerformed
 
     /**
      * @param args the command line arguments
