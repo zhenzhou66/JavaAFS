@@ -1,5 +1,5 @@
-userID, password, role, name
-admin, carrie, admin, Carrie Yap
-lijun, lijun, acadLeader, Lew Li Jun
-TP000, zhenzhou, lecturer, Steve
-TP333, zhenzhou, student, John
+userID, password, role, name, email, phoneNumber
+admin, carrie, admin, Carrie Yap, carrieyap@gmail.com, 0127718442
+lijun, lijun, acadLeader, Lew Li Jun, lijun0213@gmail.com, 0127218442
+TP000, zhenzhou, lecturer, Steve, steve123@gmail.com, 0127198442
+TP333, zhenzhou, student, John, john&may@gmail.com, 0127355913
