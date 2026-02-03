@@ -4,6 +4,7 @@
  */
 package javaafs;
 
+import java.awt.Component;
 import java.util.List;
 
 /**
@@ -17,12 +18,43 @@ public class AcadLeadProfile extends javax.swing.JFrame {
     protected List<String[]> userArray;
     Functions func = new Functions();
 
+    public String Name = "";
+    public String Email = "";
+    public String Phonenumber = "";
+    public String Role = "";
+    public String UserId = "";
             
     public AcadLeadProfile() {
         userArray = func.readCSV("users.txt");
         initComponents();
     }
     
+    public AcadLeadProfile(String userid) {
+        this();
+        UserId = userid;
+        loadUserData(userid);
+    }
+    
+private void loadUserData(String userid) {
+    if (userArray == null || userArray.isEmpty()) 
+        return;
+
+    for (int i = 1; i < userArray.size(); i++) {
+        String[] user = userArray.get(i);
+        if (user[0].equalsIgnoreCase(userid)) {
+            useridtxt.setText(user[0]);
+            nametxt.setText(user[3]);
+            emailtxt.setText(user[4]);
+            phonetxt.setText(user[5]);
+            roletxt.setText(user[2]);
+            break;
+        }
+    }
+}
+    
+
+
+
     
 
     /**
@@ -45,8 +77,8 @@ public class AcadLeadProfile extends javax.swing.JFrame {
         emaillbl = new javax.swing.JLabel();
         phonelbl = new javax.swing.JLabel();
         editbtn = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        useridlbl = new javax.swing.JLabel();
+        useridtxt = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,7 +95,7 @@ public class AcadLeadProfile extends javax.swing.JFrame {
         namelbl.setText("Name");
 
         nametxt.setEditable(false);
-        nametxt.setText("jTextField1");
+        nametxt.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         nametxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nametxtActionPerformed(evt);
@@ -73,10 +105,10 @@ public class AcadLeadProfile extends javax.swing.JFrame {
         rolelbl.setText("Role");
 
         phonetxt.setEditable(false);
-        phonetxt.setText("jTextField2");
+        phonetxt.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         emailtxt.setEditable(false);
-        emailtxt.setText("jTextField3");
+        emailtxt.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         emailtxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 emailtxtActionPerformed(evt);
@@ -84,7 +116,7 @@ public class AcadLeadProfile extends javax.swing.JFrame {
         });
 
         roletxt.setEditable(false);
-        roletxt.setText("jTextField4");
+        roletxt.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         emaillbl.setText("Email");
 
@@ -97,10 +129,10 @@ public class AcadLeadProfile extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Username");
+        useridlbl.setText("UserID");
 
-        jTextField1.setEditable(false);
-        jTextField1.setText("jTextField1");
+        useridtxt.setEditable(false);
+        useridtxt.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,28 +150,31 @@ public class AcadLeadProfile extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(namelbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(emaillbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(phonelbl)
+                                .addGap(93, 93, 93)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(rolelbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(135, 135, 135)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(emaillbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(phonetxt, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(namelbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(nametxt, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(rolelbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(roletxt, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(phonelbl)
-                        .addGap(172, 172, 172)
-                        .addComponent(emailtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(useridlbl)
+                        .addGap(137, 137, 137)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(useridtxt, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(roletxt, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                        .addComponent(emailtxt)
+                        .addComponent(phonetxt)
+                        .addComponent(nametxt)))
                 .addGap(72, 72, 72))
         );
         layout.setVerticalGroup(
@@ -165,13 +200,13 @@ public class AcadLeadProfile extends javax.swing.JFrame {
                     .addComponent(roletxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(useridlbl)
+                    .addComponent(useridtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(backbtn)
                     .addComponent(editbtn))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
@@ -194,7 +229,7 @@ public class AcadLeadProfile extends javax.swing.JFrame {
     }//GEN-LAST:event_emailtxtActionPerformed
 
     private void nametxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nametxtActionPerformed
-        
+
     }//GEN-LAST:event_nametxtActionPerformed
 
     /**
@@ -227,8 +262,6 @@ public class AcadLeadProfile extends javax.swing.JFrame {
     private javax.swing.JButton editbtn;
     private javax.swing.JLabel emaillbl;
     private javax.swing.JTextField emailtxt;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel namelbl;
     private javax.swing.JTextField nametxt;
     private javax.swing.JLabel phonelbl;
@@ -236,5 +269,7 @@ public class AcadLeadProfile extends javax.swing.JFrame {
     private javax.swing.JLabel profilelbl;
     private javax.swing.JLabel rolelbl;
     private javax.swing.JTextField roletxt;
+    private javax.swing.JLabel useridlbl;
+    private javax.swing.JTextField useridtxt;
     // End of variables declaration//GEN-END:variables
 }

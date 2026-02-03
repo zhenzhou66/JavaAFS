@@ -127,7 +127,7 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
         acadleadreport.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        AcadLeadProfile acadleadprofile = new AcadLeadProfile();
+        AcadLeadProfile acadleadprofile = new AcadLeadProfile("lijun");
         this.setVisible(false);
         acadleadprofile.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed

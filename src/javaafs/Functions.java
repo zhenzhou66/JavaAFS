@@ -20,6 +20,10 @@ public class Functions {
 
             while ((line = br.readLine()) != null) {
                 if (!line.trim().isEmpty()) {
+                    String[] values = line.split(",");
+                    for (int i = 0; i < values.length; i++) {
+                        values[i] = values[i].trim();
+                    }
                     data.add(line.split(", "));
                 }
             }
