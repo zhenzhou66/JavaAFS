@@ -12,12 +12,17 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AcadLeaderMenu.class.getName());
 
-    /**
-     * Creates new form AcadLeader
-     */
+    public String UserID = "";
+    
     public AcadLeaderMenu() {
         initComponents();
     }
+    
+//    public AcadLeaderMenu(String userid){
+//        this();
+//        UserID = userid;
+//        initComponents();
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.

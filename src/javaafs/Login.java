@@ -134,25 +134,25 @@ public class Login extends javax.swing.JFrame {
         String userType = func.userType(userArray, username);
         
         if (auth) {
-            if (userType.equals("admin")) {
+            if (userType.equals("Admin")) {
                 Status.setText("Access granted!");
                 AdminMainMenu adminMainMenu = new AdminMainMenu();
                 this.setVisible(false);
                 adminMainMenu.setVisible(true);
 
-            } else if (userType.equals("acadLeader")) {
+            } else if (userType.equals("AcademicLeader")) {
                 Status.setText("Access granted!");
                 AcadLeaderMenu menu = new AcadLeaderMenu();
                 this.setVisible(false);
                 menu.setVisible(true);
 
-            } else if (userType.equals("lecturer")) {
+            } else if (userType.equals("Lecturer")) {
                 Status.setText("Access granted!");
                 LecturerMainMenu menu = new LecturerMainMenu();
                 this.setVisible(false);
                 menu.setVisible(true);
 
-            } else if (userType.equals("student")) {
+            } else if (userType.equals("Student")) {
                 Status.setText("Access granted!");
                 StudentMainMenu menu = new StudentMainMenu();
                 this.setVisible(false);

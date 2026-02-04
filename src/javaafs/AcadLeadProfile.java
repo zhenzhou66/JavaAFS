@@ -4,7 +4,6 @@
  */
 package javaafs;
 
-import java.awt.Component;
 import java.util.List;
 
 /**
@@ -22,7 +21,7 @@ public class AcadLeadProfile extends javax.swing.JFrame {
     public String Email = "";
     public String Phonenumber = "";
     public String Role = "";
-    public String UserId = "";
+    public String UserID = "";
             
     public AcadLeadProfile() {
         userArray = func.readCSV("users.txt");
@@ -31,7 +30,7 @@ public class AcadLeadProfile extends javax.swing.JFrame {
     
     public AcadLeadProfile(String userid) {
         this();
-        UserId = userid;
+        UserID = userid;
         loadUserData(userid);
     }
     
@@ -39,7 +38,7 @@ private void loadUserData(String userid) {
     if (userArray == null || userArray.isEmpty()) 
         return;
 
-    for (int i = 1; i < userArray.size(); i++) {
+    for (int i = 0; i < userArray.size(); i++) {
         String[] user = userArray.get(i);
         if (user[0].equalsIgnoreCase(userid)) {
             useridtxt.setText(user[0]);
@@ -139,7 +138,7 @@ private void loadUserData(String userid) {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(98, Short.MAX_VALUE)
                 .addComponent(editbtn)
                 .addGap(18, 18, 18)
                 .addComponent(backbtn)
@@ -161,20 +160,19 @@ private void loadUserData(String userid) {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(phonelbl)
-                                .addGap(93, 93, 93)))
+                                .addGap(43, 43, 43)))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(rolelbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(135, 135, 135)))
+                            .addGap(85, 85, 85)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(useridlbl)
-                        .addGap(137, 137, 137)))
+                        .addGap(87, 87, 87)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(useridtxt, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(roletxt, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                        .addComponent(emailtxt)
-                        .addComponent(phonetxt)
-                        .addComponent(nametxt)))
+                    .addComponent(phonetxt, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nametxt, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(useridtxt, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(roletxt)
+                    .addComponent(emailtxt))
                 .addGap(72, 72, 72))
         );
         layout.setVerticalGroup(
@@ -219,7 +217,7 @@ private void loadUserData(String userid) {
     }//GEN-LAST:event_backbtnActionPerformed
 
     private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtnActionPerformed
-        AcadLeadChangePassword acadleadchangepassword = new AcadLeadChangePassword();
+        AcadLeadChangePassword acadleadchangepassword = new AcadLeadChangePassword(UserID);
         this.setVisible(false);
         acadleadchangepassword.setVisible(true);
     }//GEN-LAST:event_editbtnActionPerformed

@@ -24,7 +24,7 @@ public class Functions {
                     for (int i = 0; i < values.length; i++) {
                         values[i] = values[i].trim();
                     }
-                    data.add(line.split(", "));
+                    data.add(values);
                 }
             }
 
@@ -53,4 +53,27 @@ public class Functions {
         }
         return userType;
     }
+    
+    public boolean updatePassword(List<String[]> userList, String userID, String newPassword) {
+
+        for (String[] user : userList) {
+            if (user[0].equals(userID)) {
+                user[1] = newPassword;   
+                return true;             
+            }
+        }
+        return false;
+    }
+    
+    public void savePassword(List<String[]> userList, String filePath) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+            for (String[] user : userList) {
+                bw.write(String.join(",", user));
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
+    
