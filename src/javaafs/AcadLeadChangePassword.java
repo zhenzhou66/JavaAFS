@@ -5,7 +5,6 @@
 package javaafs;
 import java.util.List;
 
-
 /**
  *
  * @author junjun
@@ -256,6 +255,7 @@ public class AcadLeadChangePassword extends javax.swing.JFrame {
     }//GEN-LAST:event_oldpasswordtxtActionPerformed
 
     private void showpassword1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showpassword1ActionPerformed
+
         if (!passwordShow){
             oldpasswordtxt.setEchoChar((char) 0); 
             showpassword1.setText("Hide Password");
@@ -268,22 +268,9 @@ public class AcadLeadChangePassword extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_showpassword1ActionPerformed
 
-    private void showpassword2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showpassword2ActionPerformed
-        if (!passwordShow){
-            newpasswordtxt.setEchoChar((char) 0); 
-            showpassword2.setText("Hide Password");
-            passwordShow = true;
-        }
-        else {
-            newpasswordtxt.setEchoChar('•');
-            showpassword2.setText("Show Password");
-            passwordShow = false;
-        }
-    }//GEN-LAST:event_showpassword2ActionPerformed
-
     private void showpassword3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showpassword3ActionPerformed
         if (!passwordShow){
-            confirmpasswordtxt.setEchoChar((char) 0); 
+            confirmpasswordtxt.setEchoChar((char) 0);
             showpassword3.setText("Hide Password");
             passwordShow = true;
         }
@@ -293,6 +280,19 @@ public class AcadLeadChangePassword extends javax.swing.JFrame {
             passwordShow = false;
         }
     }//GEN-LAST:event_showpassword3ActionPerformed
+
+    private void showpassword2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showpassword2ActionPerformed
+        if (!passwordShow){
+            newpasswordtxt.setEchoChar((char) 0);
+            showpassword2.setText("Hide Password");
+            passwordShow = true;
+        }
+        else {
+            newpasswordtxt.setEchoChar('•');
+            showpassword2.setText("Show Password");
+            passwordShow = false;
+        }
+    }//GEN-LAST:event_showpassword2ActionPerformed
 
     public static void main(String[] args) {
     java.awt.EventQueue.invokeLater(() -> new AcadLeadChangePassword().setVisible(true));
