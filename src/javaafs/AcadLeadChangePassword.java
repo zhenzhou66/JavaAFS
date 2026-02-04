@@ -55,10 +55,13 @@ public class AcadLeadChangePassword extends javax.swing.JFrame {
         changepasswordlbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         changepasswordlbl.setText("Change Password");
 
+        oldpasswordlbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         oldpasswordlbl.setText("Old Password");
 
+        newpasswordlbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         newpasswordlbl.setText("New Password");
 
+        confirmpasswordlbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         confirmpasswordlbl.setText("Confirm Password");
 
         confirmbtn.setText("CONFIRM");
@@ -75,16 +78,12 @@ public class AcadLeadChangePassword extends javax.swing.JFrame {
             }
         });
 
+        statuslbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         statuslbl.setText("Status");
 
         statustxt.setEditable(false);
         statustxt.setBorder(null);
 
-        confirmpasswordtxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        newpasswordtxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        oldpasswordtxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         oldpasswordtxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 oldpasswordtxtActionPerformed(evt);
@@ -138,12 +137,12 @@ public class AcadLeadChangePassword extends javax.swing.JFrame {
                     .addComponent(oldpasswordlbl)
                     .addComponent(newpasswordlbl)
                     .addComponent(confirmpasswordlbl)
-                    .addComponent(statuslbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(statuslbl))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(statustxt, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(25, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(89, 89, 89)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,9 +168,9 @@ public class AcadLeadChangePassword extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(oldpasswordlbl)
                     .addComponent(oldpasswordtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(showpassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newpasswordlbl)
                     .addComponent(newpasswordtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))

@@ -78,6 +78,8 @@ private void loadUserData(String userid) {
         editbtn = new javax.swing.JButton();
         useridlbl = new javax.swing.JLabel();
         useridtxt = new javax.swing.JTextField();
+        savebtn = new javax.swing.JButton();
+        statustxt = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,23 +93,19 @@ private void loadUserData(String userid) {
         profilelbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         profilelbl.setText("PROFILE");
 
+        namelbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         namelbl.setText("Name");
 
         nametxt.setEditable(false);
-        nametxt.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         nametxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nametxtActionPerformed(evt);
             }
         });
 
+        rolelbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         rolelbl.setText("Role");
 
-        phonetxt.setEditable(false);
-        phonetxt.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-
-        emailtxt.setEditable(false);
-        emailtxt.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         emailtxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 emailtxtActionPerformed(evt);
@@ -115,10 +113,11 @@ private void loadUserData(String userid) {
         });
 
         roletxt.setEditable(false);
-        roletxt.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        emaillbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         emaillbl.setText("Email");
 
+        phonelbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         phonelbl.setText("Phone Number");
 
         editbtn.setText("Edit Password");
@@ -128,45 +127,48 @@ private void loadUserData(String userid) {
             }
         });
 
+        useridlbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         useridlbl.setText("UserID");
 
         useridtxt.setEditable(false);
-        useridtxt.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        savebtn.setText("SAVE");
+        savebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                savebtnActionPerformed(evt);
+            }
+        });
+
+        statustxt.setEditable(false);
+        statustxt.setBorder(null);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(98, Short.MAX_VALUE)
+                .addGap(66, 66, 66)
                 .addComponent(editbtn)
-                .addGap(18, 18, 18)
+                .addGap(26, 26, 26)
+                .addComponent(savebtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(backbtn)
-                .addGap(108, 108, 108))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(166, 166, 166)
-                .addComponent(profilelbl)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(55, 55, 55))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(namelbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(emaillbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(phonelbl)
-                                .addGap(43, 43, 43)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(rolelbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(85, 85, 85)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(useridlbl)
-                        .addGap(87, 87, 87)))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(namelbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(emaillbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(useridlbl)
+                            .addComponent(rolelbl))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(phonelbl)
+                        .addGap(43, 43, 43)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(phonetxt, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nametxt, javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,6 +176,14 @@ private void loadUserData(String userid) {
                     .addComponent(roletxt)
                     .addComponent(emailtxt))
                 .addGap(72, 72, 72))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(166, 166, 166)
+                .addComponent(profilelbl)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(statustxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(104, 104, 104))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,8 +213,11 @@ private void loadUserData(String userid) {
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(backbtn)
-                    .addComponent(editbtn))
-                .addContainerGap(41, Short.MAX_VALUE))
+                    .addComponent(editbtn)
+                    .addComponent(savebtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(statustxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -229,6 +242,15 @@ private void loadUserData(String userid) {
     private void nametxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nametxtActionPerformed
 
     }//GEN-LAST:event_nametxtActionPerformed
+
+    private void savebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebtnActionPerformed
+    String newEmail = emailtxt.getText();
+    String newPhoneNumber = phonetxt.getText();
+    
+    func.saveProfile(userArray, UserID, newEmail, newPhoneNumber);
+    func.savePassword(userArray, "users.txt");
+    statustxt.setText("Profile updated succesfully!");
+    }//GEN-LAST:event_savebtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -267,6 +289,8 @@ private void loadUserData(String userid) {
     private javax.swing.JLabel profilelbl;
     private javax.swing.JLabel rolelbl;
     private javax.swing.JTextField roletxt;
+    private javax.swing.JButton savebtn;
+    private javax.swing.JTextField statustxt;
     private javax.swing.JLabel useridlbl;
     private javax.swing.JTextField useridtxt;
     // End of variables declaration//GEN-END:variables

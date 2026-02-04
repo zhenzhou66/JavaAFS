@@ -77,5 +77,15 @@ public class Functions {
             e.printStackTrace();
         }
     }
+    
+    public void saveProfile(List<String[]> userList, String userID, String newEmail, String newPhoneNumber) {
+        for (String[] user : userList) {
+            if (user[0].equalsIgnoreCase(userID)) {
+                user[4] = newEmail;   
+                user[5] = newPhoneNumber;
+                break;
+            }
+        }
+    }
 }
     
