@@ -1,5 +1,5 @@
 userID,password,role,name,email,phoneNumber
 admin,carrie,Admin,Carrie Yap,carrieyap@gmail.com,0127718442
-lijun,Lijun!,AcademicLeader,Lew Li Jun,hiccupbb@gmail.com,0127895512
+lijun,LIJUN,AcademicLeader,Lew Li Jun,hiccupggdgd@gmail.com,0127218442
 TP000,zhenzhou,Lecturer,Steve,steve123@gmail.com,0127198442
 TP333,zhenzhou,Student,John,john&may@gmail.com,0127355913

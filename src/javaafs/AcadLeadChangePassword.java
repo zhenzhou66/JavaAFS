@@ -230,7 +230,7 @@ public class AcadLeadChangePassword extends javax.swing.JFrame {
         }
         
         if (!newPassword.equals(confirmPassword)) {
-            statustxt.setText("New passwords do not match!");
+            statustxt.setText("New password do not match!");
             return;
         }
         
