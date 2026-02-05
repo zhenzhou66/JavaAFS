@@ -1,11 +1,11 @@
-moduleID, moduleName, lectuer
-M001, Introduction to Databases, Steve
-M002, Systems Analysis & Design, John
-M003, Digital Thinking & Innovation, Jun
-M004, Physic II, Jun
-M005, Mathematics III, Jun
-M006, Academic English, Jun
-M007, Accounting Principles, Jun
-M008, Programming with Python, Jun
-M009, World History, Jun
-M010, Philosophy and Current Issues, Jun
+moduleID, moduleName, lectuerID
+M001, Introduction to Databases, TP000
+M002, Systems Analysis & Design, TP000
+M003, Digital Thinking & Innovation, TP000
+M004, Physic II, TP000
+M005, Mathematics III, TP000
+M006, Academic English, TP000
+M007, Accounting Principles, TP000
+M008, Programming with Python, TP000
+M009, World History, TP000
+M010, Philosophy and Current Issues, TP000

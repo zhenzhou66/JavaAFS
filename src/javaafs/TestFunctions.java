@@ -15,7 +15,7 @@ public class TestFunctions {
         Functions func = new Functions();
 
         // Read the CSV file
-        List<String[]> users = func.readCSV("studentFeedback.txt"); // Make sure the path is correct
+        List<String[]> users = func.readCSV("users.txt"); // Make sure the path is correct
 
         // Check if file is loaded
         if (users == null || users.isEmpty()) {
@@ -32,6 +32,6 @@ public class TestFunctions {
 
         // Test authentication
         boolean auth = func.authUser(users, "lijun", "lijun");
-        System.out.println("Auth for 'lijun' with password 'lijun': " + auth);
+        System.out.println("Auth for 'lijun' with password 'lijun'hjgjhgjhgjkhg: " + auth);
     }
 }
