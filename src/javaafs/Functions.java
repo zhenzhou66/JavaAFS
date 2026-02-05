@@ -13,7 +13,7 @@ import javax.swing.JPasswordField;
  */
 public class Functions {
 
-    // Optional: for comma-separated (CSV-style) txt files
+    // Reusable Txt file reader
     public static ArrayList<String[]> readCSV(String filePath) {
         ArrayList<String[]> data = new ArrayList<>();
 
@@ -37,6 +37,22 @@ public class Functions {
 
         return data;
     }
+    
+    //Reusable txt file writer
+    public static void writeCSV(String filePath, List<String[]> data) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+            for (String[] row : data) {
+                String line = String.join(",", row);
+                bw.write(line);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing file: " + filePath);
+            e.printStackTrace();
+        }
+    }
+
+    //Login page authenticate user
     public boolean authUser(List<String[]> userList, String userID, String password) {
         for (String[] user : userList) {
             if (user[0].equals(userID) && user[1].equals(password)) {
@@ -46,6 +62,7 @@ public class Functions {
         return false;
     }
     
+    //Login page determine user type
     public String userType(List<String[]> userList, String userID){
         String userType = null;
         for (String[] user : userList) {
@@ -56,6 +73,7 @@ public class Functions {
         return userType;
     }
     
+    //Profile component update password
     public boolean updatePassword(List<String[]> userList, String userID, String newPassword) {
 
         for (String[] user : userList) {
@@ -67,6 +85,7 @@ public class Functions {
         return false;
     }
     
+    //profile component save password
     public void savePassword(List<String[]> userList, String filePath) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
             for (String[] user : userList) {
@@ -78,6 +97,7 @@ public class Functions {
         }
     }
     
+    //profile component save profile changes
     public void saveProfile(List<String[]> userList, String userID, String newEmail, String newPhoneNumber) {
         for (String[] user : userList) {
             if (user[0].equalsIgnoreCase(userID)) {
