@@ -1,0 +1,1 @@
+classID,classStartTime,classEndTime,moduleID,groupID

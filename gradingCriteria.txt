@@ -1,0 +1,5 @@
+grade,minScore
+D,20
+C,40
+B,60
+A,80
