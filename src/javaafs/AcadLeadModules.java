@@ -25,6 +25,7 @@ public class AcadLeadModules extends javax.swing.JFrame {
         moduleList = func.readCSV("modules.txt");
         initComponents();
     }
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,10 +36,54 @@ public class AcadLeadModules extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        addbtn = new javax.swing.JButton();
+        modulestitlelbl = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        modulestable = new javax.swing.JTable();
         backbtn = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        deletebtn = new javax.swing.JButton();
+        editbtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        addbtn.setText("ADD");
+        addbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addbtnActionPerformed(evt);
+            }
+        });
+
+        modulestitlelbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        modulestitlelbl.setText("MODULES");
+
+        modulestable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ModuleID", "Module Name", "Lecturer"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(modulestable);
 
         backbtn.setText("BACK");
         backbtn.addActionListener(new java.awt.event.ActionListener() {
@@ -47,37 +92,80 @@ public class AcadLeadModules extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("MODULES");
+        deletebtn.setText("DELETE");
+        deletebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletebtnActionPerformed(evt);
+            }
+        });
+
+        editbtn.setText("EDIT");
+        editbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editbtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(161, 161, 161)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(backbtn))
-                .addContainerGap(151, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(161, 161, 161)
+                        .addComponent(modulestitlelbl))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addbtn)
+                            .addComponent(backbtn)
+                            .addComponent(deletebtn)
+                            .addComponent(editbtn))))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 185, Short.MAX_VALUE)
-                .addComponent(backbtn)
-                .addGap(41, 41, 41))
+                .addComponent(modulestitlelbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(70, 70, 70))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(addbtn)
+                        .addGap(28, 28, 28)
+                        .addComponent(editbtn)
+                        .addGap(28, 28, 28)
+                        .addComponent(deletebtn)
+                        .addGap(33, 33, 33)
+                        .addComponent(backbtn)
+                        .addGap(98, 98, 98))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
+    private void addbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addbtnActionPerformed
         AcadLeaderMenu acadleadermenu = new AcadLeaderMenu();
         acadleadermenu.setVisible(true);
-        this.setVisible(false);    }//GEN-LAST:event_backbtnActionPerformed
+        this.setVisible(false);    }//GEN-LAST:event_addbtnActionPerformed
+
+    private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_backbtnActionPerformed
+
+    private void deletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deletebtnActionPerformed
+
+    private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -105,7 +193,12 @@ public class AcadLeadModules extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addbtn;
     private javax.swing.JButton backbtn;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton deletebtn;
+    private javax.swing.JButton editbtn;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable modulestable;
+    private javax.swing.JLabel modulestitlelbl;
     // End of variables declaration//GEN-END:variables
 }

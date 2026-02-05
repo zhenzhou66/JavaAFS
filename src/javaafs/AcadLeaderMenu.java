@@ -4,6 +4,8 @@
  */
 package javaafs;
 
+import java.util.List;
+
 /**
  *
  * @author zhenz
@@ -11,19 +13,38 @@ package javaafs;
 public class AcadLeaderMenu extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AcadLeaderMenu.class.getName());
-
+    
+    protected List<String[]> userArray;
+    Functions func = new Functions();
+    
     public String UserID = "";
+    public String Role = "";
     
     public AcadLeaderMenu() {
+        userArray = func.readCSV("users.txt");
         initComponents();
     }
     
-//    public AcadLeaderMenu(String userid){
-//        this();
-//        UserID = userid;
-//        initComponents();
-//    }
+   public AcadLeaderMenu(String userid){
+        this();
+        this.UserID = userid;
+        loadUserData(userid);
+    }
+   
+    private void loadUserData(String userid) {
+    if (userArray == null || userArray.isEmpty()) 
+        return;
 
+    for (int i = 0; i < userArray.size(); i++) {
+        String[] user = userArray.get(i);
+        if (user[0].equalsIgnoreCase(userid)) {
+            AcadLeadName.setText(user[3]);
+            userRole.setText(user[2]);
+            break;
+            }
+        }
+    }
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,75 +56,88 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         acadleadmmlbl = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        viewprofilebtn = new javax.swing.JButton();
+        viewlecturerbtn = new javax.swing.JButton();
+        viewmodulesbtn = new javax.swing.JButton();
+        viewreportsbtn = new javax.swing.JButton();
+        AcadLeadName = new javax.swing.JLabel();
+        userRole = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         acadleadmmlbl.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         acadleadmmlbl.setText("ACADEMIC LEADER MAIN MENU");
 
-        jButton1.setText("View Profile");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        viewprofilebtn.setText("View Profile");
+        viewprofilebtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                viewprofilebtnActionPerformed(evt);
             }
         });
 
-        jButton2.setText("View Lecturer");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        viewlecturerbtn.setText("View Lecturer");
+        viewlecturerbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                viewlecturerbtnActionPerformed(evt);
             }
         });
 
-        jButton3.setText("View Modules");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        viewmodulesbtn.setText("View Modules");
+        viewmodulesbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                viewmodulesbtnActionPerformed(evt);
             }
         });
 
-        jButton4.setText("View Reports");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        viewreportsbtn.setText("View Reports");
+        viewreportsbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                viewreportsbtnActionPerformed(evt);
             }
         });
+
+        AcadLeadName.setText("jLabel1");
+
+        userRole.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(167, 167, 167)
-                        .addComponent(acadleadmmlbl))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(310, 310, 310)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addGap(310, 310, 310)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(viewmodulesbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(viewlecturerbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(viewprofilebtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(viewreportsbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(295, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(167, 167, 167)
+                .addComponent(acadleadmmlbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(userRole, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(AcadLeadName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(acadleadmmlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(AcadLeadName)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(acadleadmmlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userRole))
+                .addGap(18, 18, 18)
+                .addComponent(viewprofilebtn)
                 .addGap(38, 38, 38)
-                .addComponent(jButton2)
+                .addComponent(viewlecturerbtn)
                 .addGap(43, 43, 43)
-                .addComponent(jButton3)
+                .addComponent(viewmodulesbtn)
                 .addGap(41, 41, 41)
-                .addComponent(jButton4)
+                .addComponent(viewreportsbtn)
                 .addContainerGap(57, Short.MAX_VALUE))
         );
 
@@ -121,26 +155,26 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void viewmodulesbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewmodulesbtnActionPerformed
         AcadLeadModules acadleadmodules = new AcadLeadModules();
         this.setVisible(false);
-        acadleadmodules.setVisible(true);    }//GEN-LAST:event_jButton3ActionPerformed
+        acadleadmodules.setVisible(true);    }//GEN-LAST:event_viewmodulesbtnActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void viewreportsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewreportsbtnActionPerformed
         AcadLeadReport acadleadreport = new AcadLeadReport();
         this.setVisible(false);
-        acadleadreport.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
+        acadleadreport.setVisible(true);    }//GEN-LAST:event_viewreportsbtnActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        AcadLeadProfile acadleadprofile = new AcadLeadProfile("lijun");
+    private void viewprofilebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewprofilebtnActionPerformed
+        AcadLeadProfile acadleadprofile = new AcadLeadProfile(UserID);
         this.setVisible(false);
         acadleadprofile.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_viewprofilebtnActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void viewlecturerbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewlecturerbtnActionPerformed
         AcadLeadLecturer acadleadlecturer = new AcadLeadLecturer();
         this.setVisible(false);
-        acadleadlecturer.setVisible(true);    }//GEN-LAST:event_jButton2ActionPerformed
+        acadleadlecturer.setVisible(true);    }//GEN-LAST:event_viewlecturerbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,11 +202,13 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AcadLeadName;
     private javax.swing.JLabel acadleadmmlbl;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel userRole;
+    private javax.swing.JButton viewlecturerbtn;
+    private javax.swing.JButton viewmodulesbtn;
+    private javax.swing.JButton viewprofilebtn;
+    private javax.swing.JButton viewreportsbtn;
     // End of variables declaration//GEN-END:variables
 }
