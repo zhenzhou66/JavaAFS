@@ -28,10 +28,22 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
    public AcadLeaderMenu(String userid){
         this();
         this.UserID = userid;
-        initComponents();
+        loadUserData(userid);
     }
+   
+    private void loadUserData(String userid) {
+    if (userArray == null || userArray.isEmpty()) 
+        return;
 
-    
+    for (int i = 0; i < userArray.size(); i++) {
+        String[] user = userArray.get(i);
+        if (user[0].equalsIgnoreCase(userid)) {
+            AcadLeadName.setText(user[3]);
+            userRole.setText(user[2]);
+            break;
+            }
+        }
+    }
    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,6 +60,8 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
         viewlecturerbtn = new javax.swing.JButton();
         viewmodulesbtn = new javax.swing.JButton();
         viewreportsbtn = new javax.swing.JButton();
+        AcadLeadName = new javax.swing.JLabel();
+        userRole = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,29 +96,40 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
             }
         });
 
+        AcadLeadName.setText("jLabel1");
+
+        userRole.setText("jLabel2");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(167, 167, 167)
-                        .addComponent(acadleadmmlbl))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(310, 310, 310)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(viewmodulesbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(viewlecturerbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(viewprofilebtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(viewreportsbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addGap(310, 310, 310)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(viewmodulesbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(viewlecturerbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(viewprofilebtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(viewreportsbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(295, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(167, 167, 167)
+                .addComponent(acadleadmmlbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(userRole, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(AcadLeadName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(acadleadmmlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(AcadLeadName)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(acadleadmmlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userRole))
                 .addGap(18, 18, 18)
                 .addComponent(viewprofilebtn)
                 .addGap(38, 38, 38)
@@ -141,7 +166,7 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
         acadleadreport.setVisible(true);    }//GEN-LAST:event_viewreportsbtnActionPerformed
 
     private void viewprofilebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewprofilebtnActionPerformed
-        AcadLeadProfile acadleadprofile = new AcadLeadProfile("lijun");
+        AcadLeadProfile acadleadprofile = new AcadLeadProfile(UserID);
         this.setVisible(false);
         acadleadprofile.setVisible(true);
     }//GEN-LAST:event_viewprofilebtnActionPerformed
@@ -177,8 +202,10 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AcadLeadName;
     private javax.swing.JLabel acadleadmmlbl;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel userRole;
     private javax.swing.JButton viewlecturerbtn;
     private javax.swing.JButton viewmodulesbtn;
     private javax.swing.JButton viewprofilebtn;
