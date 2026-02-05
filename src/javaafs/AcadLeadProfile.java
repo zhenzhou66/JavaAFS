@@ -30,7 +30,7 @@ public class AcadLeadProfile extends javax.swing.JFrame {
     
     public AcadLeadProfile(String userid) {
         this();
-        UserID = userid;
+        this.UserID = userid;
         loadUserData(userid);
     }
     

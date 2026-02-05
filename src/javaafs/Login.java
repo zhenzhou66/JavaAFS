@@ -143,8 +143,10 @@ public class Login extends javax.swing.JFrame {
             } else if (userType.equals("AcademicLeader")) {
                 Status.setText("Access granted!");
                 AcadLeaderMenu menu = new AcadLeaderMenu();
+                AcadLeadProfile profile = new AcadLeadProfile(username);
                 this.setVisible(false);
                 menu.setVisible(true);
+                profile.setVisible(false);
 
             } else if (userType.equals("Lecturer")) {
                 Status.setText("Access granted!");
