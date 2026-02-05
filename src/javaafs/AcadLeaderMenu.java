@@ -62,6 +62,7 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
         viewreportsbtn = new javax.swing.JButton();
         AcadLeadName = new javax.swing.JLabel();
         userRole = new javax.swing.JLabel();
+        logoutbtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,6 +101,13 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
 
         userRole.setText("jLabel2");
 
+        logoutbtn.setText("LOG OUT");
+        logoutbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutbtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -120,6 +128,10 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
                     .addComponent(userRole, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                     .addComponent(AcadLeadName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(20, 20, 20))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(logoutbtn)
+                .addGap(309, 309, 309))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,7 +150,9 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
                 .addComponent(viewmodulesbtn)
                 .addGap(41, 41, 41)
                 .addComponent(viewreportsbtn)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(logoutbtn)
+                .addGap(16, 16, 16))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -176,6 +190,13 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
         this.setVisible(false);
         acadleadlecturer.setVisible(true);    }//GEN-LAST:event_viewlecturerbtnActionPerformed
 
+    private void logoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutbtnActionPerformed
+        Login loginScreen = new Login();
+        loginScreen.setVisible(true);
+
+        this.dispose();
+    }//GEN-LAST:event_logoutbtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -205,6 +226,7 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
     private javax.swing.JLabel AcadLeadName;
     private javax.swing.JLabel acadleadmmlbl;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton logoutbtn;
     private javax.swing.JLabel userRole;
     private javax.swing.JButton viewlecturerbtn;
     private javax.swing.JButton viewmodulesbtn;
