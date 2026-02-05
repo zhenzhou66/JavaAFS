@@ -17,6 +17,10 @@ public class AcadLeadModules extends javax.swing.JFrame {
     protected List<String[]> moduleList;
     Functions func = new Functions();
     
+    public String ModuleID = "";
+    public String ModuleName = "";
+    public String Lecturer = "";
+    
     public AcadLeadModules() {
         moduleList = func.readCSV("modules.txt");
         initComponents();

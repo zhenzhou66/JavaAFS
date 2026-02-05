@@ -15,7 +15,7 @@ public class TestFunctions {
         Functions func = new Functions();
 
         // Read the CSV file
-        List<String[]> users = func.readCSV("users.txt"); // Make sure the path is correct
+        List<String[]> users = func.readCSV("modules.txt"); // Make sure the path is correct
 
         // Check if file is loaded
         if (users == null || users.isEmpty()) {

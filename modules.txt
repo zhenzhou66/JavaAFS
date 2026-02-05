@@ -1,11 +1,11 @@
-moduleID, moduleName, lectuer, semester, creditsHours, faculty
-M001, Introduction to Databases, Steve, 1, 3, Computer Science
-M002, Systems Analysis & Design, John, 1, 3, Computer Science
-M003, Digital Thinking & Innovation, 2, 4, Computer Science
-M004, Physic II, , 2, 4, Engineering
-M005, Mathematics III, , 3, 4, Engineering
-M006, Academic English, , 3, 4, Business
-M007, Accounting Principles, , 1, 3, Business
-M008, Programming with Python, , 3, 3, Computer Science
-M009, World History, , 1, 3, Arts
-M010, Philosophy and Current Issues, , 2, 3, Arts
+moduleID, moduleName, lectuer
+M001, Introduction to Databases, Steve
+M002, Systems Analysis & Design, John
+M003, Digital Thinking & Innovation, Jun
+M004, Physic II, Jun
+M005, Mathematics III, Jun
+M006, Academic English, Jun
+M007, Accounting Principles, Jun
+M008, Programming with Python, Jun
+M009, World History, Jun
+M010, Philosophy and Current Issues, Jun
