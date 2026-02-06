@@ -107,5 +107,29 @@ public class Functions {
             }
         }
     }
+    
+    public String generateNextID(String filePath, String type) {
+        ArrayList<String[]> modules = readCSV(filePath);
+        int maxID = 0;
+
+        for (String[] row : modules) {
+            if (row.length > 0) {
+                String id = row[0]; 
+                if (id.startsWith(type)) {
+                    try {
+                        int num = Integer.parseInt(id.substring(type.length())); // extract numeric part
+                        if (num > maxID) {
+                        maxID = num;
+                        }
+                    } catch (NumberFormatException e) {
+                    
+                    }
+                }
+            }
+        }
+        int nextID = maxID + 1;
+        return String.format("%s%03d", type, nextID);
+    }
 }
+
     
