@@ -14,9 +14,12 @@ public class AcadLeadChangePassword extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AcadLeadChangePassword.class.getName());
 
     protected List<String[]> userArray;
+    
     Functions func = new Functions();
     
     public String UserID;
+    public String Role = "";
+
     private boolean passwordShow = false;
     
     public AcadLeadChangePassword() {
@@ -27,9 +30,69 @@ public class AcadLeadChangePassword extends javax.swing.JFrame {
     public AcadLeadChangePassword(String userid) {
         this();
         UserID = userid;
+        loadUserData(userid);
+    }
+    
+private void loadUserData(String userid) {
+    if (userArray == null || userArray.isEmpty()) 
+        return;
+
+    for (int i = 0; i < userArray.size(); i++) {
+        String[] user = userArray.get(i);
+        if (user[0].equalsIgnoreCase(userid)) {
+//            AcadLeadName.setText(user[3]);
+//            userRole.setText(user[2]);
+            break;
+            }
+        }
     }
 
+private void changePassword() {
+    String oldPassword = new String(oldpasswordtxt.getPassword());
+        String newPassword = new String(newpasswordtxt.getPassword());
+        String confirmPassword = new String(confirmpasswordtxt.getPassword());
+        
+        if (oldPassword.equals("")) {
+            statustxt.setText("Old Password cannot be empty.");
+            return;
+        }
+        
+        if (newPassword.equals("")) {
+            statustxt.setText("New Password cannot be empty.");
+            return;
+        }
+        
+        if (confirmPassword.equals("")) {
+            statustxt.setText("Confirm Password cannot be empty.");
+            return;
+       }
+        
+        boolean validOld = func.authUser(userArray, UserID, oldPassword);
+
+        if (!validOld) {
+            statustxt.setText("Old password is incorrect!");
+            return;
+        }
+        
+        if (!newPassword.equals(confirmPassword)) {
+            statustxt.setText("New password do not match!");
+            return;
+        }
+        
+        boolean updated = func.updatePassword(userArray, UserID, newPassword);
     
+        if (updated) {
+            func.savePassword(userArray, "users.txt");
+            statustxt.setText("Password changed successfully!");
+            
+            oldpasswordtxt.setText("");
+            newpasswordtxt.setText("");
+            confirmpasswordtxt.setText("");
+        } 
+        else {
+            statustxt.setText("Password change failed.");
+        }
+}
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -203,50 +266,7 @@ public class AcadLeadChangePassword extends javax.swing.JFrame {
     }//GEN-LAST:event_backbtnActionPerformed
 
     private void confirmbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmbtnActionPerformed
-        String oldPassword = new String(oldpasswordtxt.getPassword());
-        String newPassword = new String(newpasswordtxt.getPassword());
-        String confirmPassword = new String(confirmpasswordtxt.getPassword());
-        
-        if (oldPassword.equals("")) {
-            statustxt.setText("Old Password cannot be empty.");
-            return;
-        }
-        
-        if (newPassword.equals("")) {
-            statustxt.setText("New Password cannot be empty.");
-            return;
-        }
-        
-        if (confirmPassword.equals("")) {
-            statustxt.setText("Confirm Password cannot be empty.");
-            return;
-       }
-        
-        boolean validOld = func.authUser(userArray, UserID, oldPassword);
-
-        if (!validOld) {
-            statustxt.setText("Old password is incorrect!");
-            return;
-        }
-        
-        if (!newPassword.equals(confirmPassword)) {
-            statustxt.setText("New password do not match!");
-            return;
-        }
-        
-        boolean updated = func.updatePassword(userArray, UserID, newPassword);
-    
-        if (updated) {
-            func.savePassword(userArray, "users.txt");
-            statustxt.setText("Password changed successfully!");
-            
-            oldpasswordtxt.setText("");
-            newpasswordtxt.setText("");
-            confirmpasswordtxt.setText("");
-        } 
-        else {
-            statustxt.setText("Password change failed.");
-        }
+        changePassword();
     }//GEN-LAST:event_confirmbtnActionPerformed
 
     private void oldpasswordtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oldpasswordtxtActionPerformed

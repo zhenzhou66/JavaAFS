@@ -41,20 +41,12 @@ private void loadUserData(String userid) {
     for (int i = 0; i < userArray.size(); i++) {
         String[] user = userArray.get(i);
         if (user[0].equalsIgnoreCase(userid)) {
-            useridtxt.setText(user[0]);
-            nametxt.setText(user[3]);
-            emailtxt.setText(user[4]);
-            phonetxt.setText(user[5]);
-            roletxt.setText(user[2]);
+//            AcadLeadName.setText(user[3]);
+//            userRole.setText(user[2]);
             break;
+            }
         }
     }
-}
-    
-
-
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -224,7 +216,7 @@ private void loadUserData(String userid) {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
-        AcadLeaderMenu acadleadermenu = new AcadLeaderMenu();
+        AcadLeaderMenu acadleadermenu = new AcadLeaderMenu(UserID);
         acadleadermenu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_backbtnActionPerformed

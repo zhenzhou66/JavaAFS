@@ -135,14 +135,14 @@ public class Functions {
         return String.format("%s%03d", type, nextID);
     }
     
-    public void addRow(String filePath, JTable table, String[] rowData) {
-        ArrayList<String[]> data = readCSV(filePath);
-        data.add(rowData);
-        writeCSV(filePath, data);
-
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        model.addRow(rowData);
-    }
+//    public void addRow(String filePath, JTable table, String[] rowData) {
+//        ArrayList<String[]> data = readCSV(filePath);
+//        data.add(rowData);
+//        writeCSV(filePath, data);
+//
+//        DefaultTableModel model = (DefaultTableModel) table.getModel();
+//        model.addRow(rowData);
+//    }
     
     public void editRow(String filePath, JTable table, int idColumnIndex, int editColumnIndex) {
     int selectedRow = table.getSelectedRow();

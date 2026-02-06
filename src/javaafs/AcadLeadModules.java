@@ -16,13 +16,38 @@ public class AcadLeadModules extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AcadLeadModules.class.getName());
     
-    private Functions func = new Functions();
-
+    protected List<String[]> userArray;
     protected List<String[]> moduleList;
+    
+    private Functions func = new Functions();
+    
+    public String UserID = "";
+    public String Role = "";
 
     public AcadLeadModules() {
         initComponents();
+        userArray = func.readCSV("users.txt");
         loadModulesToTable();
+    }
+
+    public AcadLeadModules(String userid) {
+        this();
+        this.UserID = userid;        
+        loadUserData(userid);
+    }
+    
+private void loadUserData(String userid) {
+    if (userArray == null || userArray.isEmpty()) 
+        return;
+
+    for (int i = 0; i < userArray.size(); i++) {
+        String[] user = userArray.get(i);
+        if (user[0].equalsIgnoreCase(userid)) {
+//            AcadLeadName.setText(user[3]);
+//            userRole.setText(user[2]);
+            break;
+            }
+        }
     }
  
 private void loadModulesToTable() {
@@ -35,10 +60,11 @@ private void loadModulesToTable() {
         model.addRow(row);
     }
 }
-private void editModules() {
-    func.editRow("modules.txt", modulestable, 0, 1);
-    Status.setText("Module updated successfully!");
-    }
+
+//private void editModules() {
+//    func.editRow("modules.txt", modulestable, 0, 1);
+//    Status.setText("Module updated successfully!");
+//}
 
 private void deleteModules() {
     int selectedRow = modulestable.getSelectedRow();
@@ -146,8 +172,8 @@ private void deleteModules() {
                             .addComponent(addbtn)
                             .addComponent(editbtn)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(133, 133, 133)
-                        .addComponent(Status, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(79, 79, 79)
+                        .addComponent(Status, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -177,9 +203,10 @@ private void deleteModules() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
-        AcadLeaderMenu acadleadermenu = new AcadLeaderMenu();
+        AcadLeaderMenu acadleadermenu = new AcadLeaderMenu(UserID);
         acadleadermenu.setVisible(true);
         this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_backbtnActionPerformed
 
     private void deletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebtnActionPerformed
@@ -191,30 +218,15 @@ private void deleteModules() {
         this.setVisible(false);    }//GEN-LAST:event_addbtnActionPerformed
 
     private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtnActionPerformed
-        editModules();    }//GEN-LAST:event_editbtnActionPerformed
+        AcadLeadEditModules acadleadeditmodules = new AcadLeadEditModules();
+        acadleadeditmodules.setVisible(true);
+        this.setVisible(false);  
+    }//GEN-LAST:event_editbtnActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new AcadLeadModules().setVisible(true));
     }
 

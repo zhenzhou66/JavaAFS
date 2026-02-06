@@ -25,7 +25,7 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
         initComponents();
     }
     
-   public AcadLeaderMenu(String userid){
+    public AcadLeaderMenu(String userid){
         this();
         this.UserID = userid;
         loadUserData(userid);
@@ -170,12 +170,12 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewmodulesbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewmodulesbtnActionPerformed
-        AcadLeadModules acadleadmodules = new AcadLeadModules();
+        AcadLeadModules acadleadmodules = new AcadLeadModules(UserID);
         this.setVisible(false);
         acadleadmodules.setVisible(true);    }//GEN-LAST:event_viewmodulesbtnActionPerformed
 
     private void viewreportsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewreportsbtnActionPerformed
-        AcadLeadReport acadleadreport = new AcadLeadReport();
+        AcadLeadReport acadleadreport = new AcadLeadReport(UserID);
         this.setVisible(false);
         acadleadreport.setVisible(true);    }//GEN-LAST:event_viewreportsbtnActionPerformed
 
@@ -186,7 +186,7 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_viewprofilebtnActionPerformed
 
     private void viewlecturerbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewlecturerbtnActionPerformed
-        AcadLeadLecturer acadleadlecturer = new AcadLeadLecturer();
+        AcadLeadLecturer acadleadlecturer = new AcadLeadLecturer(UserID);
         this.setVisible(false);
         acadleadlecturer.setVisible(true);    }//GEN-LAST:event_viewlecturerbtnActionPerformed
 
