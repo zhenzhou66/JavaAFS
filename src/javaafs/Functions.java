@@ -6,6 +6,10 @@ package javaafs;
 import java.io.*;
 import java.util.*;
 import javax.swing.JPasswordField;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+
 
 /**
  *
@@ -129,6 +133,74 @@ public class Functions {
         }
         int nextID = maxID + 1;
         return String.format("%s%03d", type, nextID);
+    }
+    
+    public void addRow(String filePath, JTable table, String[] rowData) {
+        ArrayList<String[]> data = readCSV(filePath);
+        data.add(rowData);
+        writeCSV(filePath, data);
+
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.addRow(rowData);
+    }
+    
+    public void editRow(String filePath, JTable table, int idColumnIndex, int editColumnIndex) {
+    int selectedRow = table.getSelectedRow();
+    if (selectedRow == -1) {
+        return;
+    }
+
+    String idValue = table.getValueAt(selectedRow, idColumnIndex).toString();
+    String newValue = table.getValueAt(selectedRow, editColumnIndex).toString().trim();
+
+    if (newValue.isEmpty()) {
+        return;
+    }
+
+    // Update CSV
+    ArrayList<String[]> data = readCSV(filePath);
+    for (String[] row : data) {
+        if (row[idColumnIndex].equalsIgnoreCase(idValue)) {
+            row[editColumnIndex] = newValue;
+            break;
+        }
+    }
+    writeCSV(filePath, data);
+}
+    
+    public void deleteRow(String filePath, JTable table, int idColumnIndex) {
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow == -1) return; 
+
+        String idValue = table.getValueAt(selectedRow, idColumnIndex).toString();
+
+        // Remove from CSV
+        ArrayList<String[]> data = readCSV(filePath);
+        data.removeIf(row -> row[idColumnIndex].equalsIgnoreCase(idValue));
+        writeCSV(filePath, data);
+
+        // Remove from table
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.removeRow(selectedRow);
+    }
+
+    public void saveTableChanges(javax.swing.JTable table, String filePath) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        ArrayList<String[]> data = new ArrayList<>();
+        
+        for (int i = 0; i < model.getRowCount(); i++) {
+            int colCount = model.getColumnCount();
+            String[] row = new String[colCount];
+            
+            for (int j = 0; j < colCount; j++) {
+                Object cellValue = model.getValueAt(i, j);
+                row[j] = (cellValue != null) ? cellValue.toString() : "";
+            }
+
+            data.add(row);
+        }
+    
+        writeCSV(filePath, data);
     }
 }
 

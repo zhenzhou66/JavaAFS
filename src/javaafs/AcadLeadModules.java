@@ -15,9 +15,10 @@ import javax.swing.table.DefaultTableModel;
 public class AcadLeadModules extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AcadLeadModules.class.getName());
+    
+    private Functions func = new Functions();
 
     protected List<String[]> moduleList;
-    Functions func = new Functions();
 
     public AcadLeadModules() {
         initComponents();
@@ -25,16 +26,28 @@ public class AcadLeadModules extends javax.swing.JFrame {
     }
  
 private void loadModulesToTable() {
+    ArrayList<String[]> modules = func.readCSV("modules.txt");
     DefaultTableModel model = (DefaultTableModel) modulestable.getModel();
     model.setRowCount(0);
-    
-    Functions func = new Functions();
-    ArrayList<String[]> modules = func.readCSV("modules.txt");
-     
+
     for (int i = 1; i < modules.size(); i++) {
         String[] row = modules.get(i);
         model.addRow(row);
     }
+}
+private void editModules() {
+    func.editRow("modules.txt", modulestable, 0, 1);
+    Status.setText("Module updated successfully!");
+    }
+
+private void deleteModules() {
+    int selectedRow = modulestable.getSelectedRow();
+    if (selectedRow == -1) {
+        Status.setText("Error: Please select a module to delete!");
+        return;
+    }
+    func.deleteRow("modules.txt", modulestable, 0);
+    Status.setText("Module deleted successfully!");
 }
 
     @SuppressWarnings("unchecked")
@@ -48,6 +61,7 @@ private void loadModulesToTable() {
         deletebtn = new javax.swing.JButton();
         addbtn = new javax.swing.JButton();
         editbtn = new javax.swing.JButton();
+        Status = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,7 +84,7 @@ private void loadModulesToTable() {
                 java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -111,6 +125,8 @@ private void loadModulesToTable() {
             }
         });
 
+        Status.setBorder(null);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -128,7 +144,10 @@ private void loadModulesToTable() {
                             .addComponent(backbtn)
                             .addComponent(deletebtn)
                             .addComponent(addbtn)
-                            .addComponent(editbtn))))
+                            .addComponent(editbtn)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(133, 133, 133)
+                        .addComponent(Status, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -136,11 +155,13 @@ private void loadModulesToTable() {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(modulestitlelbl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(70, 70, 70))
+                        .addGap(18, 18, 18)
+                        .addComponent(Status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(addbtn)
                         .addGap(31, 31, 31)
@@ -162,8 +183,7 @@ private void loadModulesToTable() {
     }//GEN-LAST:event_backbtnActionPerformed
 
     private void deletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_deletebtnActionPerformed
+        deleteModules();    }//GEN-LAST:event_deletebtnActionPerformed
 
     private void addbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addbtnActionPerformed
         AcadLeadAddModules acadleadaddmodules = new AcadLeadAddModules();
@@ -171,8 +191,7 @@ private void loadModulesToTable() {
         this.setVisible(false);    }//GEN-LAST:event_addbtnActionPerformed
 
     private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editbtnActionPerformed
+        editModules();    }//GEN-LAST:event_editbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -200,6 +219,7 @@ private void loadModulesToTable() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Status;
     private javax.swing.JButton addbtn;
     private javax.swing.JButton backbtn;
     private javax.swing.JButton deletebtn;

@@ -33,6 +33,7 @@ public class AcadLeadAddModules extends javax.swing.JFrame {
         ArrayList<String[]> modules = func.readCSV("modules.txt"); //read existing modules
         modules.add(new String[]{moduleID, moduleName}); //add new modules
         func.writeCSV("modules.txt", modules); // save to textfile
+        
         modulenametxt.setText(""); 
         
         String nextID = func.generateNextID("modules.txt", "M");
