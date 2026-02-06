@@ -41,8 +41,11 @@ private void loadUserData(String userid) {
     for (int i = 0; i < userArray.size(); i++) {
         String[] user = userArray.get(i);
         if (user[0].equalsIgnoreCase(userid)) {
-//            AcadLeadName.setText(user[3]);
-//            userRole.setText(user[2]);
+            useridtxt.setText(user[0]);
+            nametxt.setText(user[3]);
+            emailtxt.setText(user[4]);
+            phonetxt.setText(user[5]);
+            roletxt.setText(user[2]);
             break;
             }
         }
