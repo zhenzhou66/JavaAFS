@@ -72,6 +72,11 @@ public class AdminHomepage extends javax.swing.JFrame {
         jLabel1.setText("Admin Homepage");
 
         UserManagement.setText("Manage User");
+        UserManagement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserManagementActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,6 +114,10 @@ public class AdminHomepage extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void UserManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserManagementActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UserManagementActionPerformed
 
 
     public static void main(String args[]) {

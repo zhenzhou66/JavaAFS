@@ -50,9 +50,19 @@ private void loadUserData(String userid) {
     private void initComponents() {
 
         backbtn = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        assignlecturerlbl = new javax.swing.JLabel();
         AcadLeadName = new javax.swing.JLabel();
         userRole = new javax.swing.JLabel();
+        moduleidlbl = new javax.swing.JLabel();
+        modulenamelbl = new javax.swing.JLabel();
+        lecturerid = new javax.swing.JLabel();
+        lecturernamelbl = new javax.swing.JLabel();
+        moduleidcbx = new javax.swing.JComboBox<>();
+        savebtn = new javax.swing.JButton();
+        modulenametxt = new javax.swing.JTextField();
+        lectureridcbx = new javax.swing.JComboBox<>();
+        lecturernametxt = new javax.swing.JTextField();
+        Status = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,45 +73,117 @@ private void loadUserData(String userid) {
             }
         });
 
-        jLabel1.setText("Lecturer List");
+        assignlecturerlbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        assignlecturerlbl.setText("ASSIGN LECTURER");
 
         AcadLeadName.setText("jLabel1");
 
         userRole.setText("jLabel2");
+
+        moduleidlbl.setText("Module ID");
+
+        modulenamelbl.setText("Module Name");
+
+        lecturerid.setText("Lecturer ID");
+
+        lecturernamelbl.setText("Lecturer Name");
+
+        moduleidcbx.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        moduleidcbx.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                moduleidcbxActionPerformed(evt);
+            }
+        });
+
+        savebtn.setText("SAVE");
+
+        modulenametxt.setEditable(false);
+
+        lectureridcbx.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        lecturernametxt.setEditable(false);
+
+        Status.setEditable(false);
+        Status.setBorder(null);
+        Status.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StatusActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(158, 158, 158)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(backbtn)
-                        .addContainerGap(170, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(assignlecturerlbl)
+                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(userRole, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(AcadLeadName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18))))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(savebtn)
+                            .addComponent(backbtn))
+                        .addGap(176, 176, 176))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(72, 72, 72)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(moduleidlbl)
+                    .addComponent(modulenamelbl)
+                    .addComponent(lecturerid)
+                    .addComponent(lecturernamelbl))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(moduleidcbx, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(modulenametxt)
+                    .addComponent(lectureridcbx, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lecturernametxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(64, 64, 64))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Status, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(102, 102, 102))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel1))
+                        .addGap(25, 25, 25)
+                        .addComponent(assignlecturerlbl))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
+                        .addContainerGap()
                         .addComponent(AcadLeadName)
                         .addGap(18, 18, 18)
                         .addComponent(userRole)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(moduleidlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(moduleidcbx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(modulenamelbl)
+                    .addComponent(modulenametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lecturerid)
+                    .addComponent(lectureridcbx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lecturernamelbl)
+                    .addComponent(lecturernametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(savebtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(backbtn)
-                .addGap(43, 43, 43))
+                .addContainerGap())
         );
 
         pack();
@@ -111,6 +193,14 @@ private void loadUserData(String userid) {
         AcadLeaderMenu acadleadermenu = new AcadLeaderMenu(UserID);
         acadleadermenu.setVisible(true);
         this.setVisible(false);    }//GEN-LAST:event_backbtnActionPerformed
+
+    private void StatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_StatusActionPerformed
+
+    private void moduleidcbxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moduleidcbxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_moduleidcbxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,8 +229,18 @@ private void loadUserData(String userid) {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AcadLeadName;
+    private javax.swing.JTextField Status;
+    private javax.swing.JLabel assignlecturerlbl;
     private javax.swing.JButton backbtn;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lecturerid;
+    private javax.swing.JComboBox<String> lectureridcbx;
+    private javax.swing.JLabel lecturernamelbl;
+    private javax.swing.JTextField lecturernametxt;
+    private javax.swing.JComboBox<String> moduleidcbx;
+    private javax.swing.JLabel moduleidlbl;
+    private javax.swing.JLabel modulenamelbl;
+    private javax.swing.JTextField modulenametxt;
+    private javax.swing.JButton savebtn;
     private javax.swing.JLabel userRole;
     // End of variables declaration//GEN-END:variables
 }
