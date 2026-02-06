@@ -1,9 +1,14 @@
 package javaafs;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
-import javax.swing.table.DefaultTableModel;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 
 
 public class AssignLecturer extends javax.swing.JFrame {
@@ -12,7 +17,17 @@ public class AssignLecturer extends javax.swing.JFrame {
     public AssignLecturer() {
         initComponents();
         loadUserData();
+        assignLecturerButton.addActionListener(e -> assignLecturer());
+        backButton.addActionListener(e -> goBack()); 
     }
+    
+    private void goBack() {
+    new AdminHomepage().setVisible(true);
+    this.dispose();
+}
+
+    
+    
     
     private void loadUserData() {
 
@@ -26,6 +41,19 @@ public class AssignLecturer extends javax.swing.JFrame {
         lecturerModel.setRowCount(0);
 
 
+        List<String> assignedLecturerIDs = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader("leaderLecturerRelationship.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length < 4) continue;
+                assignedLecturerIDs.add(parts[2].trim()); // lecturerID
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error reading leaderLecturerRelationship.txt", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    
         try (BufferedReader br = new BufferedReader(new FileReader("users.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -37,10 +65,12 @@ public class AssignLecturer extends javax.swing.JFrame {
                 String name = data[3].trim();
                 String email = data[4].trim();
 
-                if (role.equalsIgnoreCase("Academic Leader")) {
+                if (role.equalsIgnoreCase("AcademicLeader")) {
                     academicModel.addRow(new Object[]{userID, name, email});
                 } else if (role.equalsIgnoreCase("Lecturer")) {
-                    lecturerModel.addRow(new Object[]{userID, name, email});
+                    String status = assignedLecturerIDs.contains(userID) ? "Assigned" : "Not Assigned";
+                    lecturerModel.addRow(new Object[]{userID, name, email, status});
+
                 }
             }
         } catch (Exception e) {
@@ -48,6 +78,107 @@ public class AssignLecturer extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error loading users.txt", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
+    }
+    
+    
+    
+    
+    private void assignLecturer() {
+        int selectedLeaderRow = AcademicLeaderTable.getSelectedRow();
+        int selectedLecturerRow = LecturerTable.getSelectedRow();
+
+        if (selectedLeaderRow == -1 || selectedLecturerRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select both an Academic Leader and a Lecturer.", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Get selected data
+        String leaderID = AcademicLeaderTable.getValueAt(selectedLeaderRow, 0).toString();
+        String leaderName = AcademicLeaderTable.getValueAt(selectedLeaderRow, 1).toString();
+        String lecturerID = LecturerTable.getValueAt(selectedLecturerRow, 0).toString();
+        String lecturerName = LecturerTable.getValueAt(selectedLecturerRow, 1).toString();
+
+        // Load existing assignments
+        List<String[]> assignments = new ArrayList<>();
+        boolean samePairExists = false;
+        boolean lecturerAssignedElsewhere = false;
+        String previousLeaderID = "";
+
+        try (BufferedReader br = new BufferedReader(new FileReader("leaderLecturerRelationship.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length < 4) continue;
+
+                String existingLeaderID = parts[0].trim();
+                String existingLecturerID = parts[2].trim();
+
+                // Check if same pair exists
+                if (existingLeaderID.equals(leaderID) && existingLecturerID.equals(lecturerID)) {
+                    samePairExists = true;
+                }
+
+                // Check if lecturer is assigned to another leader
+                if (!existingLeaderID.equals(leaderID) && existingLecturerID.equals(lecturerID)) {
+                    lecturerAssignedElsewhere = true;
+                    previousLeaderID = existingLeaderID;
+                }
+
+                assignments.add(parts);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error reading leaderLecturerRelationship.txt", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Handle same pair exists
+        if (samePairExists) {
+            JOptionPane.showMessageDialog(this, "This Lecturer is already assigned to this Academic Leader.", "Info", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        // Handle lecturer assigned to another leader
+        if (lecturerAssignedElsewhere) {
+            int option = JOptionPane.showConfirmDialog(this,
+                    "This Lecturer is already assigned to another Academic Leader (ID: " + previousLeaderID + "). Do you want to reassign to the new Academic Leader?",
+                    "Confirm Reassign", JOptionPane.YES_NO_OPTION);
+
+            if (option == JOptionPane.NO_OPTION) {
+                return;
+            } else {
+                // Overwrite the previous assignment
+                for (String[] row : assignments) {
+                    if (row[2].equals(lecturerID)) {
+                        row[0] = leaderID;
+                        row[1] = leaderName;
+                        row[2] = lecturerID;
+                        row[3] = lecturerName;
+                    }
+                }
+            }
+        } else {
+            // Add new assignment
+            assignments.add(new String[]{leaderID, leaderName, lecturerID, lecturerName, ""}); // empty moduleID ignored
+        }
+
+        // Save back to file
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("leaderLecturerRelationship.txt"))) {
+            for (String[] row : assignments) {
+                bw.write(String.join(",", row));
+                bw.newLine();
+            }
+            JOptionPane.showMessageDialog(this, "Assignment saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            
+            loadUserData();
+
+            AcademicLeaderTable.clearSelection();
+            LecturerTable.clearSelection();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error saving assignments.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
 
