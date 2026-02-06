@@ -39,8 +39,8 @@ private void loadUserData(String userid) {
     for (int i = 0; i < userArray.size(); i++) {
         String[] user = userArray.get(i);
         if (user[0].equalsIgnoreCase(userid)) {
-//            AcadLeadName.setText(user[3]);
-//            userRole.setText(user[2]);
+            AcadLeadName.setText(user[3]);
+            userRole.setText(user[2]);
             break;
             }
         }
@@ -51,6 +51,8 @@ private void loadUserData(String userid) {
     private void initComponents() {
 
         backbtn = new javax.swing.JButton();
+        AcadLeadName = new javax.swing.JLabel();
+        userRole = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,6 +63,10 @@ private void loadUserData(String userid) {
             }
         });
 
+        AcadLeadName.setText("jLabel1");
+
+        userRole.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -69,11 +75,21 @@ private void loadUserData(String userid) {
                 .addGap(162, 162, 162)
                 .addComponent(backbtn)
                 .addContainerGap(166, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(userRole, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(AcadLeadName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(232, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(AcadLeadName)
+                .addGap(18, 18, 18)
+                .addComponent(userRole)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
                 .addComponent(backbtn)
                 .addGap(45, 45, 45))
         );
@@ -112,6 +128,8 @@ private void loadUserData(String userid) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AcadLeadName;
     private javax.swing.JButton backbtn;
+    private javax.swing.JLabel userRole;
     // End of variables declaration//GEN-END:variables
 }
