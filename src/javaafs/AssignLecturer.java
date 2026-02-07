@@ -1,13 +1,11 @@
 package javaafs;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.util.HashMap;
+import java.util.Map;
 
 
 
@@ -17,8 +15,6 @@ public class AssignLecturer extends javax.swing.JFrame {
     public AssignLecturer() {
         initComponents();
         loadUserData();
-        assignLecturerButton.addActionListener(e -> assignLecturer());
-        backButton.addActionListener(e -> goBack()); 
     }
     
     private void goBack() {
@@ -26,8 +22,6 @@ public class AssignLecturer extends javax.swing.JFrame {
     this.dispose();
 }
 
-    
-    
     
     private void loadUserData() {
 
@@ -40,154 +34,156 @@ public class AssignLecturer extends javax.swing.JFrame {
         academicModel.setRowCount(0);
         lecturerModel.setRowCount(0);
 
+        
+        Map<String, String> lecturerToLeaderMap = new HashMap<>();
+        ArrayList<String[]> relationships =
+                Functions.readCSV("leaderLecturerRelationship.txt");
 
-        List<String> assignedLecturerIDs = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("leaderLecturerRelationship.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length < 4) continue;
-                assignedLecturerIDs.add(parts[2].trim()); // lecturerID
+        for (String[] row : relationships) {
+            if (row.length >= 3) {
+                String leaderID = row[0];
+                String lecturerID = row[2];
+
+                if (!leaderID.isEmpty() && !lecturerID.isEmpty()) {
+                    lecturerToLeaderMap.put(lecturerID, leaderID);
+                }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error reading leaderLecturerRelationship.txt", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    
-        try (BufferedReader br = new BufferedReader(new FileReader("users.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] data = line.split(",");
-                if (data.length < 5) continue; // Skip invalid lines
+        
+        ArrayList<String[]> users = Functions.readCSV("users.txt");
 
-                String userID = data[0].trim();
-                String role = data[2].trim();
-                String name = data[3].trim();
-                String email = data[4].trim();
+            for (String[] data : users) {
+                if (data.length < 5) continue;
+
+                String userID = data[0];
+                String role = data[2];
+                String name = data[3];
+                String email = data[4];
 
                 if (role.equalsIgnoreCase("AcademicLeader")) {
                     academicModel.addRow(new Object[]{userID, name, email});
-                } else if (role.equalsIgnoreCase("Lecturer")) {
-                    String status = assignedLecturerIDs.contains(userID) ? "Assigned" : "Not Assigned";
-                    lecturerModel.addRow(new Object[]{userID, name, email, status});
+                } 
+                else if (role.equalsIgnoreCase("Lecturer")) {
+                    String leaderID = lecturerToLeaderMap.get(userID);
+                    String status = (leaderID != null) ? "Assigned" : "Not Assigned";
 
+                    lecturerModel.addRow(new Object[]{
+                        userID,
+                        name,
+                        email,
+                        status,
+                        (leaderID == null ? "" : leaderID)
+                    });
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error loading users.txt", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-    }
     
-    
-    
-    
-    private void assignLecturer() {
+        private void assignLecturer() {
+
         int selectedLeaderRow = AcademicLeaderTable.getSelectedRow();
         int selectedLecturerRow = LecturerTable.getSelectedRow();
 
         if (selectedLeaderRow == -1 || selectedLecturerRow == -1) {
-            JOptionPane.showMessageDialog(this, "Please select both an Academic Leader and a Lecturer.", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Please select both an Academic Leader and a Lecturer.",
+                    "Warning",
+                    JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        // Get selected data
-        String leaderID = AcademicLeaderTable.getValueAt(selectedLeaderRow, 0).toString();
-        String leaderName = AcademicLeaderTable.getValueAt(selectedLeaderRow, 1).toString();
-        String lecturerID = LecturerTable.getValueAt(selectedLecturerRow, 0).toString();
-        String lecturerName = LecturerTable.getValueAt(selectedLecturerRow, 1).toString();
+        String leaderID = AcademicLeaderTable
+                .getValueAt(selectedLeaderRow, 0).toString();
+        String leaderName = AcademicLeaderTable
+                .getValueAt(selectedLeaderRow, 1).toString();
+        String lecturerID = LecturerTable
+                .getValueAt(selectedLecturerRow, 0).toString();
+        String lecturerName = LecturerTable
+                .getValueAt(selectedLecturerRow, 1).toString();
 
-        // Load existing assignments
-        List<String[]> assignments = new ArrayList<>();
+        ArrayList<String[]> assignments =
+                Functions.readCSV("leaderLecturerRelationship.txt");
+
         boolean samePairExists = false;
         boolean lecturerAssignedElsewhere = false;
         String previousLeaderID = "";
 
-        try (BufferedReader br = new BufferedReader(new FileReader("leaderLecturerRelationship.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length < 4) continue;
+        for (String[] row : assignments) {
+            if (row.length < 4) continue;
 
-                String existingLeaderID = parts[0].trim();
-                String existingLecturerID = parts[2].trim();
+            String existingLeaderID = row[0];
+            String existingLecturerID = row[2];
 
-                // Check if same pair exists
-                if (existingLeaderID.equals(leaderID) && existingLecturerID.equals(lecturerID)) {
-                    samePairExists = true;
-                }
-
-                // Check if lecturer is assigned to another leader
-                if (!existingLeaderID.equals(leaderID) && existingLecturerID.equals(lecturerID)) {
-                    lecturerAssignedElsewhere = true;
-                    previousLeaderID = existingLeaderID;
-                }
-
-                assignments.add(parts);
+            if (existingLeaderID.equals(leaderID)
+                    && existingLecturerID.equals(lecturerID)) {
+                samePairExists = true;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error reading leaderLecturerRelationship.txt", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+
+            if (!existingLeaderID.equals(leaderID)
+                    && existingLecturerID.equals(lecturerID)) {
+                lecturerAssignedElsewhere = true;
+                previousLeaderID = existingLeaderID;
+            }
         }
 
-        // Handle same pair exists
         if (samePairExists) {
-            JOptionPane.showMessageDialog(this, "This Lecturer is already assigned to this Academic Leader.", "Info", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "This Lecturer is already assigned to this Academic Leader.",
+                    "Info",
+                    JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
-        // Handle lecturer assigned to another leader
         if (lecturerAssignedElsewhere) {
             int option = JOptionPane.showConfirmDialog(this,
-                    "This Lecturer is already assigned to another Academic Leader (ID: " + previousLeaderID + "). Do you want to reassign to the new Academic Leader?",
-                    "Confirm Reassign", JOptionPane.YES_NO_OPTION);
+                    "This Lecturer is already assigned to another Academic Leader (ID: "
+                    + previousLeaderID + "). Do you want to reassign to the new Academic Leader?",
+                    "Confirm Reassign",
+                    JOptionPane.YES_NO_OPTION);
 
-            if (option == JOptionPane.NO_OPTION) {
+            if (option != JOptionPane.YES_OPTION) {
+                AcademicLeaderTable.clearSelection();
+                LecturerTable.clearSelection();
                 return;
-            } else {
-                // Overwrite the previous assignment
-                for (String[] row : assignments) {
-                    if (row[2].equals(lecturerID)) {
-                        row[0] = leaderID;
-                        row[1] = leaderName;
-                        row[2] = lecturerID;
-                        row[3] = lecturerName;
-                    }
+            }
+
+            for (String[] row : assignments) {
+                if (row[2].equals(lecturerID)) {
+                    row[0] = leaderID;
+                    row[1] = leaderName;
+                    row[2] = lecturerID;
+                    row[3] = lecturerName;
+                    break;
                 }
             }
-        } else {
-            // Add new assignment
-            assignments.add(new String[]{leaderID, leaderName, lecturerID, lecturerName, ""}); // empty moduleID ignored
+        } 
+        else {
+            assignments.add(new String[]{
+                leaderID,
+                leaderName,
+                lecturerID,
+                lecturerName,
+                ""
+            });
         }
 
-        // Save back to file
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("leaderLecturerRelationship.txt"))) {
-            for (String[] row : assignments) {
-                bw.write(String.join(",", row));
-                bw.newLine();
-            }
-            JOptionPane.showMessageDialog(this, "Assignment saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-            
-            loadUserData();
+        Functions.writeCSV("leaderLecturerRelationship.txt", assignments);
 
-            AcademicLeaderTable.clearSelection();
-            LecturerTable.clearSelection();
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error saving assignments.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        JOptionPane.showMessageDialog(this,
+                "Assignment saved successfully!",
+                "Success",
+                JOptionPane.INFORMATION_MESSAGE);
+
+        loadUserData();
+        AcademicLeaderTable.clearSelection();
+        LecturerTable.clearSelection();
     }
-
 
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        subHeading2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         LecturerTable = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -195,11 +191,9 @@ public class AssignLecturer extends javax.swing.JFrame {
         subHeading1 = new javax.swing.JLabel();
         assignLecturerButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
+        subHeading2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        subHeading2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        subHeading2.setText("Lecturer Table");
 
         LecturerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -244,12 +238,18 @@ public class AssignLecturer extends javax.swing.JFrame {
             }
         });
 
+        subHeading2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        subHeading2.setText("Lecturer Table");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(314, 314, 314)
+                        .addComponent(subHeading2))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(272, 272, 272)
                         .addComponent(subHeading1))
@@ -258,11 +258,7 @@ public class AssignLecturer extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(91, 226, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(314, 314, 314)
-                .addComponent(subHeading2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(assignLecturerButton, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                     .addComponent(backButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -293,11 +289,12 @@ public class AssignLecturer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void assignLecturerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignLecturerButtonActionPerformed
-        // TODO add your handling code here:
+        assignLecturer();
     }//GEN-LAST:event_assignLecturerButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        // TODO add your handling code here:
+        new AdminHomepage().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
 
 
