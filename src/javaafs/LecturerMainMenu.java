@@ -176,7 +176,9 @@ public class LecturerMainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void profilePageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilePageActionPerformed
-        // TODO add your handling code here:
+        LecturerProfile lectProfile = new LecturerProfile(UserID);
+        this.setVisible(false);
+        lectProfile.setVisible(true);
     }//GEN-LAST:event_profilePageActionPerformed
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
