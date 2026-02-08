@@ -137,7 +137,7 @@ public class Login extends javax.swing.JFrame {
         if (auth) {
             if (userType.equals("Admin")) {
                 Status.setText("Access granted!");
-                AdminMainMenu adminMainMenu = new AdminMainMenu();
+                AdminHomepage adminMainMenu = new AdminHomepage();
                 this.setVisible(false);
                 adminMainMenu.setVisible(true);
 
