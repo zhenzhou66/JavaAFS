@@ -57,12 +57,12 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         acadleadmmlbl = new javax.swing.JLabel();
         viewprofilebtn = new javax.swing.JButton();
-        assignlecturerbtn = new javax.swing.JButton();
         viewmodulesbtn = new javax.swing.JButton();
         viewreportsbtn = new javax.swing.JButton();
         AcadLeadName = new javax.swing.JLabel();
         userRole = new javax.swing.JLabel();
         logoutbtn = new javax.swing.JButton();
+        viewlecturerlistbtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,13 +73,6 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
         viewprofilebtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewprofilebtnActionPerformed(evt);
-            }
-        });
-
-        assignlecturerbtn.setText("Assign Lecturer");
-        assignlecturerbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assignlecturerbtnActionPerformed(evt);
             }
         });
 
@@ -97,9 +90,9 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
             }
         });
 
-        AcadLeadName.setText("jLabel1");
+        AcadLeadName.setText("AcadLeadName");
 
-        userRole.setText("jLabel2");
+        userRole.setText("userRole");
 
         logoutbtn.setText("LOG OUT");
         logoutbtn.addActionListener(new java.awt.event.ActionListener() {
@@ -108,30 +101,39 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
             }
         });
 
+        viewlecturerlistbtn.setText("View Lecturer List");
+        viewlecturerlistbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewlecturerlistbtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(310, 310, 310)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(viewmodulesbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(assignlecturerbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(viewprofilebtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(viewreportsbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(289, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(167, 167, 167)
                 .addComponent(acadleadmmlbl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(userRole, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                     .addComponent(AcadLeadName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(20, 20, 20))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(logoutbtn)
-                .addGap(309, 309, 309))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(logoutbtn)
+                        .addGap(309, 309, 309))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(viewlecturerlistbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(viewmodulesbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(viewprofilebtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(viewreportsbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(263, 263, 263))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,9 +146,9 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
                     .addComponent(userRole))
                 .addGap(18, 18, 18)
                 .addComponent(viewprofilebtn)
-                .addGap(38, 38, 38)
-                .addComponent(assignlecturerbtn)
-                .addGap(43, 43, 43)
+                .addGap(37, 37, 37)
+                .addComponent(viewlecturerlistbtn)
+                .addGap(44, 44, 44)
                 .addComponent(viewmodulesbtn)
                 .addGap(41, 41, 41)
                 .addComponent(viewreportsbtn)
@@ -185,17 +187,17 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
         acadleadprofile.setVisible(true);
     }//GEN-LAST:event_viewprofilebtnActionPerformed
 
-    private void assignlecturerbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignlecturerbtnActionPerformed
-        AcadLeadLecturer acadleadlecturer = new AcadLeadLecturer(UserID);
-        this.setVisible(false);
-        acadleadlecturer.setVisible(true);    }//GEN-LAST:event_assignlecturerbtnActionPerformed
-
     private void logoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutbtnActionPerformed
         Login loginScreen = new Login();
         loginScreen.setVisible(true);
-
         this.dispose();
     }//GEN-LAST:event_logoutbtnActionPerformed
+
+    private void viewlecturerlistbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewlecturerlistbtnActionPerformed
+        AcadLeadViewLecturerList acadleadviewlecturerlist = new AcadLeadViewLecturerList(UserID);
+        this.setVisible(false);
+        acadleadviewlecturerlist.setVisible(true);
+    }//GEN-LAST:event_viewlecturerlistbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -225,10 +227,10 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AcadLeadName;
     private javax.swing.JLabel acadleadmmlbl;
-    private javax.swing.JButton assignlecturerbtn;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton logoutbtn;
     private javax.swing.JLabel userRole;
+    private javax.swing.JButton viewlecturerlistbtn;
     private javax.swing.JButton viewmodulesbtn;
     private javax.swing.JButton viewprofilebtn;
     private javax.swing.JButton viewreportsbtn;

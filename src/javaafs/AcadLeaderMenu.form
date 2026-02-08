@@ -38,20 +38,10 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="310" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="viewmodulesbtn" max="32767" attributes="0"/>
-                      <Component id="assignlecturerbtn" alignment="0" max="32767" attributes="0"/>
-                      <Component id="viewprofilebtn" alignment="0" max="32767" attributes="0"/>
-                      <Component id="viewreportsbtn" alignment="0" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="289" max="32767" attributes="0"/>
-              </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="167" max="-2" attributes="0"/>
                   <Component id="acadleadmmlbl" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="49" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Component id="userRole" pref="100" max="32767" attributes="0"/>
                       <Component id="AcadLeadName" max="32767" attributes="0"/>
@@ -60,8 +50,23 @@
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="logoutbtn" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="309" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="logoutbtn" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="309" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="viewlecturerlistbtn" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="viewmodulesbtn" max="32767" attributes="0"/>
+                                  <Component id="viewprofilebtn" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="viewreportsbtn" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="263" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -77,9 +82,9 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="viewprofilebtn" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                  <Component id="assignlecturerbtn" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="viewlecturerlistbtn" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                   <Component id="viewmodulesbtn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                   <Component id="viewreportsbtn" min="-2" max="-2" attributes="0"/>
@@ -107,14 +112,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewprofilebtnActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="assignlecturerbtn">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Assign Lecturer"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="assignlecturerbtnActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JButton" name="viewmodulesbtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="View Modules"/>
@@ -133,12 +130,12 @@
         </Component>
         <Component class="javax.swing.JLabel" name="AcadLeadName">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel1"/>
+            <Property name="text" type="java.lang.String" value="AcadLeadName"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="userRole">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel2"/>
+            <Property name="text" type="java.lang.String" value="userRole"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="logoutbtn">
@@ -147,6 +144,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logoutbtnActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="viewlecturerlistbtn">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="View Lecturer List"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewlecturerlistbtnActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
