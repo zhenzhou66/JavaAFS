@@ -1,5 +1,0 @@
-userID, password, role, name, email, phoneNumber
-admin, carrie, Admin, Carrie Yap, carrieyap@gmail.com, 0127718442
-lijun, lijun, Academic Leader, Lew Li Jun, lijun0213@gmail.com, 0127218442
-TP000, zhenzhou, Lecturer, Steve, steve123@gmail.com, 0127198442
-TP333, zhenzhou, Student, John, john&may@gmail.com, 0127355913

@@ -4,7 +4,7 @@ AL01,tan,AcademicLeader,tan,tan&may@gmail.com,0127355913
 AL02,yap,AcademicLeader,yap,yap&may@gmail.com,0127355913
 AL03,ho,AcademicLeader,ho,ho&may@gmail.com,0127355913
 AL04,chong,AcademicLeader,chong,chong&may@gmail.com,0127355913
-L01,4321,Lecturer,john,john&may@gmail.com,01273512312
+L01,john,Lecturer,john,john&may@gmail.com,0127355913
 L02,sam,Lecturer,sam,sam&may@gmail.com,0127355913
 L03,lucas,Lecturer,lucas,lucas&may@gmail.com,0127355913
 L04,samantha,Lecturer,samantha,samantha&may@gmail.com,0127355913
@@ -14,4 +14,4 @@ L07,xinyun,Lecturer,xinyun,xinyun&may@gmail.com,0127355913
 L08,ying,Lecturer,ying,ying&may@gmail.com,0127355913
 L09,hao,Lecturer,hao,hao&may@gmail.com,0127355913
 L010,zhenkang,Lecturer,zhenkang,zhenkang&may@gmail.com,0127355913
-S01,zhenzhou,Student,zhenzhou,zz0609@gmail.com,0125125596
+S01,zhenzhou,Lecturer,zhenkang,zhenkang&may@gmail.com,0127355913

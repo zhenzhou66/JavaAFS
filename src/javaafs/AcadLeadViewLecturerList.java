@@ -17,6 +17,8 @@ public class AcadLeadViewLecturerList extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AcadLeadViewLecturerList.class.getName());
 
     protected List<String[]> userArray;
+    protected List<String[]> relationship;
+    protected List<String[]> modules;
     Functions func = new Functions();
     
     public String UserID = "";
@@ -24,6 +26,8 @@ public class AcadLeadViewLecturerList extends javax.swing.JFrame {
 
 public AcadLeadViewLecturerList(String userid) {
     userArray = func.readCSV("users.txt");
+    relationship = func.readCSV("leaderLecturerRelationship.txt");
+    modules = func.readCSV("modules.txt");
     initComponents();
     this.UserID = userid;        
     loadUserData(userid);
@@ -48,12 +52,10 @@ private void loadUserData(String userid) {
 private void loadLecturerToTable() {
     DefaultTableModel model = (DefaultTableModel) lecturerlisttable.getModel();
     model.setRowCount(0);
-    
-    ArrayList<String[]> lecturerlist = func.readCSV("leaderLecturerRelationship.txt");
 
 // read from leaderLecturerRelationship.txt
-    for (int i = 1; i < lecturerlist.size(); i++) {
-        String[] row = lecturerlist.get(i);
+    for (int i = 1; i < relationship.size(); i++) {
+        String[] row = relationship.get(i);
         if (row.length < 2) continue;
         String leaderID = row[0];
         String lecturerID = row[1];
@@ -72,7 +74,17 @@ private void loadLecturerToTable() {
                 break;
                 }
             }
-            model.addRow(new Object[]{lecturerID, lecturerName, moduleID});
+        
+        String moduleName = "";
+        for (int k = 1; k < modules.size(); k++) {
+            String[] module = modules.get(k);
+            if (module[0].equalsIgnoreCase(moduleID)) {
+                moduleName = module[1]; 
+                break;
+                }
+            }
+        
+            model.addRow(new Object[]{lecturerID, lecturerName, moduleID, moduleName});
         }
     }
 
@@ -111,18 +123,18 @@ private void loadLecturerToTable() {
 
         lecturerlisttable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Lecturer ID", "Lecturer Name", "Module Name"
+                "Lecturer ID", "Lecturer Name", "Module ID", "Module Name"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -142,41 +154,39 @@ private void loadLecturerToTable() {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(155, 155, 155)
-                .addComponent(assignlecturerlbl)
-                .addGap(97, 97, 97)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(userRole, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(AcadLeadName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(assignmodulesbtn)
+                .addGap(93, 93, 93)
+                .addComponent(backbtn)
+                .addGap(167, 167, 167))
             .addGroup(layout.createSequentialGroup()
                 .addGap(64, 64, 64)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(101, Short.MAX_VALUE)
-                .addComponent(assignmodulesbtn)
-                .addGap(58, 58, 58)
-                .addComponent(backbtn)
-                .addGap(263, 263, 263))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(assignlecturerlbl)
+                        .addGap(106, 106, 106)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(userRole, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(AcadLeadName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(AcadLeadName)
                         .addGap(18, 18, 18)
-                        .addComponent(userRole)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(assignlecturerlbl)
-                        .addGap(24, 24, 24)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(userRole))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(assignlecturerlbl)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(backbtn)
                     .addComponent(assignmodulesbtn))

@@ -1,4 +1,4 @@
 leaderID,lecturerID,moduleID
-AL01,L03,
-AL01,L07,
-AL02,L01,
+AL02,L01
+AL01,L03,M003
+AL01,L07

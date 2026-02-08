@@ -4,51 +4,19 @@
  */
 package javaafs;
 
-import java.util.List;
-
 /**
  *
- * @author junjun
+ * @author zhenz
  */
 public class LecturerProfile extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LecturerProfile.class.getName());
-    
-    protected List<String[]> userArray;
-    Functions func = new Functions();
 
-    public String Name = "";
-    public String Email = "";
-    public String Phonenumber = "";
-    public String Role = "";
-    public String UserID = "";
-            
+    /**
+     * Creates new form LecturerProfile
+     */
     public LecturerProfile() {
-        userArray = func.readCSV("users.txt");
         initComponents();
-    }
-    
-    public LecturerProfile(String userid) {
-        this();
-        this.UserID = userid;
-        loadUserData(userid);
-    }
-    
-private void loadUserData(String userid) {
-    if (userArray == null || userArray.isEmpty()) 
-        return;
-
-    for (int i = 0; i < userArray.size(); i++) {
-        String[] user = userArray.get(i);
-        if (user[0].equalsIgnoreCase(userid)) {
-            useridtxt.setText(user[0]);
-            nametxt.setText(user[3]);
-            emailtxt.setText(user[4]);
-            phonetxt.setText(user[5]);
-            roletxt.setText(user[2]);
-            break;
-            }
-        }
     }
 
     /**
@@ -60,192 +28,21 @@ private void loadUserData(String userid) {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        backbtn = new javax.swing.JButton();
-        profilelbl = new javax.swing.JLabel();
-        namelbl = new javax.swing.JLabel();
-        nametxt = new javax.swing.JTextField();
-        rolelbl = new javax.swing.JLabel();
-        phonetxt = new javax.swing.JTextField();
-        emailtxt = new javax.swing.JTextField();
-        roletxt = new javax.swing.JTextField();
-        emaillbl = new javax.swing.JLabel();
-        phonelbl = new javax.swing.JLabel();
-        editbtn = new javax.swing.JButton();
-        useridlbl = new javax.swing.JLabel();
-        useridtxt = new javax.swing.JTextField();
-        savebtn = new javax.swing.JButton();
-        statustxt = new javax.swing.JTextField();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        backbtn.setText("BACK");
-        backbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backbtnActionPerformed(evt);
-            }
-        });
-
-        profilelbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        profilelbl.setText("PROFILE");
-
-        namelbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        namelbl.setText("Name");
-
-        nametxt.setEditable(false);
-        nametxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nametxtActionPerformed(evt);
-            }
-        });
-
-        rolelbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        rolelbl.setText("Role");
-
-        emailtxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailtxtActionPerformed(evt);
-            }
-        });
-
-        roletxt.setEditable(false);
-
-        emaillbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        emaillbl.setText("Email");
-
-        phonelbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        phonelbl.setText("Phone Number");
-
-        editbtn.setText("Edit Password");
-        editbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editbtnActionPerformed(evt);
-            }
-        });
-
-        useridlbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        useridlbl.setText("UserID");
-
-        useridtxt.setEditable(false);
-
-        savebtn.setText("SAVE");
-        savebtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                savebtnActionPerformed(evt);
-            }
-        });
-
-        statustxt.setEditable(false);
-        statustxt.setBorder(null);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(editbtn)
-                .addGap(26, 26, 26)
-                .addComponent(savebtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(backbtn)
-                .addGap(55, 55, 55))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(namelbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(emaillbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(useridlbl)
-                            .addComponent(rolelbl))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(phonelbl)
-                        .addGap(43, 43, 43)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(phonetxt, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nametxt, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(useridtxt, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                    .addComponent(roletxt)
-                    .addComponent(emailtxt))
-                .addGap(72, 72, 72))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(166, 166, 166)
-                .addComponent(profilelbl)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(statustxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(104, 104, 104))
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(profilelbl)
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(namelbl)
-                    .addComponent(nametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(emaillbl)
-                    .addComponent(phonetxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(phonelbl)
-                    .addComponent(emailtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rolelbl)
-                    .addComponent(roletxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(useridlbl)
-                    .addComponent(useridtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(backbtn)
-                    .addComponent(editbtn)
-                    .addComponent(savebtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addComponent(statustxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
-        LecturerMainMenu lectMenu = new LecturerMainMenu(UserID);
-        lectMenu.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_backbtnActionPerformed
-
-    private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtnActionPerformed
-        UserChangePassword changePW = new UserChangePassword(UserID);
-        this.setVisible(false);
-        changePW.setVisible(true);
-    }//GEN-LAST:event_editbtnActionPerformed
-
-    private void emailtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailtxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_emailtxtActionPerformed
-
-    private void nametxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nametxtActionPerformed
-
-    }//GEN-LAST:event_nametxtActionPerformed
-
-    private void savebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebtnActionPerformed
-    String newEmail = emailtxt.getText();
-    String newPhoneNumber = phonetxt.getText();
-    
-    func.saveProfile(userArray, UserID, newEmail, newPhoneNumber);
-    func.savePassword(userArray, "users.txt");
-    statustxt.setText("Profile updated succesfully!");
-    }//GEN-LAST:event_savebtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,20 +70,5 @@ private void loadUserData(String userid) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backbtn;
-    private javax.swing.JButton editbtn;
-    private javax.swing.JLabel emaillbl;
-    private javax.swing.JTextField emailtxt;
-    private javax.swing.JLabel namelbl;
-    private javax.swing.JTextField nametxt;
-    private javax.swing.JLabel phonelbl;
-    private javax.swing.JTextField phonetxt;
-    private javax.swing.JLabel profilelbl;
-    private javax.swing.JLabel rolelbl;
-    private javax.swing.JTextField roletxt;
-    private javax.swing.JButton savebtn;
-    private javax.swing.JTextField statustxt;
-    private javax.swing.JLabel useridlbl;
-    private javax.swing.JTextField useridtxt;
     // End of variables declaration//GEN-END:variables
 }
