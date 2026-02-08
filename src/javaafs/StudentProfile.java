@@ -10,9 +10,9 @@ import java.util.List;
  *
  * @author junjun
  */
-public class LecturerProfile extends javax.swing.JFrame {
+public class StudentProfile extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LecturerProfile.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(StudentProfile.class.getName());
     
     protected List<String[]> userArray;
     Functions func = new Functions();
@@ -23,12 +23,12 @@ public class LecturerProfile extends javax.swing.JFrame {
     public String Role = "";
     public String UserID = "";
             
-    public LecturerProfile() {
+    public StudentProfile() {
         userArray = func.readCSV("users.txt");
         initComponents();
     }
     
-    public LecturerProfile(String userid) {
+    public StudentProfile(String userid) {
         this();
         this.UserID = userid;
         loadUserData(userid);
@@ -219,8 +219,8 @@ private void loadUserData(String userid) {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
-        LecturerMainMenu lectMenu = new LecturerMainMenu(UserID);
-        lectMenu.setVisible(true);
+        StudentMainMenu StuMenu = new StudentMainMenu(UserID);
+        StuMenu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_backbtnActionPerformed
 
@@ -269,7 +269,7 @@ private void loadUserData(String userid) {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new LecturerProfile().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new StudentProfile().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
