@@ -9,9 +9,9 @@ import java.util.List;
  *
  * @author junjun
  */
-public class UserChangePassword extends javax.swing.JFrame {
+public class AcadLeadChangePassword extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(UserChangePassword.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AcadLeadChangePassword.class.getName());
 
     protected List<String[]> userArray;
     
@@ -22,12 +22,12 @@ public class UserChangePassword extends javax.swing.JFrame {
 
     private boolean passwordShow = false;
     
-    public UserChangePassword() {
+    public AcadLeadChangePassword() {
         userArray = func.readCSV("users.txt");
         initComponents();
     }
     
-    public UserChangePassword(String userid) {
+    public AcadLeadChangePassword(String userid) {
         this();
         UserID = userid;
         loadUserData(userid);
@@ -314,7 +314,7 @@ private void changePassword() {
     }//GEN-LAST:event_showpassword2ActionPerformed
 
     public static void main(String[] args) {
-    java.awt.EventQueue.invokeLater(() -> new UserChangePassword().setVisible(true));
+    java.awt.EventQueue.invokeLater(() -> new AcadLeadChangePassword().setVisible(true));
 }
 
 

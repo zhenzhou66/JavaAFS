@@ -157,7 +157,7 @@ public class Login extends javax.swing.JFrame {
 
             } else if (userType.equals("Student")) {
                 Status.setText("Access granted!");
-                StudentMainMenu menu = new StudentMainMenu(username);
+                StudentMainMenu menu = new StudentMainMenu();
                 this.setVisible(false);
                 menu.setVisible(true);
 
