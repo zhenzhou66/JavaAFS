@@ -144,9 +144,9 @@ public class LecturerMainMenu extends javax.swing.JFrame {
                         .addComponent(designAsgmnt)))
                 .addGap(25, 25, 25)
                 .addComponent(resultAsgmnt)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
                 .addComponent(logOut)
-                .addContainerGap())
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -158,15 +158,17 @@ public class LecturerMainMenu extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void profilePageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilePageActionPerformed
-        // TODO add your handling code here:
+        LecturerProfile lectProfile = new LecturerProfile(UserID);
+        this.setVisible(false);
+        lectProfile.setVisible(true);
     }//GEN-LAST:event_profilePageActionPerformed
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed

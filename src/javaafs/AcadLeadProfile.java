@@ -225,9 +225,9 @@ private void loadUserData(String userid) {
     }//GEN-LAST:event_backbtnActionPerformed
 
     private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtnActionPerformed
-        AcadLeadChangePassword acadleadchangepassword = new AcadLeadChangePassword(UserID);
+        UserChangePassword changePW = new UserChangePassword(UserID);
         this.setVisible(false);
-        acadleadchangepassword.setVisible(true);
+        changePW.setVisible(true);
     }//GEN-LAST:event_editbtnActionPerformed
 
     private void emailtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailtxtActionPerformed
