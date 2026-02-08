@@ -4,66 +4,22 @@
  */
 package javaafs;
 
-import java.util.List;
-
 /**
  *
  * @author zhenz
  */
-public class LecturerViewResult extends javax.swing.JFrame {
+public class LecturerViewFeedback extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LecturerViewResult.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LecturerViewFeedback.class.getName());
 
-    protected List<String[]> userArray;
-    protected List<String[]> moduleArray;
-    Functions func = new Functions();
-
-    public String Name = "";
-    public String Email = "";
-    public String Phonenumber = "";
-    public String Role = "";
-    public String UserID = "";
-    
-    public LecturerViewResult() {
-        userArray = func.readCSV("users.txt");
-        moduleArray = func.readCSV("module.txt");
+    /**
+     * Creates new form LecturerViewResult
+     */
+    public LecturerViewFeedback() {
+        
         initComponents();
     }
 
-    public LecturerViewResult(String userid) {
-        this();
-        this.UserID = userid;
-        loadUserData(userid);
-    }
-    
-    private void loadUserData(String userid) {
-    if (userArray == null || userArray.isEmpty()) 
-        return;
-
-    for (int i = 0; i < userArray.size(); i++) {
-        String[] user = userArray.get(i);
-        if (user[0].equalsIgnoreCase(userid)) {
-            UserID = user[0];
-            Role = user[2];
-            Name = user[3];
-            Email = user[4];
-            Phonenumber = user[5];
-            break;
-            }
-        }
-    }
-    public String[] getModuleData() {
-    if (moduleArray == null) 
-        return null;
-
-    for (String[] module : moduleArray) {
-        // Index 2 matches the LecturerID (e.g., L02)
-        if (module.length > 2 && module[2].equalsIgnoreCase(UserID)) {
-            return module; // Returns [M002, Systems Analysis & Design, L02]
-        }
-    }
-    return null; // Return null if no module is found for this lecturer
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -111,7 +67,7 @@ public class LecturerViewResult extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new LecturerViewResult().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new LecturerViewFeedback().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

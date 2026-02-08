@@ -180,7 +180,9 @@ public class LecturerMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_logOutActionPerformed
 
     private void designAsgmntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_designAsgmntActionPerformed
-        // TODO add your handling code here:
+        LecturerDesign lectProfile = new LecturerDesign(UserID);
+        this.setVisible(false);
+        lectProfile.setVisible(true);
     }//GEN-LAST:event_designAsgmntActionPerformed
 
     private void resultAsgmntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultAsgmntActionPerformed

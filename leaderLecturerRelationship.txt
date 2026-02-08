@@ -1,2 +1,4 @@
 leaderID,lecturerID,moduleID
-lijun,Lew junjun,TP000,Steve,
+AL01,L03,
+AL01,L07,
+AL02,L01,

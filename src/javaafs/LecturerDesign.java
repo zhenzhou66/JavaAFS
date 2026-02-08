@@ -4,6 +4,8 @@
  */
 package javaafs;
 
+import java.util.List;
+
 /**
  *
  * @author zhenz
@@ -12,11 +14,103 @@ public class LecturerDesign extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LecturerDesign.class.getName());
 
-    /**
-     * Creates new form LecturerDesign
-     */
+    protected List<String[]> userArray;
+    protected List<String[]> moduleArray;
+    protected List<String[]> assessmentQuestion;
+    Functions func = new Functions();
+
+    //user information
+    public String Name = "";
+    public String Email = "";
+    public String Phonenumber = "";
+    public String Role = "";
+    public String UserID = "";
+    public String ModuleID = "";
+    public String ModuleName = "";
+    
+    //assessment questions n answers
+    public String Q1 = "";
+    public String Q2 = "";
+    public String Q3 = "";
+    public String Q4 = "";
+    public String Q5 = "";
+    public String A1 = "";
+    public String A2 = "";
+    public String A3 = "";
+    public String A4 = "";
+    public String A5 = "";
+    
     public LecturerDesign() {
+        userArray = func.readCSV("users.txt");
+        moduleArray = func.readCSV("modules.txt");
+        assessmentQuestion = func.readCSV("assessmentQuestion.txt");
         initComponents();
+    }
+    
+    public LecturerDesign(String userid) {
+    this();
+    this.UserID = userid;
+    loadUserData(userid);
+    getModuleData();
+    
+    lecturerName.setText("Lecturer ID: " + UserID);
+    moduleID.setText("Module ID: " + ModuleID);
+    moduleName.setText(ModuleName);
+    
+    }
+    
+    private void loadUserData(String userid) {
+    if (userArray == null || userArray.isEmpty()) 
+        return;
+
+    for (int i = 0; i < userArray.size(); i++) {
+        String[] user = userArray.get(i);
+        if (user[0].equalsIgnoreCase(userid)) {
+            UserID = user[0];
+            Role = user[2];
+            Name = user[3];
+            Email = user[4];
+            Phonenumber = user[5];
+            break;
+            }
+        }
+    }
+    public String[] getModuleData() {
+    if (moduleArray == null) 
+        return null;
+
+    for (String[] module : moduleArray) {
+        // Index 2 matches the LecturerID (e.g., L02)
+        if (module.length > 2 && module[2].equalsIgnoreCase(UserID)) {
+            this.ModuleID = module[0];
+            this.ModuleName = module[1];
+            return module; // Returns [M002, Systems Analysis & Design, L02]
+            
+        }
+    }
+    return null; // Return null if no module is found for this lecturer
+    }
+    
+    private String generateNextAsmtID() {
+    int maxID = 0;
+
+    // 1. Loop through existing assessments to find the highest number
+    for (String[] row : assessmentQuestion) {
+        try {
+            // Assume format "asmn001" -> extract "001"
+            String idNumber = row[0].replace("asmn", "");
+            int currentID = Integer.parseInt(idNumber);
+            if (currentID > maxID) {
+                maxID = currentID;
+            }
+        } catch (Exception e) {
+            // Skip rows that don't match the format
+        }
+    }
+
+    // 2. Increment the ID and format it back to "asmn000"
+    int nextID = maxID + 1;
+    return String.format("asmn%03d", nextID); 
     }
 
     /**
@@ -28,21 +122,312 @@ public class LecturerDesign extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jPanel1 = new javax.swing.JPanel();
+        moduleName = new javax.swing.JLabel();
+        moduleID = new javax.swing.JLabel();
+        lecturerName = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        TITLE = new javax.swing.JLabel();
+        qs1 = new javax.swing.JLabel();
+        qs2 = new javax.swing.JLabel();
+        qs3 = new javax.swing.JLabel();
+        qs4 = new javax.swing.JLabel();
+        qs5 = new javax.swing.JLabel();
+        Qst1 = new javax.swing.JTextField();
+        Qst2 = new javax.swing.JTextField();
+        Qst3 = new javax.swing.JTextField();
+        Qst4 = new javax.swing.JTextField();
+        Qst5 = new javax.swing.JTextField();
+        Ans1 = new javax.swing.JComboBox<>();
+        Ans2 = new javax.swing.JComboBox<>();
+        Ans3 = new javax.swing.JComboBox<>();
+        Ans4 = new javax.swing.JComboBox<>();
+        Ans5 = new javax.swing.JComboBox<>();
+        CreateAssessment = new javax.swing.JButton();
+        BackButton = new javax.swing.JButton();
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        moduleName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        moduleName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        moduleName.setText("Module Name");
+
+        moduleID.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        moduleID.setText("Module ID");
+
+        lecturerName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lecturerName.setText("Lecturer ID");
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setText("Questions");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setText("Answers");
+
+        TITLE.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TITLE.setText("Design Assessment");
+
+        qs1.setText("Question 1");
+
+        qs2.setText("Question 2");
+
+        qs3.setText("Question 3");
+
+        qs4.setText("Question 4");
+
+        qs5.setText("Question 5");
+
+        Qst1.setText("The apple is red. True or False?");
+
+        Qst2.setText("jTextField2");
+        Qst2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Qst2ActionPerformed(evt);
+            }
+        });
+
+        Qst3.setText("jTextField2");
+
+        Qst4.setText("jTextField2");
+
+        Qst5.setText("jTextField2");
+
+        Ans1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "True", "False" }));
+        Ans1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Ans1ActionPerformed(evt);
+            }
+        });
+
+        Ans2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "True", "False" }));
+        Ans2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Ans2ActionPerformed(evt);
+            }
+        });
+
+        Ans3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "True", "False" }));
+        Ans3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Ans3ActionPerformed(evt);
+            }
+        });
+
+        Ans4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "True", "False" }));
+        Ans4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Ans4ActionPerformed(evt);
+            }
+        });
+
+        Ans5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "True", "False" }));
+        Ans5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Ans5ActionPerformed(evt);
+            }
+        });
+
+        CreateAssessment.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        CreateAssessment.setText("Create Assessment");
+        CreateAssessment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CreateAssessmentActionPerformed(evt);
+            }
+        });
+
+        BackButton.setText("Back");
+        BackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BackButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(qs5)
+                                            .addComponent(qs4)
+                                            .addComponent(qs3)
+                                            .addComponent(qs2)
+                                            .addComponent(qs1))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(Qst4, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(Qst3, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(Qst2, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(Qst1, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(Qst5, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel1))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(Ans1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Ans2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Ans3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Ans4, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Ans5, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 13, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(BackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(144, 144, 144)
+                                        .addComponent(TITLE))
+                                    .addComponent(moduleID, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lecturerName, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(moduleName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(CreateAssessment, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BackButton)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(TITLE)
+                            .addGap(78, 78, 78))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lecturerName)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(moduleID)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(moduleName))))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(qs1)
+                    .addComponent(Qst1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Ans1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(qs2)
+                    .addComponent(Qst2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Ans2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(qs3)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Qst3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Ans3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(qs4)
+                    .addComponent(Qst4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Ans4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(qs5)
+                    .addComponent(Qst5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Ans5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addComponent(CreateAssessment, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Ans1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ans1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Ans1ActionPerformed
+
+    private void Qst2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Qst2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Qst2ActionPerformed
+
+    private void Ans2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ans2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Ans2ActionPerformed
+
+    private void Ans3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ans3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Ans3ActionPerformed
+
+    private void Ans4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ans4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Ans4ActionPerformed
+
+    private void Ans5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ans5ActionPerformed
+
+    }//GEN-LAST:event_Ans5ActionPerformed
+
+    private void CreateAssessmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateAssessmentActionPerformed
+        // Questions from TextFields
+        this.Q1 = Qst1.getText();
+        this.Q2 = Qst2.getText();
+        this.Q3 = Qst3.getText();
+        this.Q4 = Qst4.getText();
+        this.Q5 = Qst5.getText();
+
+        // Answers from ComboBoxes
+        this.A1 = Ans1.getSelectedItem().toString();
+        this.A2 = Ans2.getSelectedItem().toString();
+        this.A3 = Ans3.getSelectedItem().toString();
+        this.A4 = Ans4.getSelectedItem().toString();
+        this.A5 = Ans5.getSelectedItem().toString();
+
+        // 2. DummyID
+        String asmtID = generateNextAsmtID(); 
+
+        // 3. Create the row array using your class variables
+        String[] newRecord = {
+            asmtID, 
+            this.ModuleID, 
+            this.Q1, this.Q2, this.Q3, this.Q4, this.Q5, 
+            this.A1, this.A2, this.A3, this.A4, this.A5
+        };
+
+        // 4. Update the list and write to the text file
+        assessmentQuestion.add(newRecord);
+        func.writeCSV("assessmentQuestion.txt", assessmentQuestion);
+
+        // 5. Success Message
+        javax.swing.JOptionPane.showMessageDialog(this, "Assessment Saved Successfully!");
+    }//GEN-LAST:event_CreateAssessmentActionPerformed
+
+    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
+        LecturerMainMenu lectMenu = new LecturerMainMenu(UserID);
+        lectMenu.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_BackButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -70,5 +455,30 @@ public class LecturerDesign extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> Ans1;
+    private javax.swing.JComboBox<String> Ans2;
+    private javax.swing.JComboBox<String> Ans3;
+    private javax.swing.JComboBox<String> Ans4;
+    private javax.swing.JComboBox<String> Ans5;
+    private javax.swing.JButton BackButton;
+    private javax.swing.JButton CreateAssessment;
+    private javax.swing.JTextField Qst1;
+    private javax.swing.JTextField Qst2;
+    private javax.swing.JTextField Qst3;
+    private javax.swing.JTextField Qst4;
+    private javax.swing.JTextField Qst5;
+    private javax.swing.JLabel TITLE;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lecturerName;
+    private javax.swing.JLabel moduleID;
+    private javax.swing.JLabel moduleName;
+    private javax.swing.JLabel qs1;
+    private javax.swing.JLabel qs2;
+    private javax.swing.JLabel qs3;
+    private javax.swing.JLabel qs4;
+    private javax.swing.JLabel qs5;
     // End of variables declaration//GEN-END:variables
 }

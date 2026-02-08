@@ -51,10 +51,11 @@ private void loadUserData(String userid) {
     }
  
 private void loadModulesToTable() {
-    ArrayList<String[]> modules = func.readCSV("modules.txt");
     DefaultTableModel model = (DefaultTableModel) modulestable.getModel();
     model.setRowCount(0);
-
+    
+    ArrayList<String[]> modules = func.readCSV("modules.txt");
+     
     for (int i = 1; i < modules.size(); i++) {
         String[] row = modules.get(i);
         model.addRow(row);

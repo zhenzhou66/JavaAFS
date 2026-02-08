@@ -1,11 +1,11 @@
-moduleID,moduleName
-M001,aaa
-M002,Systems Analysis & Design
-M003,Digital Thinking & Innovation
-M004,ghg
-M005,ggg
-M006,Academic English
-M007,Accounting Principles
-M008,Programming with Python
-M009,World History
-M010,Philosophy and Current Issues
+moduleID,moduleName,lecturerID
+M001,aaa,L01
+M002,Systems Analysis & Design,L02
+M003,Digital Thinking & Innovation,L03
+M004,ghg,L04
+M005,ggg,L05
+M006,Academic English,L06
+M007,Accounting Principles,L07
+M008,Programming with Python,L08
+M009,World History,L09
+M010,Philosophy and Current Issues,L010
