@@ -18,7 +18,7 @@ public class AcadLeadViewLecturerList extends javax.swing.JFrame {
     protected List<String[]> userArray;
     protected List<String[]> relationship;
     protected List<String[]> modules;
-    Functions func = new Functions();
+    UserFunctions func = new UserFunctions();
     
     public String UserID = "";
     public String Role = "";
@@ -371,7 +371,7 @@ private void loadLecturerToTable() {
     }//GEN-LAST:event_viewreportsbtnActionPerformed
 
     private void logoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutbtnActionPerformed
-        Login loginScreen = new Login();
+        UserLogin loginScreen = new UserLogin();
         loginScreen.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_logoutbtnActionPerformed

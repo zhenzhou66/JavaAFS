@@ -20,7 +20,7 @@ public class AcadLeadAssignModules extends javax.swing.JFrame {
     protected List<String[]> modules;
     protected List<String[]> relationships;
 
-    Functions func = new Functions();
+    UserFunctions func = new UserFunctions();
     
     public String UserID = "";
     public String Role = "";
@@ -577,7 +577,7 @@ private void saveAssignedModule() {
     }//GEN-LAST:event_viewreportsbtnActionPerformed
 
     private void logoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutbtnActionPerformed
-        Login loginScreen = new Login();
+        UserLogin loginScreen = new UserLogin();
         loginScreen.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_logoutbtnActionPerformed

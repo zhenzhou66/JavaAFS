@@ -17,7 +17,7 @@ public class LecturerDesign extends javax.swing.JFrame {
     protected List<String[]> userArray;
     protected List<String[]> moduleArray;
     protected List<String[]> assessmentQuestion;
-    Functions func = new Functions();
+    UserFunctions func = new UserFunctions();
 
     //user information
     public String Name = "";
@@ -424,7 +424,7 @@ public class LecturerDesign extends javax.swing.JFrame {
     }//GEN-LAST:event_CreateAssessmentActionPerformed
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
-        LecturerMainMenu lectMenu = new LecturerMainMenu(UserID);
+        LecturerMenu lectMenu = new LecturerMenu(UserID);
         lectMenu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BackButtonActionPerformed

@@ -15,7 +15,7 @@ public class AcadLeadProfile extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AcadLeadProfile.class.getName());
     
     protected List<String[]> userArray;
-    Functions func = new Functions();
+    UserFunctions func = new UserFunctions();
 
     public String Name = "";
     public String Email = "";
@@ -391,7 +391,7 @@ private void loadUserData(String userid) {
     }// </editor-fold>//GEN-END:initComponents
 
     private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtnActionPerformed
-        UserChangePassword changePW = new UserChangePassword(UserID);
+        StudentChangePassword changePW = new StudentChangePassword(UserID);
         this.setVisible(false);
         changePW.setVisible(true);
     }//GEN-LAST:event_editbtnActionPerformed
@@ -414,7 +414,7 @@ private void loadUserData(String userid) {
     }//GEN-LAST:event_savebtnActionPerformed
 
     private void logoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutbtnActionPerformed
-        Login loginScreen = new Login();
+        UserLogin loginScreen = new UserLogin();
         loginScreen.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_logoutbtnActionPerformed

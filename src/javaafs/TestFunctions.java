@@ -12,7 +12,7 @@ import java.util.List;
 public class TestFunctions {
     public static void main(String[] args) {
         // Create a Functions object
-        Functions func = new Functions();
+        UserFunctions func = new UserFunctions();
 
         // Read the CSV file
         List<String[]> users = func.readCSV("leaderLecturerRelationship.txt"); // Make sure the path is correct

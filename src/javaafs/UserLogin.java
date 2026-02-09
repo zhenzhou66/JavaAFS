@@ -14,14 +14,14 @@ import java.util.logging.Logger;
  *
  * @author zhenz
  */
-public class Login extends javax.swing.JFrame {
+public class UserLogin extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Login.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(UserLogin.class.getName());
 
     protected List<String[]> userArray;
-    Functions func = new Functions();
+    UserFunctions func = new UserFunctions();
     
-    public Login() {
+    public UserLogin() {
         userArray = func.readCSV("users.txt");
         initComponents();
     }
@@ -48,11 +48,9 @@ public class Login extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 153, 153));
 
         UserID.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        UserID.setForeground(new java.awt.Color(0, 0, 0));
         UserID.setText("User ID");
 
         Password.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Password.setForeground(new java.awt.Color(0, 0, 0));
         Password.setText("Password");
 
         InputUserID.addActionListener(new java.awt.event.ActionListener() {
@@ -69,7 +67,6 @@ public class Login extends javax.swing.JFrame {
         });
 
         Status.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Status.setForeground(new java.awt.Color(0, 0, 0));
         Status.setText("Status");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -77,26 +74,25 @@ public class Login extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(Status)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(Password)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(InputPassword))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(UserID)
-                                .addGap(29, 29, 29)
-                                .addComponent(InputUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addGap(178, 178, 178)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Status)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(Password)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(InputPassword))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(UserID)
+                            .addGap(29, 29, 29)
+                            .addComponent(InputUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(227, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(98, 98, 98)
+                .addGap(126, 126, 126)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(UserID)
                     .addComponent(InputUserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -106,9 +102,9 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(InputPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(Login)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
                 .addComponent(Status)
-                .addGap(45, 45, 45))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
 
         UserID.getAccessibleContext().setAccessibleDescription("");
@@ -135,34 +131,34 @@ public class Login extends javax.swing.JFrame {
         String userType = func.userType(userArray, username);
         
         if (auth) {
-            if (userType.equals("Admin")) {
-                Status.setText("Access granted!");
-                AdminHomepage adminMainMenu = new AdminHomepage();
-                this.setVisible(false);
-                adminMainMenu.setVisible(true);
-
-            } else if (userType.equals("AcademicLeader")) {
-                Status.setText("Access granted!");
-                AcadLeaderMenu menu = new AcadLeaderMenu(username);
-                AcadLeadProfile profile = new AcadLeadProfile(username);
-                this.setVisible(false);
-                menu.setVisible(true);
-                profile.setVisible(false);
-
-            } else if (userType.equals("Lecturer")) {
-                Status.setText("Access granted!");
-                LecturerMainMenu menu = new LecturerMainMenu(username);
-                this.setVisible(false);
-                menu.setVisible(true);
-
-            } else if (userType.equals("Student")) {
-                Status.setText("Access granted!");
-                StudentMainMenu menu = new StudentMainMenu(username);
-                this.setVisible(false);
-                menu.setVisible(true);
-
-            } else {
-                Status.setText("Unknown role");
+            switch (userType) {
+                case "Admin" -> {
+                    Status.setText("Access granted!");
+                    AdminHomepage adminMainMenu = new AdminHomepage(username);
+                    this.setVisible(false);
+                    adminMainMenu.setVisible(true);
+                }
+                case "AcademicLeader" ->                     {
+                        Status.setText("Access granted!");
+                        AcadLeaderMenu menu = new AcadLeaderMenu(username);
+                        AcadLeadProfile profile = new AcadLeadProfile(username);
+                        this.setVisible(false);
+                        menu.setVisible(true);
+                        profile.setVisible(false);
+                    }
+                case "Lecturer" ->                     {
+                        Status.setText("Access granted!");
+                        LecturerMenu menu = new LecturerMenu(username);
+                        this.setVisible(false);
+                        menu.setVisible(true);
+                    }
+                case "Student" ->                     {
+                        Status.setText("Access granted!");
+                        StudentMainMenu menu = new StudentMainMenu(username);
+                        this.setVisible(false);
+                        menu.setVisible(true);
+                    }
+                default -> Status.setText("Unknown role");
             }
 
         } else {
@@ -196,7 +192,7 @@ public class Login extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Login().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new UserLogin().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

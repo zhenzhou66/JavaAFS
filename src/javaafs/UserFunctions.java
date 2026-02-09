@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author zhenz
  */
-public class Functions {
+public class UserFunctions {
 
     // Reusable Txt file reader
     public static ArrayList<String[]> readCSV(String filePath) {
