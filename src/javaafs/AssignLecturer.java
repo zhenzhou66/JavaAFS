@@ -10,20 +10,41 @@ import java.util.Map;
 
 
 public class AssignLecturer extends javax.swing.JFrame {
+    
+    private String userID; 
+    
+//    protected List<String[]> userArray;
+//    public String UserID = "";
+//
+//    
+//    private void loadUserData(String userid) {
+//    if (userArray == null || userArray.isEmpty()) 
+//        return;
+//
+//    for (int i = 0; i < userArray.size(); i++) {
+//        String[] user = userArray.get(i);
+//        if (user[0].equalsIgnoreCase(userid)) {
+//            UserID = user[0];
+//            break;
+//            }
+//        }
+//    }
+
 
 
     public AssignLecturer() {
+        this.userID = userID;
         initComponents();
-        loadUserData();
+        loadLecturer();
     }
     
-    private void goBack() {
-    new AdminHomepage().setVisible(true);
-    this.dispose();
-}
+//    private void goBack() {
+//    new AdminHomepage(userID).setVisible(true);
+//    this.dispose();
+//}
 
     
-    private void loadUserData() {
+    private void loadLecturer() {
 
         DefaultTableModel academicModel =
                 (DefaultTableModel) AcademicLeaderTable.getModel();
@@ -40,9 +61,9 @@ public class AssignLecturer extends javax.swing.JFrame {
                 Functions.readCSV("leaderLecturerRelationship.txt");
 
         for (String[] row : relationships) {
-            if (row.length >= 3) {
+            if (row.length >= 2) {
                 String leaderID = row[0];
-                String lecturerID = row[2];
+                String lecturerID = row[1];
 
                 if (!leaderID.isEmpty() && !lecturerID.isEmpty()) {
                     lecturerToLeaderMap.put(lecturerID, leaderID);
@@ -109,10 +130,10 @@ public class AssignLecturer extends javax.swing.JFrame {
         String previousLeaderID = "";
 
         for (String[] row : assignments) {
-            if (row.length < 4) continue;
+            if (row.length < 2) continue;
 
             String existingLeaderID = row[0];
-            String existingLecturerID = row[2];
+            String existingLecturerID = row[1];
 
             if (existingLeaderID.equals(leaderID)
                     && existingLecturerID.equals(lecturerID)) {
@@ -148,11 +169,9 @@ public class AssignLecturer extends javax.swing.JFrame {
             }
 
             for (String[] row : assignments) {
-                if (row[2].equals(lecturerID)) {
+                if (row[1].equals(lecturerID)) {
                     row[0] = leaderID;
-                    row[1] = leaderName;
-                    row[2] = lecturerID;
-                    row[3] = lecturerName;
+//                    row[1] = lecturerID;
                     break;
                 }
             }
@@ -160,9 +179,9 @@ public class AssignLecturer extends javax.swing.JFrame {
         else {
             assignments.add(new String[]{
                 leaderID,
-                leaderName,
+//                leaderName,
                 lecturerID,
-                lecturerName,
+//                lecturerName,
                 ""
             });
         }
@@ -174,7 +193,7 @@ public class AssignLecturer extends javax.swing.JFrame {
                 "Success",
                 JOptionPane.INFORMATION_MESSAGE);
 
-        loadUserData();
+        loadLecturer();
         AcademicLeaderTable.clearSelection();
         LecturerTable.clearSelection();
     }
@@ -293,7 +312,7 @@ public class AssignLecturer extends javax.swing.JFrame {
     }//GEN-LAST:event_assignLecturerButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        new AdminHomepage().setVisible(true);
+        new AdminHomepage(userID).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
 
