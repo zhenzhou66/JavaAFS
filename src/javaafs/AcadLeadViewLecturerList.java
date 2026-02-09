@@ -82,10 +82,11 @@ private void loadLecturerToTable() {
                 break;
                 }
             }
-        
+        if (!lecturerName.isEmpty()) {
             model.addRow(new Object[]{lecturerID, lecturerName, moduleID, moduleName});
         }
     }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -252,6 +253,12 @@ private void loadLecturerToTable() {
             }
         });
         jScrollPane1.setViewportView(lecturerlisttable);
+        if (lecturerlisttable.getColumnModel().getColumnCount() > 0) {
+            lecturerlisttable.getColumnModel().getColumn(0).setResizable(false);
+            lecturerlisttable.getColumnModel().getColumn(1).setResizable(false);
+            lecturerlisttable.getColumnModel().getColumn(2).setResizable(false);
+            lecturerlisttable.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         assignmodulesbtn.setText("ASSIGN MODULES");
         assignmodulesbtn.addActionListener(new java.awt.event.ActionListener() {
@@ -264,31 +271,27 @@ private void loadLecturerToTable() {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(assignmodulesbtn)
+                .addGap(155, 155, 155))
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(28, Short.MAX_VALUE)))
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addGap(203, 203, 203)
-                    .addComponent(assignmodulesbtn)
-                    .addContainerGap(119, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 313, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(284, Short.MAX_VALUE)
+                .addComponent(assignmodulesbtn)
+                .addContainerGap())
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addGap(1, 1, 1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(16, Short.MAX_VALUE)))
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addGap(132, 132, 132)
-                    .addComponent(assignmodulesbtn)
-                    .addContainerGap(158, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(38, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

@@ -14,4 +14,4 @@ L07,xinyun,Lecturer,xinyun,xinyun&may@gmail.com,0127355913
 L08,ying,Lecturer,ying,ying&may@gmail.com,0127355913
 L09,hao,Lecturer,hao,hao&may@gmail.com,0127355913
 L010,zhenkang,Lecturer,zhenkang,zhenkang&may@gmail.com,0127355913
-S01,zhenzhou,Lecturer,zhenkang,zhenkang&may@gmail.com,0127355913
+S01,zhenzhou,Student,zhenkang,zhenkang&may@gmail.com,0127355913
