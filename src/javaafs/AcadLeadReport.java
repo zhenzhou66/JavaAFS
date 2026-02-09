@@ -27,17 +27,14 @@ public class AcadLeadReport extends javax.swing.JFrame {
         userArray = func.readCSV("users.txt");
         modules = func.readCSV("modules.txt");
         initComponents();
-        loadComboBox();
-//        loadReportTypeComboBox();
-//        loadSelectedIDComboBox();
-//        showSelectedName(String selectedType, String selectedID);
+        loadReportTypeComboBox();
+        loadSelectedIDComboBox();
     }
     
     public AcadLeadReport(String userid) {
         this();
         this.UserID = userid;
         loadUserData(userid);
-//        showSelectedName(selectedType, selectedID);
     }
     
 private void loadUserData(String userid) {
@@ -53,44 +50,15 @@ private void loadUserData(String userid) {
         }
     }
 }
-//
-//private void loadReportTypeComboBox() {
-//    reporttypecbx.removeAllItems();
-//    reporttypecbx.addItem("Module");
-//    reporttypecbx.addItem("Lecturer");
-//    reporttypecbx.addItem("Student");
-//    
-//    reporttypecbx.addActionListener(e -> loadSelectedIDComboBox());
-//    reporttypecbx.addActionListener(e -> {
-//        String selectedID = (String) selectedidcbx.getSelectedItem();
-//        String selectedType = (String) reporttypecbx.getSelectedItem();
-//        if (selectedID != null) showSelectedName(selectedID, selectedType);
-//    });
-//}
 
-private void loadComboBox() {
-    // Load report types
-        DefaultComboBoxModel<String> reportTypeModel = new DefaultComboBoxModel<>();
-        reportTypeModel.addElement("Module");
-        reportTypeModel.addElement("Lecturer");
-        reportTypeModel.addElement("Student");
-        reporttypecbx.setModel(reportTypeModel);
-
-        // When report type changes, load IDs
-        reporttypecbx.addActionListener(e -> loadSelectedIDComboBox());
-
-        // When selected ID changes, show name
-        selectedidcbx.addActionListener(e -> {
-            String selectedID = (String) selectedidcbx.getSelectedItem();
-            String selectedType = (String) reporttypecbx.getSelectedItem();
-            if (selectedID != null && selectedType != null) {
-                showSelectedName(selectedType, selectedID);
-            }
-        });
-
-        // Initialize first selection
-        reporttypecbx.setSelectedIndex(0);
-    }
+private void loadReportTypeComboBox() {
+    reporttypecbx.removeAllItems();
+    reporttypecbx.addItem("Module");
+    reporttypecbx.addItem("Lecturer");
+    reporttypecbx.addItem("Student");
+    
+    reporttypecbx.addActionListener(e -> loadSelectedIDComboBox());
+}           
 
 
 private void loadSelectedIDComboBox() {
@@ -128,31 +96,31 @@ private void loadSelectedIDComboBox() {
     }
 }
 
-private void showSelectedName(String selectedType, String selectedID) {
-//    if (selectedType == null || selectedID == null) return;
-
-    switch (selectedType) {
-        case "Module":
-            for (int i = 1; i < modules.size(); i++) {
-                if (modules.get(i)[0].equalsIgnoreCase(selectedID)) {
-                    selectednametxt.setText(modules.get(i)[1]);
-                    break;
-                }
-            }
-            break;
-
-        case "Lecturer":
-        case "Student":
-            for (int i = 1; i < userArray.size(); i++) {
-                if (userArray.get(i)[0].equalsIgnoreCase(selectedID)) {
-                    selectednametxt.setText(userArray.get(i)[3]);
-                    break;
-                }
-            }
-            break;
-    }
-    selectednametxt.setText("");
-}
+//private void showSelectedName(String selectedType, String selectedID) {
+////    if (selectedType == null || selectedID == null) return;
+//
+//    switch (selectedType) {
+//        case "Module":
+//            for (int i = 1; i < modules.size(); i++) {
+//                if (modules.get(i)[0].equalsIgnoreCase(selectedID)) {
+//                    selectednametxt.setText(modules.get(i)[1]);
+//                    break;
+//                }
+//            }
+//            break;
+//
+//        case "Lecturer":
+//        case "Student":
+//            for (int i = 1; i < userArray.size(); i++) {
+//                if (userArray.get(i)[0].equalsIgnoreCase(selectedID)) {
+//                    selectednametxt.setText(userArray.get(i)[3]);
+//                    break;
+//                }
+//            }
+//            break;
+//    }
+//    selectednametxt.setText("");
+//}
 
 
     /**
