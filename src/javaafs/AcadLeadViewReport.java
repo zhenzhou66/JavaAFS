@@ -17,7 +17,7 @@ public class AcadLeadViewReport extends javax.swing.JFrame {
 
     protected List<String[]> userArray;
 
-    private Functions func = new Functions();
+    private UserFunctions func = new UserFunctions();
     
     public String UserID = "";
     public String Role = "";

@@ -36,7 +36,7 @@
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="cc" green="ff" red="66" type="rgb"/>
+          <Color blue="ff" green="cc" red="cc" type="rgb"/>
         </Property>
       </Properties>
 
@@ -56,13 +56,13 @@
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="logOut" max="32767" attributes="0"/>
-                              <Component id="viewResult" alignment="0" max="32767" attributes="0"/>
-                              <Component id="viewAssessments" alignment="0" max="32767" attributes="0"/>
-                              <Component id="viewClassSchedule" alignment="0" pref="113" max="32767" attributes="0"/>
+                              <Component id="logOut" alignment="0" pref="136" max="32767" attributes="0"/>
                               <Component id="profilePage" alignment="0" max="32767" attributes="0"/>
+                              <Component id="designAsgmnt" max="32767" attributes="0"/>
+                              <Component id="resultAsgmnt" alignment="0" max="32767" attributes="0"/>
+                              <Component id="viewFeedback" alignment="0" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jPanel2" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -87,12 +87,12 @@
                       <Group type="102" attributes="0">
                           <Component id="profilePage" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="viewAssessments" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="viewResult" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="viewClassSchedule" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="189" max="32767" attributes="0"/>
+                          <Component id="designAsgmnt" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="resultAsgmnt" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="25" max="32767" attributes="0"/>
+                          <Component id="viewFeedback" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="175" max="-2" attributes="0"/>
                           <Component id="logOut" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jPanel2" max="32767" attributes="0"/>
@@ -108,7 +108,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="24" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="MAIN MENU"/>
+            <Property name="text" type="java.lang.String" value="LECTURER MAIN MENU"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="profilePage">
@@ -117,22 +117,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="profilePageActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="viewAssessments">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Assessments"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewAssessmentsActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="viewClassSchedule">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Class Schedule"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewClassScheduleActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="logOut">
@@ -158,14 +142,6 @@
             <Property name="text" type="java.lang.String" value="yourRole"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="viewResult">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Results"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewResultActionPerformed"/>
-          </Events>
-        </Component>
         <Container class="javax.swing.JPanel" name="jPanel2">
 
           <Layout>
@@ -181,6 +157,30 @@
             </DimensionLayout>
           </Layout>
         </Container>
+        <Component class="javax.swing.JButton" name="designAsgmnt">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Design Assessment"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="designAsgmntActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="resultAsgmnt">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Assessment Results"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resultAsgmntActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="viewFeedback">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="View Feedback"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewFeedbackActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

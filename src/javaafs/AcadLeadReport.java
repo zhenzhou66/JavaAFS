@@ -18,7 +18,7 @@ public class AcadLeadReport extends javax.swing.JFrame {
     protected List<String[]> userArray;
     protected List<String[]> modules;
 
-    private Functions func = new Functions();
+    private UserFunctions func = new UserFunctions();
     
     public String UserID = "";
     public String Role = "";
@@ -443,7 +443,7 @@ private void showSelectedName(String selectedType, String selectedID) {
     }//GEN-LAST:event_viewreportsbtnActionPerformed
 
     private void logoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutbtnActionPerformed
-        Login loginScreen = new Login();
+        UserLogin loginScreen = new UserLogin();
         loginScreen.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_logoutbtnActionPerformed

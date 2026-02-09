@@ -58,7 +58,7 @@ public class AssignLecturer extends javax.swing.JFrame {
         
         Map<String, String> lecturerToLeaderMap = new HashMap<>();
         ArrayList<String[]> relationships =
-                Functions.readCSV("leaderLecturerRelationship.txt");
+                UserFunctions.readCSV("leaderLecturerRelationship.txt");
 
         for (String[] row : relationships) {
             if (row.length >= 2) {
@@ -71,7 +71,7 @@ public class AssignLecturer extends javax.swing.JFrame {
             }
         }
         
-        ArrayList<String[]> users = Functions.readCSV("users.txt");
+        ArrayList<String[]> users = UserFunctions.readCSV("users.txt");
 
             for (String[] data : users) {
                 if (data.length < 5) continue;
@@ -123,7 +123,7 @@ public class AssignLecturer extends javax.swing.JFrame {
                 .getValueAt(selectedLecturerRow, 1).toString();
 
         ArrayList<String[]> assignments =
-                Functions.readCSV("leaderLecturerRelationship.txt");
+                UserFunctions.readCSV("leaderLecturerRelationship.txt");
 
         boolean samePairExists = false;
         boolean lecturerAssignedElsewhere = false;
@@ -186,7 +186,7 @@ public class AssignLecturer extends javax.swing.JFrame {
             });
         }
 
-        Functions.writeCSV("leaderLecturerRelationship.txt", assignments);
+        UserFunctions.writeCSV("leaderLecturerRelationship.txt", assignments);
 
         JOptionPane.showMessageDialog(this,
                 "Assignment saved successfully!",

@@ -15,7 +15,7 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AcadLeaderMenu.class.getName());
     
     protected List<String[]> userArray;
-    Functions func = new Functions();
+    UserFunctions func = new UserFunctions();
     
     public String UserID = "";
     public String Role = "";
@@ -246,7 +246,7 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void logoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutbtnActionPerformed
-        Login loginScreen = new Login();
+        UserLogin loginScreen = new UserLogin();
         loginScreen.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_logoutbtnActionPerformed

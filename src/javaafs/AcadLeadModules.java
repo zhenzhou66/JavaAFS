@@ -19,7 +19,7 @@ public class AcadLeadModules extends javax.swing.JFrame {
     protected List<String[]> userArray;
     protected List<String[]> moduleList;
     
-    private Functions func = new Functions();
+    private UserFunctions func = new UserFunctions();
     
     public String UserID = "";
     public String Role = "";
@@ -411,7 +411,7 @@ private void deleteModules() {
     }//GEN-LAST:event_viewreportsbtnActionPerformed
 
     private void logoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutbtnActionPerformed
-        Login loginScreen = new Login();
+        UserLogin loginScreen = new UserLogin();
         loginScreen.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_logoutbtnActionPerformed
