@@ -3,9 +3,12 @@ package javaafs;
 
 
 public class AdminHomepage extends javax.swing.JFrame {
+    
+    private String userID;
 
 
-    public AdminHomepage() {
+    public AdminHomepage(String userID) {
+        this.userID = userID;
         initComponents();
         initButtonActions();
     }
@@ -122,7 +125,7 @@ public class AdminHomepage extends javax.swing.JFrame {
 
     public static void main(String args[]) {
 
-        java.awt.EventQueue.invokeLater(() -> new AdminHomepage().setVisible(true));
+//        java.awt.EventQueue.invokeLater(() -> new AdminHomepage().setVisible(true));
         
     }
 
