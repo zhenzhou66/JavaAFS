@@ -68,8 +68,9 @@
                               <Component id="logOut" max="32767" attributes="0"/>
                               <Component id="viewResult" alignment="0" max="32767" attributes="0"/>
                               <Component id="viewAssessments" alignment="0" max="32767" attributes="0"/>
-                              <Component id="viewClassSchedule" alignment="0" pref="113" max="32767" attributes="0"/>
+                              <Component id="viewClassSchedule" alignment="0" max="32767" attributes="0"/>
                               <Component id="profilePage" alignment="0" max="32767" attributes="0"/>
+                              <Component id="CreateFeedback" alignment="1" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel2" max="32767" attributes="0"/>
@@ -102,7 +103,9 @@
                           <Component id="viewResult" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="viewClassSchedule" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="190" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="CreateFeedback" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="149" max="-2" attributes="0"/>
                           <Component id="logOut" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -200,6 +203,14 @@
             </DimensionLayout>
           </Layout>
         </Container>
+        <Component class="javax.swing.JButton" name="CreateFeedback">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Create Feedback"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CreateFeedbackActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

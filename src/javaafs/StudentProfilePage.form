@@ -57,18 +57,16 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="logOut" pref="132" max="32767" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="viewResult" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="viewAssessments" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="viewClassSchedule" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="profilePage" alignment="0" min="-2" pref="113" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="viewResult" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="viewAssessments" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="viewClassSchedule" alignment="0" pref="132" max="32767" attributes="0"/>
+                                  <Component id="profilePage" alignment="0" max="32767" attributes="0"/>
                               </Group>
+                              <Component id="CreateFeedback" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -97,10 +95,12 @@
                           <Component id="viewResult" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="viewClassSchedule" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="CreateFeedback" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="logOut" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jPanel2" max="32767" attributes="0"/>
+                      <Component id="jPanel4" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -171,7 +171,7 @@
             <Property name="text" type="java.lang.String" value="yourRole"/>
           </Properties>
         </Component>
-        <Container class="javax.swing.JPanel" name="jPanel2">
+        <Container class="javax.swing.JPanel" name="jPanel4">
 
           <Layout>
             <DimensionLayout dim="0">
@@ -182,11 +182,11 @@
                               <EmptySpace pref="245" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="editbtn" min="-2" pref="122" max="-2" attributes="0"/>
+                                      <Component id="editbtn2" min="-2" pref="122" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="savebtn" min="-2" pref="124" max="-2" attributes="0"/>
+                                      <Component id="savebtn2" min="-2" pref="124" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="statustxt" alignment="1" min="-2" pref="200" max="-2" attributes="0"/>
+                                  <Component id="statustxt2" alignment="1" min="-2" pref="200" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
@@ -195,31 +195,31 @@
                                       <Group type="102" attributes="0">
                                           <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="namelbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="useridlbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="rolelbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="profilelbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="namelbl2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="useridlbl2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="rolelbl2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="profilelbl2" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="phonelbl" min="-2" max="-2" attributes="0"/>
+                                          <Component id="phonelbl2" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                                      <Component id="emaillbl" min="-2" pref="40" max="-2" attributes="0"/>
+                                      <Component id="emaillbl2" min="-2" pref="40" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="phonetxt" pref="355" max="32767" attributes="0"/>
-                                  <Component id="roletxt" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="nametxt" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="emailtxt" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="useridtxt" max="32767" attributes="0"/>
+                                  <Component id="phonetxt2" pref="355" max="32767" attributes="0"/>
+                                  <Component id="roletxt2" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="nametxt2" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="emailtxt2" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="useridtxt2" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -231,43 +231,43 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="profilelbl" min="-2" max="-2" attributes="0"/>
+                      <Component id="profilelbl2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="nametxt" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="namelbl" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="nametxt2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="namelbl2" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="phonetxt" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="emaillbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="phonetxt2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="emaillbl2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="phonelbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="emailtxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="phonelbl2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="emailtxt2" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="rolelbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="roletxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rolelbl2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="roletxt2" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="useridlbl" min="-2" max="-2" attributes="0"/>
+                              <Component id="useridlbl2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
-                              <Component id="useridtxt" min="-2" max="-2" attributes="0"/>
+                              <Component id="useridtxt2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="38" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="savebtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="editbtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="savebtn2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="editbtn2" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="statustxt" min="-2" max="-2" attributes="0"/>
+                              <Component id="statustxt2" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
@@ -276,7 +276,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="profilelbl">
+            <Component class="javax.swing.JLabel" name="profilelbl2">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="18" style="1"/>
@@ -284,7 +284,7 @@
                 <Property name="text" type="java.lang.String" value="PROFILE"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="namelbl">
+            <Component class="javax.swing.JLabel" name="namelbl2">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
@@ -292,7 +292,7 @@
                 <Property name="text" type="java.lang.String" value="Name"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="nametxt">
+            <Component class="javax.swing.JTextField" name="nametxt2">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
               </Properties>
@@ -300,7 +300,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nametxtActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="rolelbl">
+            <Component class="javax.swing.JLabel" name="rolelbl2">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
@@ -308,19 +308,19 @@
                 <Property name="text" type="java.lang.String" value="Role"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="phonetxt">
+            <Component class="javax.swing.JTextField" name="phonetxt2">
             </Component>
-            <Component class="javax.swing.JTextField" name="emailtxt">
+            <Component class="javax.swing.JTextField" name="emailtxt2">
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="emailtxtActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="roletxt">
+            <Component class="javax.swing.JTextField" name="roletxt2">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="emaillbl">
+            <Component class="javax.swing.JLabel" name="emaillbl2">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
@@ -328,7 +328,7 @@
                 <Property name="text" type="java.lang.String" value="Email"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="phonelbl">
+            <Component class="javax.swing.JLabel" name="phonelbl2">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
@@ -336,7 +336,7 @@
                 <Property name="text" type="java.lang.String" value="Phone Number"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="editbtn">
+            <Component class="javax.swing.JButton" name="editbtn2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Edit Password"/>
               </Properties>
@@ -344,7 +344,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editbtnActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="useridlbl">
+            <Component class="javax.swing.JLabel" name="useridlbl2">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
@@ -352,12 +352,12 @@
                 <Property name="text" type="java.lang.String" value="UserID"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="useridtxt">
+            <Component class="javax.swing.JTextField" name="useridtxt2">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="savebtn">
+            <Component class="javax.swing.JButton" name="savebtn2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="SAVE"/>
               </Properties>
@@ -365,7 +365,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="savebtnActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="statustxt">
+            <Component class="javax.swing.JTextField" name="statustxt2">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -378,6 +378,14 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="CreateFeedback">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Create Feedback"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CreateFeedbackActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
