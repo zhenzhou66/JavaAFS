@@ -1,5 +1,10 @@
-grade,minScore
-D,20
-C,40
-B,60
-A,80
+grade,minMark,maxMark,description
+A+,90,100,Distinction
+A,80,89,Distinction
+B+,70-79,Credit
+B,60,69,Credit
+C+,50,59,Pass
+C,45-49,Pass
+D,40,44,Pass
+E,35,39,Fail
+F,0,34,Fail
