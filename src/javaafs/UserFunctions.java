@@ -202,6 +202,25 @@ public class UserFunctions {
     
         writeCSV(filePath, data);
     }
+    
+    public static String calculateGrade(int mark, List<String[]> grdCriteria) {
+        if (grdCriteria == null) return "N/A";
+
+        for (String[] gradeRow : grdCriteria) {
+            try {
+                int min = Integer.parseInt(gradeRow[1].trim());
+                int max = Integer.parseInt(gradeRow[2].trim());
+
+                if (mark >= min && mark <= max) {
+                    return gradeRow[0]; // Returns 'A', 'B', etc.
+                }
+            } catch (NumberFormatException e) {
+                // Skips rows that aren't numbers (like headers)
+                continue;
+            }
+        }
+        return "N/A";
+    }
 }
 
     

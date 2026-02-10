@@ -10,3 +10,9 @@ A006,asmn005,S01,True,False,True,True,True
 A007,asmn009,S01,True,True,True,True,True
 A008,asmn003,S01,True,True,True,True,True
 A009,asmn009,S01,True,False,True,True,True
+A010,asmn011,S01,False,False,False,True,True
+A011,asmn011,S01,True,True,True,True,True
+A012,asmn011,S01,False,False,False,True,True
+A013,asmn011,S01,False,False,False,True,True
+A014,asmn011,S01,True,True,True,False,False
+A015,asmn011,S01,False,False,True,True,True
