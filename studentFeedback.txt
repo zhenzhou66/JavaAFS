@@ -1,3 +1,3 @@
 feedbackID,studentID,lecturerID,moduleID,feedback,rating
-F001,S01,L02,,he is very nice to me he is very nice to mehe is very nice to mehe is very nice to mehe is very nice to mehe is very nice to mehe is very nice to me,5
-F002,S01,L02,M002,Enter Feedback for your Lecturer,4
+F001,S01,L01,,he is very nice to me he is very nice to mehe is very nice to mehe is very nice to mehe is very nice to mehe is very nice to mehe is very nice to me,5
+F002,S01,L01,M002,Enter Feedback for your Lecturer,4

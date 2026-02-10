@@ -5,6 +5,8 @@
 package javaafs;
 
 import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,13 +20,17 @@ public class LecturerViewFeedbackList extends javax.swing.JFrame {
      * Creates new form Lecturer
      */
     protected List<String[]> userArray;
+    protected List<String[]> FeedbackArray;
     UserFunctions func = new UserFunctions();
 
     public String Role = "";
     public String UserID = "";
+    public String ModuleID = "";
+    
     
     public LecturerViewFeedbackList() {
         userArray = func.readCSV("users.txt");
+        FeedbackArray = func.readCSV("studentFeedback.txt");
         initComponents();
     }
     
@@ -32,6 +38,7 @@ public class LecturerViewFeedbackList extends javax.swing.JFrame {
         this();               
         this.UserID = UserID; 
         loadUserData(UserID); 
+        loadFeedbackList();
     }
 
     
@@ -44,11 +51,31 @@ public class LecturerViewFeedbackList extends javax.swing.JFrame {
         if (user[0].equalsIgnoreCase(userid)) {
             lecturerName.setText(user[3]);
             userRole.setText(user[2]);
+            ModuleID = user[6];
             break;
         }
     }
 }
 
+    private void loadFeedbackList() {
+    DefaultListModel<String> model = new DefaultListModel<>();
+
+    if (ModuleID == null || ModuleID.isEmpty()) {
+        feedbackList.setModel(model);
+        return;
+    }
+
+    // Loop through assessmentQuestions.txt data
+    for (String[] feedback : FeedbackArray) {
+        // Index 1 is the moduleID in assessmentQuestions.txt
+        if (feedback[2].equalsIgnoreCase(UserID)) {
+            // Index 0 is the assessmentID
+            model.addElement(feedback[0]);
+        }
+    }
+
+    feedbackList.setModel(model);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -68,8 +95,8 @@ public class LecturerViewFeedbackList extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
+        feedbackList = new javax.swing.JList<>();
+        ViewButton = new javax.swing.JButton();
         designAsgmnt = new javax.swing.JButton();
         resultAsgmnt = new javax.swing.JButton();
         viewFeedback = new javax.swing.JButton();
@@ -108,17 +135,17 @@ public class LecturerViewFeedbackList extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jLabel2.setText("Select Student to view their feedback.");
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+        feedbackList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList2);
+        jScrollPane2.setViewportView(feedbackList);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        ViewButton.setText("View");
+        ViewButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ViewButtonActionPerformed(evt);
             }
         });
 
@@ -139,7 +166,7 @@ public class LecturerViewFeedbackList extends javax.swing.JFrame {
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(ViewButton)
                 .addGap(17, 17, 17))
         );
         jPanel2Layout.setVerticalGroup(
@@ -152,7 +179,7 @@ public class LecturerViewFeedbackList extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(ViewButton)
                 .addGap(15, 15, 15))
         );
 
@@ -269,9 +296,17 @@ public class LecturerViewFeedbackList extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_viewFeedbackActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void ViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewButtonActionPerformed
+        String selectedAssessment = feedbackList.getSelectedValue();
+
+        if (selectedAssessment == null) {
+            JOptionPane.showMessageDialog(this, "Please select a Student first.");
+        } else {
+            LecturerViewStudentFB viewFB = new LecturerViewStudentFB(UserID, selectedAssessment);
+            viewFB.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_ViewButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -299,11 +334,11 @@ public class LecturerViewFeedbackList extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ViewButton;
     private javax.swing.JButton designAsgmnt;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JList<String> feedbackList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;

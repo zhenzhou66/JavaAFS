@@ -5,6 +5,9 @@
 package javaafs;
 
 import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  *
@@ -18,37 +21,75 @@ public class LecturerViewStudentFB extends javax.swing.JFrame {
      * Creates new form Lecturer
      */
     protected List<String[]> userArray;
+    protected List<String[]> FeedbackArray;
     UserFunctions func = new UserFunctions();
 
     public String Role = "";
     public String UserID = "";
+    public String FeedbackID = "";
+    
+    
     
     public LecturerViewStudentFB() {
         userArray = func.readCSV("users.txt");
+        FeedbackArray = func.readCSV("studentFeedback.txt");
         initComponents();
     }
     
-    public LecturerViewStudentFB(String UserID) {
+    public LecturerViewStudentFB(String UserID, String feedbackID) {
         this();               
         this.UserID = UserID; 
+        this.FeedbackID = feedbackID;
         loadUserData(UserID); 
+        loadFeedback();
     }
 
     
     private void loadUserData(String userid) {
-    if (userArray == null || userArray.isEmpty()) 
-        return;
+        if (userArray == null || userArray.isEmpty()) 
+            return;
 
-    for (int i = 0; i < userArray.size(); i++) {
-        String[] user = userArray.get(i);
-        if (user[0].equalsIgnoreCase(userid)) {
-            lecturerName.setText(user[3]);
-            userRole.setText(user[2]);
-            break;
+        for (int i = 0; i < userArray.size(); i++) {
+            String[] user = userArray.get(i);
+            if (user[0].equalsIgnoreCase(userid)) {
+                lecturerName.setText(user[3]);
+                userRole.setText(user[2]);
+                
+                break;
+            }
+        }
+    }   
+    private void loadFeedback() {
+
+        for (String[] feedback : FeedbackArray) {
+            // Index 1 is the moduleID in assessmentQuestions.txt
+            if (feedback[0].equalsIgnoreCase(FeedbackID)) {
+                // Index 0 is the assessmentID
+                feedbackText.setText(feedback[4]);
+                
+                int rating = Integer.parseInt(feedback[5]);
+                updateStarIcons(rating);
+            }
+        }
+    }
+    
+    private void updateStarIcons(int rating) {
+    // Define your icons
+    ImageIcon yellow = new ImageIcon("src/images/yellowStar.png");
+    ImageIcon black = new ImageIcon("src/images/blackStar.png");
+
+    // Put your JLabels into an array for easy looping
+    JLabel[] stars = {Star1, Star2, Star3, Star4, Star5};
+
+    for (int i = 0; i < stars.length; i++) {
+        // If the current index is less than the rating, make it yellow
+        if (i < rating) {
+            stars[i].setIcon(yellow);
+        } else {
+            stars[i].setIcon(black);
         }
     }
 }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,6 +106,16 @@ public class LecturerViewStudentFB extends javax.swing.JFrame {
         lecturerName = new javax.swing.JLabel();
         userRole = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        asmnTitle = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        feedbackText = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        Star1 = new javax.swing.JLabel();
+        Star2 = new javax.swing.JLabel();
+        Star3 = new javax.swing.JLabel();
+        Star4 = new javax.swing.JLabel();
+        Star5 = new javax.swing.JLabel();
+        ratingTitle = new javax.swing.JLabel();
         designAsgmnt = new javax.swing.JButton();
         resultAsgmnt = new javax.swing.JButton();
         viewFeedback = new javax.swing.JButton();
@@ -97,15 +148,70 @@ public class LecturerViewStudentFB extends javax.swing.JFrame {
         userRole.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         userRole.setText("yourRole");
 
+        asmnTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        asmnTitle.setText("Feedback");
+
+        feedbackText.setColumns(20);
+        feedbackText.setRows(5);
+        jScrollPane1.setViewportView(feedbackText);
+
+        jLabel1.setText("Feedback Comment");
+
+        Star1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/blackStar.png"))); // NOI18N
+
+        Star2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/blackStar.png"))); // NOI18N
+
+        Star3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/blackStar.png"))); // NOI18N
+
+        Star4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/blackStar.png"))); // NOI18N
+
+        Star5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/blackStar.png"))); // NOI18N
+
+        ratingTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        ratingTitle.setText("Rating");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 574, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ratingTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(Star2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Star3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Star1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Star4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Star5))
+                    .addComponent(jLabel1)
+                    .addComponent(asmnTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 358, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(asmnTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(ratingTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(2, 2, 2)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Star1)
+                    .addComponent(Star3)
+                    .addComponent(Star2)
+                    .addComponent(Star5)
+                    .addComponent(Star4))
+                .addGap(678, 678, 678))
         );
 
         designAsgmnt.setText("Design Assessment");
@@ -138,16 +244,16 @@ public class LecturerViewStudentFB extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(pageTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 331, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lecturerName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(userRole, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(logOut, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                            .addComponent(logOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(profilePage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(designAsgmnt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(resultAsgmnt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(resultAsgmnt, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
                             .addComponent(viewFeedback, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -171,11 +277,11 @@ public class LecturerViewStudentFB extends javax.swing.JFrame {
                         .addComponent(designAsgmnt)
                         .addGap(25, 25, 25)
                         .addComponent(resultAsgmnt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(viewFeedback)
-                        .addGap(175, 175, 175)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
                         .addComponent(logOut))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -183,7 +289,7 @@ public class LecturerViewStudentFB extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,13 +353,23 @@ public class LecturerViewStudentFB extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Star1;
+    private javax.swing.JLabel Star2;
+    private javax.swing.JLabel Star3;
+    private javax.swing.JLabel Star4;
+    private javax.swing.JLabel Star5;
+    private javax.swing.JLabel asmnTitle;
     private javax.swing.JButton designAsgmnt;
+    private javax.swing.JTextArea feedbackText;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lecturerName;
     private javax.swing.JButton logOut;
     private javax.swing.JLabel pageTitle;
     private javax.swing.JButton profilePage;
+    private javax.swing.JLabel ratingTitle;
     private javax.swing.JButton resultAsgmnt;
     private javax.swing.JLabel userRole;
     private javax.swing.JButton viewFeedback;

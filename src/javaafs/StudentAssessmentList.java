@@ -339,7 +339,7 @@ public class StudentAssessmentList extends javax.swing.JFrame {
         String selectedAssessment = asmntList.getSelectedValue();
 
         if (selectedAssessment == null) {
-            JOptionPane.showMessageDialog(this, "Please select an item first.");
+            JOptionPane.showMessageDialog(this, "Please select a quiz.");
         } else {
             StudentAssessmentAnswer ansPage = new StudentAssessmentAnswer(UserID, selectedAssessment);
             ansPage.setVisible(true);
