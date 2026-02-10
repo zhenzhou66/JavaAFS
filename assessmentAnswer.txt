@@ -1,3 +1,5 @@
 answerID,assessmentID,StudentID,a1,a2,a3,a4,a5
 ans001,asmn008,S01,False,False,True,True,True
 ans002,asmn001,S01,True,False,False,True,False
+A001,,,True,True,True,True,True
+A002,asmn001,S01,True,True,False,True,True

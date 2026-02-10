@@ -14,44 +14,113 @@ public class ModuleReport extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ModuleReport.class.getName());
 
-    protected List<String[]> modules;
+    protected List<String[]> student;
+    protected List<String[]> modules;    
+    protected List<String[]> assessmentQuestion;
+    protected List<String[]> assessmentResult;
 
     private UserFunctions func = new UserFunctions();
     
     private String moduleID;
     private String moduleName;
-    private int totalStudents = getStudentCount(moduleID);
-    private double avgGrade = calculateAverageGrade(moduleID);
-    private double passRate = calculatePassRate(moduleID);
-
+//    private int totalStudents = getStudentCount();
+    private double avgGrade = calculateAverageGrade();
+//    private double passRate = calculatePassRate();
+    
+    public ModuleReport() {
+    };
     
     public ModuleReport(String moduleID) {
+        student = func.readCSV("users.txt");
+        modules = func.readCSV("modules.txt");
+        assessmentQuestion = func.readCSV("assessmentQuestion.txt");         
+        assessmentResult = func.readCSV("assessmentResult.txt"); 
         this.moduleID = moduleID;
-//        this.moduleName = getModulesName(moduleID);
+        loadModulesName();
+//        totalStudents = getStudentCount();
+        avgGrade = calculateAverageGrade();
+//        passRate = calculatePassRate();
         initComponents();
         loadModuleReport(moduleID);
     }
-
-private int getStudentCount(String moduleID) {
-    int count = 0;
-    for (int i = 0; i < results.length; i++) {
-        if (results[i][1].equals(moduleID)) {
-            count++;
+    
+    private void loadModulesName() {
+        moduleName = "";
+        for (String[] module : modules) {
+            if (module[0].equalsIgnoreCase(moduleID)) {
+                moduleName = module[1];
+                break;
+            }
         }
     }
-    return count;
-}
 
-private void loadModuleReport(String moduleID) {
-    moduleidtxt.setText(moduleID);
-    modulenametxt.setText(moduleName);
-    numberstudenttxt.setText(String.valueOf(totalStudents));
-    averagegradetxt.setText(String.format("%.2f", avgGrade));
-    passratetxt.setText(String.format("%.1f%%", passRate));
+//    private int getStudentCount(String moduleID) {
+//        int count = 0;
+//        
+//        for (int i = 0; i < results.length; i++) {
+//            if (results[i][1].equals(moduleID)) {
+//                count++;
+//            }
+//        }
+//        return count;
+//    }
+
+    private int getAssessmentCount() {
+        int count = 0;
+        for (String[] assessment : assessmentQuestion) {
+            if (assessment[1].equalsIgnoreCase(moduleID)) {
+                count++;
+            }
+        }
+        return count;
     }
-}
+    
+    private double calculateAverageGrade() {
+        int totalMarks = 0;
+        int totalAssessments = getAssessmentCount();
+        
+        if (totalAssessments == 0) return 0;
+        
+        for (String[] result : assessmentResult) {
+            String assessmentID = result[2];
+            totalMarks += Integer.parseInt(result[3]);
+        }
+        return (double) totalMarks / totalAssessments;
+    }
+    
+//    private double calculatePassRate(String moduleID) {
+//        int totalStudents = 0;
+//        int studentsPassed = 0;
+//        return 0; 
+//    }
+    
+    private void loadModuleReport(String moduleID) {
+        moduleidtxt.setText(moduleID);
+        modulenametxt.setText(moduleName);
+//        numberstudenttxt.setText(String.valueOf(totalStudents));
+        averagegradetxt.setText(String.format("%.2f", avgGrade));
+//        passratetxt.setText(String.format("%.1f%%", passRate));
+    }
 
-
+//    private String calculateGrade(int marks, int totalQuestions) {
+//        double percentage = (marks * 100.0) / totalQuestions;
+//        
+//        if (percentage >= 80) {
+//            return "A";
+//        }
+//        else if (percentage >= 70 && percentage < 80) {
+//            return "B";
+//        }
+//        else if (percentage >= 60 && percentage < 70) {
+//            return "C";
+//        }
+//        else if (percentage >= 50 && percentage < 60) {
+//            return "D";
+//        }
+//        else {
+//            return "F";
+//        }
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.

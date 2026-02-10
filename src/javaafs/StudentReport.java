@@ -4,6 +4,8 @@
  */
 package javaafs;
 
+import java.util.List;
+
 /**
  *
  * @author junjun
@@ -12,12 +14,37 @@ public class StudentReport extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(StudentReport.class.getName());
 
-    /**
-     * Creates new form StudentReport
-     */
+    protected List<String[]> userArray;
+    UserFunctions func = new UserFunctions();
+
+    public String Role = "";
+    public String UserID = "";
+        
     public StudentReport() {
+        userArray = func.readCSV("users.txt");
         initComponents();
     }
+    
+    public StudentReport(String UserID) {
+        this();               
+        this.UserID = UserID; 
+        loadUserData(UserID); 
+    }
+
+    
+    private void loadUserData(String userid) {
+    if (userArray == null || userArray.isEmpty()) 
+        return;
+
+    for (int i = 0; i < userArray.size(); i++) {
+        String[] user = userArray.get(i);
+        if (user[0].equalsIgnoreCase(userid)) {
+//            studentName.setText(user[3]);
+//            userRole.setText(user[2]);
+            break;
+        }
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.

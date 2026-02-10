@@ -106,26 +106,6 @@ public class StudentAssessmentAnswer extends javax.swing.JFrame {
         return marks;
     }  
     
-//    private String calculateGrade(int marks, int totalQuestions) {
-//        double percentage = (marks * 100.0) / totalQuestions;
-//        
-//        if (percentage >= 80) {
-//            return "A";
-//        }
-//        else if (percentage >= 70 && percentage < 80) {
-//            return "B";
-//        }
-//        else if (percentage >= 60 && percentage < 70) {
-//            return "C";
-//        }
-//        else if (percentage >= 50 && percentage < 60) {
-//            return "D";
-//        }
-//        else {
-//            return "F";
-//        }
-//    }
-    
     private void saveAnswer() {
         // Answers from ComboBoxes
         this.A1 = Ans1.getSelectedItem().toString();
@@ -173,7 +153,6 @@ public class StudentAssessmentAnswer extends javax.swing.JFrame {
         
         JOptionPane.showMessageDialog(this, "Submitted successfully!");
     }
-}
 
 
     /**
@@ -461,15 +440,15 @@ public class StudentAssessmentAnswer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void profilePageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilePageActionPerformed
-//        StudentProfilePage StuProfile = new StudentProfilePage(UserID);
-//        this.setVisible(false);
-//        StuProfile.setVisible(true);
+        StudentProfilePage StuProfile = new StudentProfilePage(UserID);
+        this.setVisible(false);
+        StuProfile.setVisible(true);
     }//GEN-LAST:event_profilePageActionPerformed
 
     private void viewAssessmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAssessmentsActionPerformed
-//        StudentAssessmentList StuAsmntList = new StudentAssessmentList(UserID);
-//        this.setVisible(false);
-//        StuAsmntList.setVisible(true);
+        StudentAssessmentList StuAsmntList = new StudentAssessmentList(UserID);
+        this.setVisible(false);
+        StuAsmntList.setVisible(true);
     }//GEN-LAST:event_viewAssessmentsActionPerformed
 
     private void viewClassScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewClassScheduleActionPerformed
@@ -516,27 +495,27 @@ public class StudentAssessmentAnswer extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-//            logger.log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(() -> new StudentAssessmentAnswer().setVisible(true));
-//    }
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> new StudentAssessmentAnswer().setVisible(true));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> Ans1;
