@@ -15,6 +15,9 @@ public class LecturerReport extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LecturerReport.class.getName());
 
     protected List<String[]> userArray;
+    protected List<String[]> modules;
+    protected List<String[]> feedback;
+    
     UserFunctions func = new UserFunctions();
 
     public String Role = "";
@@ -44,6 +47,12 @@ public class LecturerReport extends javax.swing.JFrame {
             break;
         }
     }
+    
+    
+    
+    
+    
+    
 }
 
     /**
@@ -55,21 +64,140 @@ public class LecturerReport extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lecturerreportlbl = new javax.swing.JLabel();
+        lectureridlbl = new javax.swing.JLabel();
+        lecturernamelbl = new javax.swing.JLabel();
+        lectureridtxt = new javax.swing.JTextField();
+        lecturernametxt = new javax.swing.JTextField();
+        ratinglbl = new javax.swing.JLabel();
+        ratingtxt = new javax.swing.JTextField();
+        assessmentnumlbl = new javax.swing.JLabel();
+        assessmentnumtxt = new javax.swing.JTextField();
+        backbtn = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        numberfeedbacktxt = new javax.swing.JTextField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        lecturerreportlbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lecturerreportlbl.setText("LECTURER REPORT");
+
+        lectureridlbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lectureridlbl.setText("Lecturer ID");
+
+        lecturernamelbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lecturernamelbl.setText("Lecturer Name");
+
+        lectureridtxt.setEditable(false);
+
+        lecturernametxt.setEditable(false);
+        lecturernametxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lecturernametxtActionPerformed(evt);
+            }
+        });
+
+        ratinglbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ratinglbl.setText("Rating");
+
+        ratingtxt.setEditable(false);
+
+        assessmentnumlbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        assessmentnumlbl.setText("Assessment Created");
+
+        assessmentnumtxt.setEditable(false);
+
+        backbtn.setText("BACK");
+        backbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backbtnActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setText("Number of Feedback ");
+
+        numberfeedbacktxt.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lecturerreportlbl)
+                .addGap(109, 109, 109))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(ratinglbl)
+                    .addComponent(assessmentnumlbl)
+                    .addComponent(lecturernamelbl))
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lecturernametxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lectureridtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(assessmentnumtxt, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(ratingtxt, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(numberfeedbacktxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)))
+                .addContainerGap(28, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(4, 4, 4)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lectureridlbl)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(139, 139, 139)
+                            .addComponent(backbtn)))
+                    .addContainerGap(220, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(lecturerreportlbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lectureridtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lecturernametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lecturernamelbl))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(numberfeedbacktxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ratingtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ratinglbl))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(assessmentnumtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(assessmentnumlbl))
+                .addContainerGap(56, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap(68, Short.MAX_VALUE)
+                    .addComponent(lectureridlbl)
+                    .addGap(185, 185, 185)
+                    .addComponent(backbtn)
+                    .addGap(4, 4, 4)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
+        AcadLeadReport acadleadreport = new AcadLeadReport();
+        this.setVisible(false);
+        acadleadreport.setVisible(true);
+    }//GEN-LAST:event_backbtnActionPerformed
+
+    private void lecturernametxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lecturernametxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lecturernametxtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -97,5 +225,17 @@ public class LecturerReport extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel assessmentnumlbl;
+    private javax.swing.JTextField assessmentnumtxt;
+    private javax.swing.JButton backbtn;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel lectureridlbl;
+    private javax.swing.JTextField lectureridtxt;
+    private javax.swing.JLabel lecturernamelbl;
+    private javax.swing.JTextField lecturernametxt;
+    private javax.swing.JLabel lecturerreportlbl;
+    private javax.swing.JTextField numberfeedbacktxt;
+    private javax.swing.JLabel ratinglbl;
+    private javax.swing.JTextField ratingtxt;
     // End of variables declaration//GEN-END:variables
 }

@@ -34,7 +34,7 @@ public class ModuleReport extends javax.swing.JFrame {
         this.moduleID = moduleID;
         loadModulesName();
         calculateGrade();
-       initComponents();
+        initComponents();
         loadModuleReport();
     }
     
