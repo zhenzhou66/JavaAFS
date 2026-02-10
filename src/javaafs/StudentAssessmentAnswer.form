@@ -48,19 +48,22 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="pageTitle" min="-2" pref="271" max="-2" attributes="0"/>
-                          <EmptySpace pref="331" max="32767" attributes="0"/>
+                          <EmptySpace pref="337" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lecturerName" alignment="1" min="-2" pref="126" max="-2" attributes="0"/>
                               <Component id="userRole" alignment="1" min="-2" pref="97" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="logOut" max="32767" attributes="0"/>
-                              <Component id="viewResult" alignment="0" max="32767" attributes="0"/>
-                              <Component id="viewAssessments" alignment="0" max="32767" attributes="0"/>
-                              <Component id="viewClassSchedule" alignment="0" pref="113" max="32767" attributes="0"/>
-                              <Component id="profilePage" alignment="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="logOut" max="32767" attributes="0"/>
+                                  <Component id="viewResult" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="viewAssessments" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="viewClassSchedule" alignment="0" pref="113" max="32767" attributes="0"/>
+                                  <Component id="profilePage" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="CreateFeedback" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel2" max="32767" attributes="0"/>
@@ -92,7 +95,9 @@
                           <Component id="viewResult" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="viewClassSchedule" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="189" max="32767" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="CreateFeedback" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="logOut" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jPanel2" max="32767" attributes="0"/>
@@ -405,6 +410,14 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="CreateFeedback">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Create Feedback"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CreateFeedbackActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
