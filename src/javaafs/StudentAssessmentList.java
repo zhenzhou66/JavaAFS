@@ -305,7 +305,7 @@ public class StudentAssessmentList extends javax.swing.JFrame {
     }//GEN-LAST:event_profilePageActionPerformed
 
     private void viewAssessmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAssessmentsActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_viewAssessmentsActionPerformed
 
     private void viewClassScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewClassScheduleActionPerformed

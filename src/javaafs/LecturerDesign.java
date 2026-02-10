@@ -91,27 +91,7 @@ public class LecturerDesign extends javax.swing.JFrame {
     return null; // Return null if no module is found for this lecturer
     }
     
-    private String generateNextAsmtID() {
-    int maxID = 0;
-
-    // 1. Loop through existing assessments to find the highest number
-    for (String[] row : assessmentQuestion) {
-        try {
-            // Assume format "asmn001" -> extract "001"
-            String idNumber = row[0].replace("asmn", "");
-            int currentID = Integer.parseInt(idNumber);
-            if (currentID > maxID) {
-                maxID = currentID;
-            }
-        } catch (Exception e) {
-            // Skip rows that don't match the format
-        }
-    }
-
-    // 2. Increment the ID and format it back to "asmn000"
-    int nextID = maxID + 1;
-    return String.format("asmn%03d", nextID); 
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -405,7 +385,7 @@ public class LecturerDesign extends javax.swing.JFrame {
         this.A5 = Ans5.getSelectedItem().toString();
 
         // 2. DummyID
-        String asmtID = generateNextAsmtID(); 
+        String asmtID = func.generateNextID("assessmentQuestion.txt", "asmn"); 
 
         // 3. create new assessment question row
         String[] newRecord = {
