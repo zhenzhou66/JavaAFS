@@ -5,6 +5,7 @@
 package javaafs;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -57,32 +58,102 @@ public class StudentAssessmentAnswer extends javax.swing.JFrame {
 
     
     private void loadData(String userid, String assessmentid) {
-    if (userArray == null || userArray.isEmpty()) 
-        return;
+        if (userArray == null || userArray.isEmpty()) 
+            return;
 
-    for (int i = 0; i < userArray.size(); i++) {
-        String[] user = userArray.get(i);
-        if (user[0].equalsIgnoreCase(userid)) {
-            lecturerName.setText(user[3]);
-            userRole.setText(user[2]);
-            ModuleID = user[6];
-            break;
+        for (int i = 0; i < userArray.size(); i++) {
+            String[] user = userArray.get(i);
+            if (user[0].equalsIgnoreCase(userid)) {
+                lecturerName.setText(user[3]);
+                userRole.setText(user[2]);
+                ModuleID = user[6];
+                break;
+            }
         }
-    }
-    for (int i = 0; i < assessmentQuestion.size(); i++) {
-        String[] quiz = assessmentQuestion.get(i);
-        if (quiz[0].equalsIgnoreCase(assessmentid)) {
-            asmnTitle.setText(AssessmentID.toUpperCase());
-            qs1.setText(quiz[2]);
-            qs2.setText(quiz[3]);
-            qs3.setText(quiz[4]);
-            qs4.setText(quiz[5]);
-            qs5.setText(quiz[6]);
-            break;
+        for (int i = 0; i < assessmentQuestion.size(); i++) {
+            String[] quiz = assessmentQuestion.get(i);
+            if (quiz[0].equalsIgnoreCase(assessmentid)) {
+                asmnTitle.setText(AssessmentID.toUpperCase());
+                qs1.setText(quiz[2]);
+                qs2.setText(quiz[3]);
+                qs3.setText(quiz[4]);
+                qs4.setText(quiz[5]);
+                qs5.setText(quiz[6]);
+                break;
+            }
         }
     }
     
-}
+    private String[] getCorrectAnswer() {
+        for (String[] answer : assessmentAnswer) {
+            if (answer[1].equalsIgnoreCase(AssessmentID)) {
+                return answer;
+            }
+        }
+        return null;
+    }
+    
+    private int calculateMarks(String[] correctAnswer) {
+        int marks = 0;
+
+        String[] studentAnswer = {A1, A2, A3, A4, A5};
+
+        for (int i = 0; i < 5; i++) {
+            if (studentAnswer[i].equalsIgnoreCase(correctAnswer[i + 3])) {
+                marks++;
+            }
+        }
+        return marks;
+    }  
+    
+    private void saveAnswer() {
+        // Answers from ComboBoxes
+        this.A1 = Ans1.getSelectedItem().toString();
+        this.A2 = Ans2.getSelectedItem().toString();
+        this.A3 = Ans3.getSelectedItem().toString();
+        this.A4 = Ans4.getSelectedItem().toString();
+        this.A5 = Ans5.getSelectedItem().toString();
+
+        // 2. generate new ID
+        String AnswerID = func.generateNextID("assessmentAnswer.txt", "A"); 
+
+        // 3. create new answer row
+        String[] newRecord = {
+            AnswerID, 
+            this.AssessmentID, 
+            this.UserID,
+            this.A1, this.A2, this.A3, this.A4, this.A5
+        };
+
+        // 4. update array and write to the text file
+        assessmentAnswer.add(newRecord);
+        func.writeCSV("assessmentAnswer.txt", assessmentAnswer);
+    }
+    
+//    private void saveResult(String AnswerID, String grade) {
+//        String ResultID = func.generateNextID("assessmentResult.txt", "R");
+//        String[] newResult = {ResultID, AnswerID, AssessmentID, grade};
+//        assessmentResult.add(newResult);
+//        
+//        func.writeCSV("assessmentResult.txt", assessmentResult);
+//    }
+
+    private void saveMarks() {
+        String[] correctAnswer = getCorrectAnswer();
+        if (correctAnswer == null) {
+            JOptionPane.showMessageDialog(this, "Correct answers not found!");
+            return;
+        }
+        int marks = calculateMarks(correctAnswer);
+        String ResultID = func.generateNextID("assessmentResult.txt", "R");
+        String[] newResult = { ResultID, UserID, AssessmentID};
+        assessmentResult.add(newResult);
+        
+        func.writeCSV("assessmentResult.txt", assessmentResult);
+        
+        JOptionPane.showMessageDialog(this, "Submitted successfully!");
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -417,29 +488,8 @@ public class StudentAssessmentAnswer extends javax.swing.JFrame {
     }//GEN-LAST:event_Ans1ActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-       // Answers from ComboBoxes
-        this.A1 = Ans1.getSelectedItem().toString();
-        this.A2 = Ans2.getSelectedItem().toString();
-        this.A3 = Ans3.getSelectedItem().toString();
-        this.A4 = Ans4.getSelectedItem().toString();
-        this.A5 = Ans5.getSelectedItem().toString();
-        
-        // 2. generate new ID
-        String asmtID = func.generateNextID("assessmentAnswer.txt", "ans"); 
-        
-        // 3. create new answer row
-        String[] newRecord = {
-            asmtID, 
-            this.AssessmentID, 
-            this.UserID,
-            this.A1, this.A2, this.A3, this.A4, this.A5
-        };
-        // 4. update array and write to the text file
-        assessmentAnswer.add(newRecord);
-        func.writeCSV("assessmentAnswer.txt", assessmentAnswer);
-
-        // 5. Success Message
-        javax.swing.JOptionPane.showMessageDialog(this, "Assessment Finished!");
+        saveAnswer();
+        saveMarks();
     }//GEN-LAST:event_submitButtonActionPerformed
 
     /**

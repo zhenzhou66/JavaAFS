@@ -182,7 +182,7 @@ private void saveUserProfile(){
 
         useridtxt.setEditable(false);
 
-        savebtn.setText("SAVE");
+        savebtn.setText("Save Changes");
         savebtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 savebtnActionPerformed(evt);
