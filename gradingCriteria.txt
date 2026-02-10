@@ -2,12 +2,5 @@ grade,minMark,maxMark,description
 A,80,100,Distinction
 B,60,79,Credit
 C,45,59,Pass
-Grade,Min Mark Range,Max Mark Range,Description
-A+,90,100,Distinction
-A,80,89,Distinction
-B+,70,79,Credit
-B,60,69,Credit
-C+,50,59,Pass
-C,45,49,Pass
 D,40,44,Pass
 F,0,39,Fail
