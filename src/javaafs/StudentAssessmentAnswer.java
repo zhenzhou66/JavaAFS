@@ -72,7 +72,7 @@ public class StudentAssessmentAnswer extends javax.swing.JFrame {
     for (int i = 0; i < assessmentQuestion.size(); i++) {
         String[] quiz = assessmentQuestion.get(i);
         if (quiz[0].equalsIgnoreCase(assessmentid)) {
-            asmnTitle.setText(AssessmentID);
+            asmnTitle.setText(AssessmentID.toUpperCase());
             qs1.setText(quiz[2]);
             qs2.setText(quiz[3]);
             qs3.setText(quiz[4]);
