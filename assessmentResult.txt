@@ -1,3 +1,8 @@
-resultID,answerID,assessmentID,mark,ModuleID
+resultID,studentID,assessmentID,mark,ModuleID
 R001,S01,asmn003,5,M001
 R002,S01,asmn009,4,M001
+R003,S01,asmn011,0,M002
+R004,S01,asmn011,0,M002
+R005,S01,asmn011,5,M002
+R006,S01,asmn011,0,M002
+R007,S01,asmn011,80,M002

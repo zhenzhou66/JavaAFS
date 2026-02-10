@@ -102,8 +102,9 @@ public class StudentAssessmentAnswer extends javax.swing.JFrame {
             if (studentAnswer[i].equalsIgnoreCase(correctAnswer[i + 3])) {
                 marks++;
             }
+            
         }
-        return marks;
+        return marks*20;
     }  
     
     private void saveAnswer() {
