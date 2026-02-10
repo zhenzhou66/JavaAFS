@@ -127,6 +127,45 @@ private void loadSelectedName() {
     }
 }
 
+private void viewReport(){
+    String reportType = (String) reporttypecbx.getSelectedItem();
+    String selectedID = (String) selectedidcbx.getSelectedItem();
+
+    if (reportType == null || selectedID == null) {
+        Status.setText("Please select report type and ID!");
+        return;
+    }
+    
+    switch (reportType) {
+        case "Module":
+            openModuleReport(selectedID);
+            break;
+
+        case "Lecturer":
+            openLecturerReport(selectedID);
+            break;
+
+        case "Student":
+            openStudentReport(selectedID);
+            break;
+    }
+}
+
+private void openModuleReport(String moduleID) {
+    ModuleReport report = new ModuleReport(moduleID);
+    report.setVisible(true);
+   }
+
+private void openLecturerReport(String lecturerID) {
+    LecturerReport report = new LecturerReport(lecturerID);
+    report.setVisible(true);
+    }
+
+private void openStudentReport(String studentID) {
+    StudentReport report = new StudentReport(studentID);
+    report.setVisible(true);
+        }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -154,6 +193,7 @@ private void loadSelectedName() {
         selectedname = new javax.swing.JLabel();
         selectednametxt = new javax.swing.JTextField();
         viewreportbtn = new javax.swing.JButton();
+        Status = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -215,6 +255,11 @@ private void loadSelectedName() {
         selectedid.setText("Selected ID");
 
         selectedidcbx.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selectedidcbx.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectedidcbxActionPerformed(evt);
+            }
+        });
 
         selectedname.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         selectedname.setText("Selected Name");
@@ -252,7 +297,8 @@ private void loadSelectedName() {
                             .addComponent(selectednametxt, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(89, 89, 89)
-                        .addComponent(viewreportbtn)))
+                        .addComponent(viewreportbtn))
+                    .addComponent(Status, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(164, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -272,7 +318,9 @@ private void loadSelectedName() {
                     .addComponent(selectednametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(66, 66, 66)
                 .addComponent(viewreportbtn)
-                .addGap(59, 59, 59))
+                .addGap(18, 18, 18)
+                .addComponent(Status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -379,18 +427,20 @@ private void loadSelectedName() {
     }//GEN-LAST:event_reportsbtnActionPerformed
 
     private void reporttypecbxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reporttypecbxActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_reporttypecbxActionPerformed
 
     private void viewreportbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewreportbtnActionPerformed
-        AcadLeadViewReport acadleadviewreport = new AcadLeadViewReport(UserID);
-        this.setVisible(false);
-        acadleadviewreport.setVisible(true);
+        viewReport();
     }//GEN-LAST:event_viewreportbtnActionPerformed
 
     private void selectednametxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectednametxtActionPerformed
         loadSelectedName();
     }//GEN-LAST:event_selectednametxtActionPerformed
+
+    private void selectedidcbxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectedidcbxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selectedidcbxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -419,6 +469,7 @@ private void loadSelectedName() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AcadLeadName;
+    private javax.swing.JTextField Status;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton logOut;
