@@ -84,10 +84,10 @@ public class StudentViewResults extends javax.swing.JFrame {
         String markStr = result[3];
         int mark = Integer.parseInt(markStr);
         
-        // Find the corresponding grade
+        //assign grade according to marks
         String grade = func.calculateGrade(mark, gradingCriteria);
         
-        // Add row to the table: AssessmentID, Marks, Grade
+        //add everything into table
         model.addRow(new Object[]{assessmentID, mark, grade});
     }
 }

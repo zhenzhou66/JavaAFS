@@ -332,7 +332,9 @@ public class StudentAssessmentList extends javax.swing.JFrame {
     }//GEN-LAST:event_logOutActionPerformed
 
     private void viewResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewResultActionPerformed
-        // TODO add your handling code here:
+        StudentViewResults viewResults = new StudentViewResults(UserID);
+        this.setVisible(false);
+        viewResults.setVisible(true);
     }//GEN-LAST:event_viewResultActionPerformed
 
     private void EnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterActionPerformed
