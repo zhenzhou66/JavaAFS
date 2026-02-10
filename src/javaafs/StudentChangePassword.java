@@ -387,7 +387,9 @@ private void changePassword() {
     }//GEN-LAST:event_profilePageActionPerformed
 
     private void viewAssessmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAssessmentsActionPerformed
-        // TODO add your handling code here:
+        StudentAssessmentList StuAsmntList = new StudentAssessmentList(UserID);
+        this.setVisible(false);
+        StuAsmntList.setVisible(true);
     }//GEN-LAST:event_viewAssessmentsActionPerformed
 
     private void viewClassScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewClassScheduleActionPerformed

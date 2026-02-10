@@ -5,64 +5,93 @@
 package javaafs;
 
 import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author zhenz
  */
-public class StudentMainMenu extends javax.swing.JFrame {
+public class StudentAssessmentList extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(StudentMainMenu.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(StudentAssessmentList.class.getName());
 
     /**
      * Creates new form Lecturer
      */
     protected List<String[]> userArray;
     protected List<String[]> moduleArray;
+    protected List<String[]> assessmentQuestions;
     UserFunctions func = new UserFunctions();
 
+    //user information
     public String Role = "";
     public String UserID = "";
+    public String ModuleID = "";
     public String ModuleName = "";
     
-    public StudentMainMenu() {
+    //assessmentInfo
+    
+    public StudentAssessmentList() {
         userArray = func.readCSV("users.txt");
         moduleArray = func.readCSV("modules.txt");
+        assessmentQuestions = func.readCSV("assessmentQuestion.txt");
+
         initComponents();
     }
     
-    public StudentMainMenu(String UserID) {
+    public StudentAssessmentList(String UserID) {
         this();               
         this.UserID = UserID; 
         loadUserData(UserID); 
+        loadAssessments();
     }
 
     
     private void loadUserData(String userid) {
-    if (userArray == null || userArray.isEmpty()) 
-        return;
-    
-    String userModuleID = "";
+        if (userArray == null || userArray.isEmpty()) 
+            return;
 
-    for (int i = 0; i < userArray.size(); i++) {
-        String[] user = userArray.get(i);
-        if (user[0].equalsIgnoreCase(userid)) {
-            lecturerName.setText(user[3]);
-            userRole.setText(user[2]); 
-            userModuleID = user[6];
-            break;
-        }
-    }
-    if (!userModuleID.isEmpty()) {
-        for (String[] module : moduleArray) {
-            if (module[0].equalsIgnoreCase(userModuleID)) {
-                this.ModuleName = module[1]; // Index 1 is moduleName in modules.txt
-                courseName.setText(this.ModuleName); 
+        ModuleID = "";
+
+        for (int i = 0; i < userArray.size(); i++) {
+            String[] user = userArray.get(i);
+            if (user[0].equalsIgnoreCase(userid)) {
+                lecturerName.setText(user[3]);
+                userRole.setText(user[2]);
+                ModuleID = user[6];
                 break;
             }
         }
+        if (!ModuleID.isEmpty()) {
+            for (String[] module : moduleArray) {
+                if (module[0].equalsIgnoreCase(ModuleID)) {
+                    this.ModuleName = module[1]; // Index 1 is moduleName in modules.txt
+                    courseName.setText(this.ModuleName); 
+                    break;
+                }
+            }
+        }
     }
-}
+    private void loadAssessments() {
+        DefaultListModel<String> model = new DefaultListModel<>();
+
+        if (ModuleID == null || ModuleID.isEmpty()) {
+            asmntList.setModel(model);
+            return;
+        }
+
+        // Loop through assessmentQuestions.txt data
+        for (String[] quiz : assessmentQuestions) {
+            // Index 1 is the moduleID in assessmentQuestions.txt
+            if (quiz[1].equalsIgnoreCase(ModuleID)) {
+                // Index 0 is the assessmentID
+                model.addElement(quiz[0]);
+            }
+        }
+
+        asmntList.setModel(model);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -84,13 +113,19 @@ public class StudentMainMenu extends javax.swing.JFrame {
         courseName = new javax.swing.JLabel();
         viewResult = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        asmntList = new javax.swing.JList<>();
+        Enter = new javax.swing.JButton();
+        selectedAssessment = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 204));
 
         pageTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        pageTitle.setText("STUDENT MAIN MENU");
+        pageTitle.setText("MAIN MENU");
 
         profilePage.setText("Profile");
         profilePage.addActionListener(new java.awt.event.ActionListener() {
@@ -138,15 +173,60 @@ public class StudentMainMenu extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Assessment List");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel2.setText("Select quiz and press Enter to start answering.");
+
+        asmntList.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        asmntList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "No Assessment" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(asmntList);
+
+        Enter.setText("Enter");
+        Enter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EnterActionPerformed(evt);
+            }
+        });
+
+        selectedAssessment.setText("Selected Asessment: ");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(selectedAssessment)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Enter, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(2, 2, 2)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Enter)
+                    .addComponent(selectedAssessment))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -157,17 +237,11 @@ public class StudentMainMenu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(pageTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 331, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(pageTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 331, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lecturerName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(userRole, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(courseName, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())
+                            .addComponent(lecturerName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userRole, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(logOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -176,7 +250,11 @@ public class StudentMainMenu extends javax.swing.JFrame {
                             .addComponent(viewClassSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
                             .addComponent(profilePage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(courseName, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,10 +266,10 @@ public class StudentMainMenu extends javax.swing.JFrame {
                         .addGap(1, 1, 1)
                         .addComponent(userRole))
                     .addComponent(pageTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(5, 5, 5)
+                .addGap(3, 3, 3)
                 .addComponent(courseName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(profilePage)
                         .addGap(18, 18, 18)
@@ -200,10 +278,10 @@ public class StudentMainMenu extends javax.swing.JFrame {
                         .addComponent(viewResult)
                         .addGap(18, 18, 18)
                         .addComponent(viewClassSchedule)
-                        .addGap(190, 190, 190)
-                        .addComponent(logOut)
-                        .addContainerGap())
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
+                        .addComponent(logOut))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -214,7 +292,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -227,9 +305,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_profilePageActionPerformed
 
     private void viewAssessmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAssessmentsActionPerformed
-        StudentAssessmentList StuAsmntList = new StudentAssessmentList(UserID);
-        this.setVisible(false);
-        StuAsmntList.setVisible(true);
+        // TODO add your handling code here:
     }//GEN-LAST:event_viewAssessmentsActionPerformed
 
     private void viewClassScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewClassScheduleActionPerformed
@@ -247,6 +323,18 @@ public class StudentMainMenu extends javax.swing.JFrame {
     private void viewResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewResultActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_viewResultActionPerformed
+
+    private void EnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterActionPerformed
+        String selectedAssessment = asmntList.getSelectedValue();
+
+        if (selectedAssessment == null) {
+            JOptionPane.showMessageDialog(this, "Please select an item first.");
+        } else {
+            StudentAssessmentAnswer ansPage = new StudentAssessmentAnswer(UserID, selectedAssessment);
+            ansPage.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_EnterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,17 +358,23 @@ public class StudentMainMenu extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new StudentMainMenu().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new StudentAssessmentList().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Enter;
+    private javax.swing.JList<String> asmntList;
     private javax.swing.JLabel courseName;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lecturerName;
     private javax.swing.JButton logOut;
     private javax.swing.JLabel pageTitle;
     private javax.swing.JButton profilePage;
+    private javax.swing.JLabel selectedAssessment;
     private javax.swing.JLabel userRole;
     private javax.swing.JButton viewAssessments;
     private javax.swing.JButton viewClassSchedule;

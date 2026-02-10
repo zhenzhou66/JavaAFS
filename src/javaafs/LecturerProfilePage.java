@@ -97,7 +97,7 @@ public class LecturerProfilePage extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         pageTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        pageTitle.setText("MAIN MENU");
+        pageTitle.setText("LECTURER MAIN MENU");
 
         logOut.setText("Log Out");
         logOut.addActionListener(new java.awt.event.ActionListener() {
