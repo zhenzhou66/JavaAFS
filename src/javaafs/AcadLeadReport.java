@@ -127,30 +127,6 @@ private void loadSelectedName() {
     }
 }
 
-//private void viewReport(){
-//    String reportType = (String) reporttypecbx.getSelectedItem();
-//    String selectedID = (String) selectedidcbx.getSelectedItem();
-//
-//    if (reportType == null || selectedID == null) {
-//        Status.setText("Please select report type and ID!");
-//        return;
-//    }
-//    
-//    switch (reportType) {
-//        case "Module":
-//            openModuleReport(selectedID);
-//            break;
-//
-//        case "Lecturer":
-//            openLecturerReport(selectedID);
-//            break;
-//
-//        case "Student":
-//            openStudentReport(selectedID);
-//            break;
-//    }
-//}
-
     private void openModuleReport(String moduleID) {
         ModuleReport report = new ModuleReport(moduleID);
         report.setVisible(true);
@@ -455,7 +431,7 @@ private void loadSelectedName() {
             default:
                 Status.setText("Invalid report type!");
                 break;
-        }                                           
+        } 
     }//GEN-LAST:event_viewreportbtnActionPerformed
 
     private void selectednametxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectednametxtActionPerformed

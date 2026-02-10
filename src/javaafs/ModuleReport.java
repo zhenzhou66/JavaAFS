@@ -4,6 +4,7 @@
  */
 package javaafs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,34 +15,27 @@ public class ModuleReport extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ModuleReport.class.getName());
 
-    protected List<String[]> student;
     protected List<String[]> modules;    
-    protected List<String[]> assessmentQuestion;
     protected List<String[]> assessmentResult;
 
     private UserFunctions func = new UserFunctions();
     
     private String moduleID;
     private String moduleName;
-//    private int totalStudents = getStudentCount();
-    private double avgGrade = calculateAverageGrade();
-//    private double passRate = calculatePassRate();
+    private double avgGrade;
+    private double passRate;
     
     public ModuleReport() {
     };
     
     public ModuleReport(String moduleID) {
-        student = func.readCSV("users.txt");
         modules = func.readCSV("modules.txt");
-        assessmentQuestion = func.readCSV("assessmentQuestion.txt");         
-        assessmentResult = func.readCSV("assessmentResult.txt"); 
+        assessmentResult = func.readCSV("assessmentResult.txt");
         this.moduleID = moduleID;
         loadModulesName();
-//        totalStudents = getStudentCount();
-        avgGrade = calculateAverageGrade();
-//        passRate = calculatePassRate();
-        initComponents();
-        loadModuleReport(moduleID);
+        calculateGrade();
+       initComponents();
+        loadModuleReport();
     }
     
     private void loadModulesName() {
@@ -65,41 +59,63 @@ public class ModuleReport extends javax.swing.JFrame {
 //        return count;
 //    }
 
-    private int getAssessmentCount() {
-        int count = 0;
-        for (String[] assessment : assessmentQuestion) {
-            if (assessment[1].equalsIgnoreCase(moduleID)) {
-                count++;
+    private void calculateGrade() {
+        List<String> studentID = new ArrayList<>();
+        List<Double> grades = new ArrayList<>();
+    
+        // 1. Find all students who took this module
+        for (String[] entry : assessmentResult) {
+            if (entry[1].equalsIgnoreCase(moduleID) && !studentID.contains(entry[0])) {
+                studentID.add(entry[0]);
             }
         }
-        return count;
-    }
-    
-    private double calculateAverageGrade() {
-        int totalMarks = 0;
-        int totalAssessments = getAssessmentCount();
-        
-        if (totalAssessments == 0) return 0;
-        
-        for (String[] result : assessmentResult) {
-            String assessmentID = result[2];
-            totalMarks += Integer.parseInt(result[3]);
+        // 2. Calculate final grade for each student
+        for (String studentid : studentID) {
+            double sumGrades = 0;
+            int assessmentCount = 0;
+
+            for (String[] entry : assessmentResult) {
+                if (entry[0].equals(studentid) && entry[1].equalsIgnoreCase(moduleID)) {
+                    sumGrades += Double.parseDouble(entry[3]); // grade column
+                    assessmentCount++;
+                }
+            }
+
+            if (assessmentCount > 0) {
+                double Grade = sumGrades / assessmentCount;
+                grades.add(Grade);
+            }
         }
-        return (double) totalMarks / totalAssessments;
+        
+        // 3. Calculate module average
+        double sum = 0;
+        for (double grade : grades) {
+            sum += grade;
+        }
+        if (grades.size() > 0) {
+            avgGrade = sum / grades.size();
+        } else {
+            avgGrade = 0;
+        }
+        
+        // 4. Calculate module pass rate (pass mark = 40)
+        int passCount = 0;
+        for (double grade : grades) {
+            if (grade >= 40) passCount++;
+        }
+        if (grades.size() > 0) {
+            passRate = ((double) passCount / grades.size()) * 100;
+        } else {
+            passRate = 0;
+        }
     }
     
-//    private double calculatePassRate(String moduleID) {
-//        int totalStudents = 0;
-//        int studentsPassed = 0;
-//        return 0; 
-//    }
-    
-    private void loadModuleReport(String moduleID) {
+    private void loadModuleReport() {
         moduleidtxt.setText(moduleID);
         modulenametxt.setText(moduleName);
 //        numberstudenttxt.setText(String.valueOf(totalStudents));
         averagegradetxt.setText(String.format("%.2f", avgGrade));
-//        passratetxt.setText(String.format("%.1f%%", passRate));
+        passratetxt.setText(String.format("%.1f%%", passRate));
     }
 
 
