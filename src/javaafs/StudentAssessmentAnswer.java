@@ -130,14 +130,6 @@ public class StudentAssessmentAnswer extends javax.swing.JFrame {
         func.writeCSV("assessmentAnswer.txt", assessmentAnswer);
     }
     
-//    private void saveResult(String AnswerID, String grade) {
-//        String ResultID = func.generateNextID("assessmentResult.txt", "R");
-//        String[] newResult = {ResultID, AnswerID, AssessmentID, grade};
-//        assessmentResult.add(newResult);
-//        
-//        func.writeCSV("assessmentResult.txt", assessmentResult);
-//    }
-
     private void saveMarks() {
         String[] correctAnswer = getCorrectAnswer();
         if (correctAnswer == null) {
@@ -145,8 +137,10 @@ public class StudentAssessmentAnswer extends javax.swing.JFrame {
             return;
         }
         int marks = calculateMarks(correctAnswer);
+        String Mark = Integer.toString(marks);
+        
         String ResultID = func.generateNextID("assessmentResult.txt", "R");
-        String[] newResult = { ResultID, UserID, AssessmentID};
+        String[] newResult = {ResultID, UserID, AssessmentID, Mark};
         assessmentResult.add(newResult);
         
         func.writeCSV("assessmentResult.txt", assessmentResult);

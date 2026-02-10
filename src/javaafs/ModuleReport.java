@@ -102,25 +102,6 @@ public class ModuleReport extends javax.swing.JFrame {
 //        passratetxt.setText(String.format("%.1f%%", passRate));
     }
 
-//    private String calculateGrade(int marks, int totalQuestions) {
-//        double percentage = (marks * 100.0) / totalQuestions;
-//        
-//        if (percentage >= 80) {
-//            return "A";
-//        }
-//        else if (percentage >= 70 && percentage < 80) {
-//            return "B";
-//        }
-//        else if (percentage >= 60 && percentage < 70) {
-//            return "C";
-//        }
-//        else if (percentage >= 50 && percentage < 60) {
-//            return "D";
-//        }
-//        else {
-//            return "F";
-//        }
-//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
