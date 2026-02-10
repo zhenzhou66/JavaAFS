@@ -407,7 +407,7 @@ public class LecturerDesign extends javax.swing.JFrame {
         // 2. DummyID
         String asmtID = generateNextAsmtID(); 
 
-        // 3. Create the row array using your class variables
+        // 3. create new assessment question row
         String[] newRecord = {
             asmtID, 
             this.ModuleID, 
@@ -415,7 +415,7 @@ public class LecturerDesign extends javax.swing.JFrame {
             this.A1, this.A2, this.A3, this.A4, this.A5
         };
 
-        // 4. Update the list and write to the text file
+        // 4. update array and write to the text file
         assessmentQuestion.add(newRecord);
         func.writeCSV("assessmentQuestion.txt", assessmentQuestion);
 
