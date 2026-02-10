@@ -140,7 +140,7 @@ public class StudentAssessmentAnswer extends javax.swing.JFrame {
         String Mark = Integer.toString(marks);
         
         String ResultID = func.generateNextID("assessmentResult.txt", "R");
-        String[] newResult = {ResultID, UserID, AssessmentID, Mark};
+        String[] newResult = {ResultID, UserID, AssessmentID, Mark, ModuleID};
         assessmentResult.add(newResult);
         
         func.writeCSV("assessmentResult.txt", assessmentResult);
@@ -499,7 +499,9 @@ public class StudentAssessmentAnswer extends javax.swing.JFrame {
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void CreateFeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateFeedbackActionPerformed
-        // TODO add your handling code here:
+        StudentCreateFeedback stuCreateFB = new StudentCreateFeedback(UserID);
+        this.setVisible(false);
+        stuCreateFB.setVisible(true);
     }//GEN-LAST:event_CreateFeedbackActionPerformed
 
     /**

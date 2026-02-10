@@ -10,28 +10,25 @@ import java.util.List;
  *
  * @author zhenz
  */
-public class StudentMainMenu extends javax.swing.JFrame {
+public class LecturerViewFeedbackList extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(StudentMainMenu.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LecturerViewFeedbackList.class.getName());
 
     /**
      * Creates new form Lecturer
      */
     protected List<String[]> userArray;
-    protected List<String[]> moduleArray;
     UserFunctions func = new UserFunctions();
 
     public String Role = "";
     public String UserID = "";
-    public String ModuleName = "";
     
-    public StudentMainMenu() {
+    public LecturerViewFeedbackList() {
         userArray = func.readCSV("users.txt");
-        moduleArray = func.readCSV("modules.txt");
         initComponents();
     }
     
-    public StudentMainMenu(String UserID) {
+    public LecturerViewFeedbackList(String UserID) {
         this();               
         this.UserID = UserID; 
         loadUserData(UserID); 
@@ -41,25 +38,13 @@ public class StudentMainMenu extends javax.swing.JFrame {
     private void loadUserData(String userid) {
     if (userArray == null || userArray.isEmpty()) 
         return;
-    
-    String userModuleID = "";
 
     for (int i = 0; i < userArray.size(); i++) {
         String[] user = userArray.get(i);
         if (user[0].equalsIgnoreCase(userid)) {
             lecturerName.setText(user[3]);
-            userRole.setText(user[2]); 
-            userModuleID = user[6];
+            userRole.setText(user[2]);
             break;
-        }
-    }
-    if (!userModuleID.isEmpty()) {
-        for (String[] module : moduleArray) {
-            if (module[0].equalsIgnoreCase(userModuleID)) {
-                this.ModuleName = module[1]; // Index 1 is moduleName in modules.txt
-                courseName.setText(this.ModuleName); 
-                break;
-            }
         }
     }
 }
@@ -76,41 +61,30 @@ public class StudentMainMenu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         pageTitle = new javax.swing.JLabel();
         profilePage = new javax.swing.JButton();
-        viewAssessments = new javax.swing.JButton();
-        viewClassSchedule = new javax.swing.JButton();
         logOut = new javax.swing.JButton();
         lecturerName = new javax.swing.JLabel();
         userRole = new javax.swing.JLabel();
-        courseName = new javax.swing.JLabel();
-        viewResult = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        CreateFeedback = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList<>();
+        jButton1 = new javax.swing.JButton();
+        designAsgmnt = new javax.swing.JButton();
+        resultAsgmnt = new javax.swing.JButton();
+        viewFeedback = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(102, 255, 204));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         pageTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        pageTitle.setText("STUDENT MAIN MENU");
+        pageTitle.setText("LECTURER MAIN MENU");
 
         profilePage.setText("Profile");
         profilePage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 profilePageActionPerformed(evt);
-            }
-        });
-
-        viewAssessments.setText("Assessments");
-        viewAssessments.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewAssessmentsActionPerformed(evt);
-            }
-        });
-
-        viewClassSchedule.setText("Class Schedule");
-        viewClassSchedule.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewClassScheduleActionPerformed(evt);
             }
         });
 
@@ -128,14 +102,23 @@ public class StudentMainMenu extends javax.swing.JFrame {
         userRole.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         userRole.setText("yourRole");
 
-        courseName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        courseName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        courseName.setText("CourseName");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Student Feedback List");
 
-        viewResult.setText("Results");
-        viewResult.addActionListener(new java.awt.event.ActionListener() {
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel2.setText("Select Student to view their feedback.");
+
+        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(jList2);
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewResultActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -143,17 +126,54 @@ public class StudentMainMenu extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(86, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(17, 17, 17))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(2, 2, 2)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(15, 15, 15))
         );
 
-        CreateFeedback.setText("Create Feedback");
-        CreateFeedback.addActionListener(new java.awt.event.ActionListener() {
+        designAsgmnt.setText("Design Assessment");
+        designAsgmnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CreateFeedbackActionPerformed(evt);
+                designAsgmntActionPerformed(evt);
+            }
+        });
+
+        resultAsgmnt.setText("Assessment Results");
+        resultAsgmnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resultAsgmntActionPerformed(evt);
+            }
+        });
+
+        viewFeedback.setText("View Feedback");
+        viewFeedback.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewFeedbackActionPerformed(evt);
             }
         });
 
@@ -165,27 +185,21 @@ public class StudentMainMenu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(pageTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(pageTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 331, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lecturerName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(userRole, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(courseName, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())
+                            .addComponent(lecturerName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userRole, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(logOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(viewResult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(viewAssessments, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(viewClassSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(profilePage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(CreateFeedback, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(designAsgmnt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(resultAsgmnt, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                            .addComponent(viewFeedback, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,24 +211,20 @@ public class StudentMainMenu extends javax.swing.JFrame {
                         .addGap(1, 1, 1)
                         .addComponent(userRole))
                     .addComponent(pageTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(5, 5, 5)
-                .addComponent(courseName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(profilePage)
                         .addGap(18, 18, 18)
-                        .addComponent(viewAssessments)
-                        .addGap(18, 18, 18)
-                        .addComponent(viewResult)
-                        .addGap(18, 18, 18)
-                        .addComponent(viewClassSchedule)
-                        .addGap(18, 18, 18)
-                        .addComponent(CreateFeedback)
-                        .addGap(149, 149, 149)
-                        .addComponent(logOut)
-                        .addContainerGap())
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(designAsgmnt)
+                        .addGap(25, 25, 25)
+                        .addComponent(resultAsgmnt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addComponent(viewFeedback)
+                        .addGap(175, 175, 175)
+                        .addComponent(logOut))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -225,27 +235,17 @@ public class StudentMainMenu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void profilePageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilePageActionPerformed
-        StudentProfilePage StuProfile = new StudentProfilePage(UserID);
+        LecturerProfilePage StuProfile = new LecturerProfilePage(UserID);
         this.setVisible(false);
         StuProfile.setVisible(true);
     }//GEN-LAST:event_profilePageActionPerformed
-
-    private void viewAssessmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAssessmentsActionPerformed
-        StudentAssessmentList StuAsmntList = new StudentAssessmentList(UserID);
-        this.setVisible(false);
-        StuAsmntList.setVisible(true);
-    }//GEN-LAST:event_viewAssessmentsActionPerformed
-
-    private void viewClassScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewClassScheduleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_viewClassScheduleActionPerformed
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
 
@@ -255,15 +255,23 @@ public class StudentMainMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_logOutActionPerformed
 
-    private void viewResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewResultActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_viewResultActionPerformed
-
-    private void CreateFeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateFeedbackActionPerformed
-        StudentCreateFeedback stuCreateFB = new StudentCreateFeedback(UserID);
+    private void designAsgmntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_designAsgmntActionPerformed
+        LecturerDesign lectProfile = new LecturerDesign(UserID);
         this.setVisible(false);
-        stuCreateFB.setVisible(true);
-    }//GEN-LAST:event_CreateFeedbackActionPerformed
+        lectProfile.setVisible(true);
+    }//GEN-LAST:event_designAsgmntActionPerformed
+
+    private void resultAsgmntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultAsgmntActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_resultAsgmntActionPerformed
+
+    private void viewFeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewFeedbackActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewFeedbackActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,21 +295,24 @@ public class StudentMainMenu extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new StudentMainMenu().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new LecturerViewFeedbackList().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton CreateFeedback;
-    private javax.swing.JLabel courseName;
+    private javax.swing.JButton designAsgmnt;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lecturerName;
     private javax.swing.JButton logOut;
     private javax.swing.JLabel pageTitle;
     private javax.swing.JButton profilePage;
+    private javax.swing.JButton resultAsgmnt;
     private javax.swing.JLabel userRole;
-    private javax.swing.JButton viewAssessments;
-    private javax.swing.JButton viewClassSchedule;
-    private javax.swing.JButton viewResult;
+    private javax.swing.JButton viewFeedback;
     // End of variables declaration//GEN-END:variables
 }
