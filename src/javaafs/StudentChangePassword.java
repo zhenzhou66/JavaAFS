@@ -3,16 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package javaafs;
-
 import java.util.List;
 
 /**
  *
- * @author junjun
+ * @author zhenz
  */
-public class AcadLeadChangePassword extends javax.swing.JFrame {
+public class StudentChangePassword extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AcadLeadChangePassword.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(StudentChangePassword.class.getName());
 
     protected List<String[]> userArray;
     UserFunctions func = new UserFunctions();
@@ -22,12 +21,12 @@ public class AcadLeadChangePassword extends javax.swing.JFrame {
     
     private boolean passwordShow = false;
     
-    public AcadLeadChangePassword() {
+    public StudentChangePassword() {
         userArray = func.readCSV("users.txt");
         initComponents();
     }
     
-    public AcadLeadChangePassword(String UserID) {
+    public StudentChangePassword(String UserID) {
         this();               
         this.UserID = UserID; 
         loadUserData(UserID); 
@@ -41,7 +40,7 @@ public class AcadLeadChangePassword extends javax.swing.JFrame {
     for (int i = 0; i < userArray.size(); i++) {
         String[] user = userArray.get(i);
         if (user[0].equalsIgnoreCase(userid)) {
-            AcadLeadName.setText(user[3]);
+            lecturerName.setText(user[3]);
             userRole.setText(user[2]);
             break;
         }
@@ -93,7 +92,6 @@ private void changePassword() {
             statustxt.setText("Password change failed.");
         }
 }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -104,15 +102,16 @@ private void changePassword() {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        pageTitle = new javax.swing.JLabel();
+        profilePage = new javax.swing.JButton();
+        viewAssessments = new javax.swing.JButton();
+        viewClassSchedule = new javax.swing.JButton();
         logOut = new javax.swing.JButton();
-        profilebtn = new javax.swing.JButton();
-        viewlecturerlistbtn1 = new javax.swing.JButton();
-        modulesbtn = new javax.swing.JButton();
-        reportsbtn = new javax.swing.JButton();
-        AcadLeadName = new javax.swing.JLabel();
+        lecturerName = new javax.swing.JLabel();
         userRole = new javax.swing.JLabel();
-        pagetitile = new javax.swing.JLabel();
+        viewResult = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        changepasswordlbl = new javax.swing.JLabel();
         oldpasswordlbl = new javax.swing.JLabel();
         newpasswordlbl = new javax.swing.JLabel();
         confirmpasswordlbl = new javax.swing.JLabel();
@@ -129,7 +128,31 @@ private void changePassword() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(153, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(102, 255, 204));
+
+        pageTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        pageTitle.setText("STUDENT MAIN MENU");
+
+        profilePage.setText("Profile");
+        profilePage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profilePageActionPerformed(evt);
+            }
+        });
+
+        viewAssessments.setText("Assessments");
+        viewAssessments.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewAssessmentsActionPerformed(evt);
+            }
+        });
+
+        viewClassSchedule.setText("Class Schedule");
+        viewClassSchedule.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewClassScheduleActionPerformed(evt);
+            }
+        });
 
         logOut.setText("Log Out");
         logOut.addActionListener(new java.awt.event.ActionListener() {
@@ -138,40 +161,22 @@ private void changePassword() {
             }
         });
 
-        profilebtn.setText("Profile");
-        profilebtn.addActionListener(new java.awt.event.ActionListener() {
+        lecturerName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lecturerName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lecturerName.setText("yourName");
+
+        userRole.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        userRole.setText("yourRole");
+
+        viewResult.setText("Results");
+        viewResult.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                profilebtnActionPerformed(evt);
+                viewResultActionPerformed(evt);
             }
         });
 
-        viewlecturerlistbtn1.setText("View Lecturer List");
-        viewlecturerlistbtn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewlecturerlistbtn1ActionPerformed(evt);
-            }
-        });
-
-        modulesbtn.setText("Modules");
-        modulesbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modulesbtnActionPerformed(evt);
-            }
-        });
-
-        reportsbtn.setText("Reports");
-        reportsbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reportsbtnActionPerformed(evt);
-            }
-        });
-
-        AcadLeadName.setText("AcadLeadName");
-
-        userRole.setText("userRole");
-
-        pagetitile.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        pagetitile.setText("ACADEMIC LEADER CHANGE PASSWORD");
+        changepasswordlbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        changepasswordlbl.setText("Change Password");
 
         oldpasswordlbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         oldpasswordlbl.setText("Old Password");
@@ -240,44 +245,49 @@ private void changePassword() {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
+                .addGap(125, 125, 125)
+                .addComponent(confirmbtn)
+                .addGap(18, 18, 18)
+                .addComponent(backbtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(changepasswordlbl)
+                .addGap(122, 122, 122))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(oldpasswordlbl)
+                    .addComponent(newpasswordlbl)
+                    .addComponent(confirmpasswordlbl)
+                    .addComponent(statuslbl))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(confirmbtn)
-                        .addGap(18, 18, 18)
-                        .addComponent(backbtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addComponent(statustxt, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(oldpasswordlbl)
-                            .addComponent(newpasswordlbl)
-                            .addComponent(confirmpasswordlbl)
-                            .addComponent(statuslbl))
+                        .addGap(89, 89, 89)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(statustxt, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(89, 89, 89)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(confirmpasswordtxt)
-                                        .addComponent(newpasswordtxt)
-                                        .addComponent(oldpasswordtxt))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(showpassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(showpassword2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(showpassword3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addGap(52, 52, 52))
+                                    .addComponent(confirmpasswordtxt)
+                                    .addComponent(newpasswordtxt)
+                                    .addComponent(oldpasswordtxt))
+                                .addGap(65, 65, 65))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(showpassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(showpassword2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(showpassword3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addGap(27, 27, 27)
+                .addComponent(changepasswordlbl)
+                .addGap(41, 41, 41)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(oldpasswordlbl)
                     .addComponent(oldpasswordtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -303,7 +313,7 @@ private void changePassword() {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(confirmbtn)
                     .addComponent(backbtn))
-                .addGap(65, 65, 65))
+                .addGap(26, 26, 26))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -314,87 +324,98 @@ private void changePassword() {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(pageTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 331, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(logOut, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                            .addComponent(modulesbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(viewlecturerlistbtn1, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                            .addComponent(profilebtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(reportsbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(546, 546, 546))
+                            .addComponent(lecturerName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userRole, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(pagetitile, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(logOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(viewResult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(viewAssessments, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(viewClassSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                            .addComponent(profilePage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(AcadLeadName, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                            .addComponent(userRole, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(146, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lecturerName)
+                        .addGap(1, 1, 1)
+                        .addComponent(userRole))
+                    .addComponent(pageTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(AcadLeadName)
-                        .addGap(12, 12, 12)
-                        .addComponent(userRole)
-                        .addGap(11, 11, 11))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(pagetitile)
-                        .addGap(18, 18, 18)))
-                .addComponent(profilebtn)
-                .addGap(18, 18, 18)
-                .addComponent(viewlecturerlistbtn1)
-                .addGap(18, 18, 18)
-                .addComponent(modulesbtn)
-                .addGap(18, 18, 18)
-                .addComponent(reportsbtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
-                .addComponent(logOut)
+                        .addComponent(profilePage)
+                        .addGap(18, 18, 18)
+                        .addComponent(viewAssessments)
+                        .addGap(18, 18, 18)
+                        .addComponent(viewResult)
+                        .addGap(18, 18, 18)
+                        .addComponent(viewClassSchedule)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
+                        .addComponent(logOut))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(54, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 702, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 350, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void profilePageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilePageActionPerformed
+        StudentProfilePage StuProfile = new StudentProfilePage(UserID);
+        this.setVisible(false);
+        StuProfile.setVisible(true);
+    }//GEN-LAST:event_profilePageActionPerformed
+
+    private void viewAssessmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAssessmentsActionPerformed
+        StudentAssessmentList StuAsmntList = new StudentAssessmentList(UserID);
+        this.setVisible(false);
+        StuAsmntList.setVisible(true);
+    }//GEN-LAST:event_viewAssessmentsActionPerformed
+
+    private void viewClassScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewClassScheduleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewClassScheduleActionPerformed
+
+    private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
+
+        UserLogin loginScreen = new UserLogin();
+        loginScreen.setVisible(true);
+
+        this.dispose();
+    }//GEN-LAST:event_logOutActionPerformed
+
+    private void viewResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewResultActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewResultActionPerformed
 
     private void confirmbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmbtnActionPerformed
         changePassword();
     }//GEN-LAST:event_confirmbtnActionPerformed
 
     private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
-        AcadLeadProfile acadleadprofile = new AcadLeadProfile(UserID);
+        StudentProfilePage studProf = new StudentProfilePage(UserID);
         this.setVisible(false);
-        acadleadprofile.setVisible(true);
+        studProf.setVisible(true);
     }//GEN-LAST:event_backbtnActionPerformed
 
     private void oldpasswordtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oldpasswordtxtActionPerformed
@@ -441,38 +462,6 @@ private void changePassword() {
         }
     }//GEN-LAST:event_showpassword3ActionPerformed
 
-    private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
-
-        UserLogin loginScreen = new UserLogin();
-        loginScreen.setVisible(true);
-
-        this.dispose();
-    }//GEN-LAST:event_logOutActionPerformed
-
-    private void profilebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilebtnActionPerformed
-        AcadLeadProfile acadleadprofile = new AcadLeadProfile(UserID);
-        this.setVisible(false);
-        acadleadprofile.setVisible(true);
-    }//GEN-LAST:event_profilebtnActionPerformed
-
-    private void viewlecturerlistbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewlecturerlistbtn1ActionPerformed
-        AcadLeadViewLecturerList acadleadviewlecturerlist = new AcadLeadViewLecturerList(UserID);
-        this.setVisible(false);
-        acadleadviewlecturerlist.setVisible(true);
-    }//GEN-LAST:event_viewlecturerlistbtn1ActionPerformed
-
-    private void modulesbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulesbtnActionPerformed
-        AcadLeadModules acadleadmodules = new AcadLeadModules(UserID);
-        this.setVisible(false);
-        acadleadmodules.setVisible(true);
-    }//GEN-LAST:event_modulesbtnActionPerformed
-
-    private void reportsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportsbtnActionPerformed
-        AcadLeadReport acadleadreport = new AcadLeadReport(UserID);
-        this.setVisible(false);
-        acadleadreport.setVisible(true);
-    }//GEN-LAST:event_reportsbtnActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -495,32 +484,33 @@ private void changePassword() {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new AcadLeadChangePassword().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new StudentChangePassword().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel AcadLeadName;
     private javax.swing.JButton backbtn;
+    private javax.swing.JLabel changepasswordlbl;
     private javax.swing.JButton confirmbtn;
     private javax.swing.JLabel confirmpasswordlbl;
     private javax.swing.JPasswordField confirmpasswordtxt;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lecturerName;
     private javax.swing.JButton logOut;
-    private javax.swing.JButton modulesbtn;
     private javax.swing.JLabel newpasswordlbl;
     private javax.swing.JPasswordField newpasswordtxt;
     private javax.swing.JLabel oldpasswordlbl;
     private javax.swing.JPasswordField oldpasswordtxt;
-    private javax.swing.JLabel pagetitile;
-    private javax.swing.JButton profilebtn;
-    private javax.swing.JButton reportsbtn;
+    private javax.swing.JLabel pageTitle;
+    private javax.swing.JButton profilePage;
     private javax.swing.JButton showpassword1;
     private javax.swing.JButton showpassword2;
     private javax.swing.JButton showpassword3;
     private javax.swing.JLabel statuslbl;
     private javax.swing.JTextField statustxt;
     private javax.swing.JLabel userRole;
-    private javax.swing.JButton viewlecturerlistbtn1;
+    private javax.swing.JButton viewAssessments;
+    private javax.swing.JButton viewClassSchedule;
+    private javax.swing.JButton viewResult;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,7 +1,7 @@
 moduleID,moduleName,lecturerID
 M001,aaa,L01
 M002,Systems Analysis & Design,L02
-M003,Digital Thinking & Innovation,L03
+M003,jjj
 M004,ghg,L04
 M005,ggg,L05
 M006,Academic English,L06

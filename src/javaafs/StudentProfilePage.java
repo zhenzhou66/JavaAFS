@@ -8,12 +8,15 @@ import java.util.List;
 
 /**
  *
- * @author junjun
+ * @author zhenz
  */
-public class AcadLeadProfile extends javax.swing.JFrame {
+public class StudentProfilePage extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AcadLeadProfile.class.getName());
-    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(StudentProfilePage.class.getName());
+
+    /**
+     * Creates new form Lecturer
+     */
     protected List<String[]> userArray;
     UserFunctions func = new UserFunctions();
 
@@ -22,19 +25,21 @@ public class AcadLeadProfile extends javax.swing.JFrame {
     public String Phonenumber = "";
     public String Role = "";
     public String UserID = "";
-            
-    public AcadLeadProfile() {
+    
+    
+    public StudentProfilePage() {
         userArray = func.readCSV("users.txt");
         initComponents();
     }
     
-    public AcadLeadProfile(String userid) {
-        this();
-        this.UserID = userid;
-        loadUserData(userid);
+    public StudentProfilePage(String UserID) {
+        this();               
+        this.UserID = UserID; 
+        loadUserData(UserID); 
     }
+
     
-private void loadUserData(String userid) {
+    private void loadUserData(String userid) {
     if (userArray == null || userArray.isEmpty()) 
         return;
 
@@ -46,19 +51,12 @@ private void loadUserData(String userid) {
             emailtxt.setText(user[4]);
             phonetxt.setText(user[5]);
             roletxt.setText(user[2]);
+            lecturerName.setText(user[3]);
+            userRole.setText(user[2]);
             break;
             }
         }
     }
-
-private void saveUserProfile(){
-    String newEmail = emailtxt.getText();
-    String newPhoneNumber = phonetxt.getText();
-
-    func.saveProfile(userArray, UserID, newEmail, newPhoneNumber);
-    func.savePassword(userArray, "users.txt");
-    statustxt.setText("Profile updated succesfully!");
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,14 +68,14 @@ private void saveUserProfile(){
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        profilePage = new javax.swing.JButton();
+        viewAssessments = new javax.swing.JButton();
+        viewResult = new javax.swing.JButton();
+        viewClassSchedule = new javax.swing.JButton();
+        pageTitle = new javax.swing.JLabel();
         logOut = new javax.swing.JButton();
-        profilebtn = new javax.swing.JButton();
-        viewlecturerlistbtn1 = new javax.swing.JButton();
-        modulesbtn = new javax.swing.JButton();
-        reportsbtn = new javax.swing.JButton();
-        AcadLeadName = new javax.swing.JLabel();
+        lecturerName = new javax.swing.JLabel();
         userRole = new javax.swing.JLabel();
-        pagetitile = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         profilelbl = new javax.swing.JLabel();
         namelbl = new javax.swing.JLabel();
@@ -96,7 +94,38 @@ private void saveUserProfile(){
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(153, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(102, 255, 204));
+
+        profilePage.setText("Profile");
+        profilePage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profilePageActionPerformed(evt);
+            }
+        });
+
+        viewAssessments.setText("Assessments");
+        viewAssessments.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewAssessmentsActionPerformed(evt);
+            }
+        });
+
+        viewResult.setText("Results");
+        viewResult.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewResultActionPerformed(evt);
+            }
+        });
+
+        viewClassSchedule.setText("Class Schedule");
+        viewClassSchedule.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewClassScheduleActionPerformed(evt);
+            }
+        });
+
+        pageTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        pageTitle.setText("STUDENT MAIN MENU");
 
         logOut.setText("Log Out");
         logOut.addActionListener(new java.awt.event.ActionListener() {
@@ -105,40 +134,12 @@ private void saveUserProfile(){
             }
         });
 
-        profilebtn.setText("Profile");
-        profilebtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                profilebtnActionPerformed(evt);
-            }
-        });
+        lecturerName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lecturerName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lecturerName.setText("yourName");
 
-        viewlecturerlistbtn1.setText("View Lecturer List");
-        viewlecturerlistbtn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewlecturerlistbtn1ActionPerformed(evt);
-            }
-        });
-
-        modulesbtn.setText("Modules");
-        modulesbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modulesbtnActionPerformed(evt);
-            }
-        });
-
-        reportsbtn.setText("Reports");
-        reportsbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reportsbtnActionPerformed(evt);
-            }
-        });
-
-        AcadLeadName.setText("AcadLeadName");
-
-        userRole.setText("userRole");
-
-        pagetitile.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        pagetitile.setText("ACADEMIC LEADER PROFILE");
+        userRole.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        userRole.setText("yourRole");
 
         profilelbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         profilelbl.setText("PROFILE");
@@ -204,7 +205,7 @@ private void saveUserProfile(){
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(245, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(editbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -249,14 +250,14 @@ private void saveUserProfile(){
                     .addComponent(namelbl, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(emaillbl)
-                    .addComponent(emailtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(phonetxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emaillbl))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(phonelbl)
-                            .addComponent(phonetxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(emailtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rolelbl)
@@ -267,7 +268,7 @@ private void saveUserProfile(){
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(103, 103, 103)
                         .addComponent(useridtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(savebtn)
                             .addComponent(editbtn))
@@ -284,70 +285,60 @@ private void saveUserProfile(){
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(pageTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lecturerName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userRole, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(logOut, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                            .addComponent(modulesbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(viewlecturerlistbtn1, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                            .addComponent(profilebtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(reportsbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(546, 546, 546))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(pagetitile, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(viewResult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(viewAssessments, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(viewClassSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(profilePage, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(AcadLeadName, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                            .addComponent(userRole, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(144, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lecturerName)
+                        .addGap(1, 1, 1)
+                        .addComponent(userRole))
+                    .addComponent(pageTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(AcadLeadName)
-                        .addGap(12, 12, 12)
-                        .addComponent(userRole)
-                        .addGap(11, 11, 11))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(pagetitile)
-                        .addGap(18, 18, 18)))
-                .addComponent(profilebtn)
-                .addGap(18, 18, 18)
-                .addComponent(viewlecturerlistbtn1)
-                .addGap(18, 18, 18)
-                .addComponent(modulesbtn)
-                .addGap(18, 18, 18)
-                .addComponent(reportsbtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
-                .addComponent(logOut)
+                        .addComponent(profilePage)
+                        .addGap(18, 18, 18)
+                        .addComponent(viewAssessments)
+                        .addGap(18, 18, 18)
+                        .addComponent(viewResult)
+                        .addGap(18, 18, 18)
+                        .addComponent(viewClassSchedule)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(logOut))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(63, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -361,32 +352,8 @@ private void saveUserProfile(){
         this.dispose();
     }//GEN-LAST:event_logOutActionPerformed
 
-    private void profilebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilebtnActionPerformed
-        AcadLeadProfile acadleadprofile = new AcadLeadProfile(UserID);
-        this.setVisible(false);
-        acadleadprofile.setVisible(true);
-    }//GEN-LAST:event_profilebtnActionPerformed
-
-    private void viewlecturerlistbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewlecturerlistbtn1ActionPerformed
-        AcadLeadViewLecturerList acadleadviewlecturerlist = new AcadLeadViewLecturerList(UserID);
-        this.setVisible(false);
-        acadleadviewlecturerlist.setVisible(true);
-    }//GEN-LAST:event_viewlecturerlistbtn1ActionPerformed
-
-    private void modulesbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulesbtnActionPerformed
-        AcadLeadModules acadleadmodules = new AcadLeadModules(UserID);
-        this.setVisible(false);
-        acadleadmodules.setVisible(true);
-    }//GEN-LAST:event_modulesbtnActionPerformed
-
-    private void reportsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportsbtnActionPerformed
-        AcadLeadReport acadleadreport = new AcadLeadReport(UserID);
-        this.setVisible(false);
-        acadleadreport.setVisible(true);
-    }//GEN-LAST:event_reportsbtnActionPerformed
-
     private void nametxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nametxtActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_nametxtActionPerformed
 
     private void emailtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailtxtActionPerformed
@@ -394,18 +361,43 @@ private void saveUserProfile(){
     }//GEN-LAST:event_emailtxtActionPerformed
 
     private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtnActionPerformed
-        AcadLeadChangePassword acadleadchangepassword = new AcadLeadChangePassword(UserID);
+        StudentChangePassword changePW = new StudentChangePassword(UserID);
         this.setVisible(false);
-        acadleadchangepassword.setVisible(true);
+        changePW.setVisible(true);
     }//GEN-LAST:event_editbtnActionPerformed
 
     private void savebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebtnActionPerformed
-        saveUserProfile();
+        String newEmail = emailtxt.getText();
+        String newPhoneNumber = phonetxt.getText();
+
+        func.saveProfile(userArray, UserID, newEmail, newPhoneNumber);
+        func.savePassword(userArray, "users.txt");
+        statustxt.setText("Profile updated succesfully!");
     }//GEN-LAST:event_savebtnActionPerformed
 
     private void statustxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statustxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_statustxtActionPerformed
+
+    private void profilePageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilePageActionPerformed
+        StudentProfilePage StuProfile = new StudentProfilePage(UserID);
+        this.setVisible(false);
+        StuProfile.setVisible(true);
+    }//GEN-LAST:event_profilePageActionPerformed
+
+    private void viewAssessmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAssessmentsActionPerformed
+        StudentAssessmentList StuAsmntList = new StudentAssessmentList(UserID);
+        this.setVisible(false);
+        StuAsmntList.setVisible(true);
+    }//GEN-LAST:event_viewAssessmentsActionPerformed
+
+    private void viewResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewResultActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewResultActionPerformed
+
+    private void viewClassScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewClassScheduleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewClassScheduleActionPerformed
 
     /**
      * @param args the command line arguments
@@ -429,26 +421,24 @@ private void saveUserProfile(){
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new AcadLeadProfile().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new StudentProfilePage().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel AcadLeadName;
     private javax.swing.JButton editbtn;
     private javax.swing.JLabel emaillbl;
     private javax.swing.JTextField emailtxt;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lecturerName;
     private javax.swing.JButton logOut;
-    private javax.swing.JButton modulesbtn;
     private javax.swing.JLabel namelbl;
     private javax.swing.JTextField nametxt;
-    private javax.swing.JLabel pagetitile;
+    private javax.swing.JLabel pageTitle;
     private javax.swing.JLabel phonelbl;
     private javax.swing.JTextField phonetxt;
-    private javax.swing.JButton profilebtn;
+    private javax.swing.JButton profilePage;
     private javax.swing.JLabel profilelbl;
-    private javax.swing.JButton reportsbtn;
     private javax.swing.JLabel rolelbl;
     private javax.swing.JTextField roletxt;
     private javax.swing.JButton savebtn;
@@ -456,6 +446,8 @@ private void saveUserProfile(){
     private javax.swing.JLabel userRole;
     private javax.swing.JLabel useridlbl;
     private javax.swing.JTextField useridtxt;
-    private javax.swing.JButton viewlecturerlistbtn1;
+    private javax.swing.JButton viewAssessments;
+    private javax.swing.JButton viewClassSchedule;
+    private javax.swing.JButton viewResult;
     // End of variables declaration//GEN-END:variables
 }

@@ -17,7 +17,7 @@ public class LecturerDesign extends javax.swing.JFrame {
     protected List<String[]> userArray;
     protected List<String[]> moduleArray;
     protected List<String[]> assessmentQuestion;
-    Functions func = new Functions();
+    UserFunctions func = new UserFunctions();
 
     //user information
     public String Name = "";
@@ -91,27 +91,7 @@ public class LecturerDesign extends javax.swing.JFrame {
     return null; // Return null if no module is found for this lecturer
     }
     
-    private String generateNextAsmtID() {
-    int maxID = 0;
-
-    // 1. Loop through existing assessments to find the highest number
-    for (String[] row : assessmentQuestion) {
-        try {
-            // Assume format "asmn001" -> extract "001"
-            String idNumber = row[0].replace("asmn", "");
-            int currentID = Integer.parseInt(idNumber);
-            if (currentID > maxID) {
-                maxID = currentID;
-            }
-        } catch (Exception e) {
-            // Skip rows that don't match the format
-        }
-    }
-
-    // 2. Increment the ID and format it back to "asmn000"
-    int nextID = maxID + 1;
-    return String.format("asmn%03d", nextID); 
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -405,9 +385,9 @@ public class LecturerDesign extends javax.swing.JFrame {
         this.A5 = Ans5.getSelectedItem().toString();
 
         // 2. DummyID
-        String asmtID = generateNextAsmtID(); 
+        String asmtID = func.generateNextID("assessmentQuestion.txt", "asmn"); 
 
-        // 3. Create the row array using your class variables
+        // 3. create new assessment question row
         String[] newRecord = {
             asmtID, 
             this.ModuleID, 
@@ -415,7 +395,7 @@ public class LecturerDesign extends javax.swing.JFrame {
             this.A1, this.A2, this.A3, this.A4, this.A5
         };
 
-        // 4. Update the list and write to the text file
+        // 4. update array and write to the text file
         assessmentQuestion.add(newRecord);
         func.writeCSV("assessmentQuestion.txt", assessmentQuestion);
 
@@ -424,7 +404,7 @@ public class LecturerDesign extends javax.swing.JFrame {
     }//GEN-LAST:event_CreateAssessmentActionPerformed
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
-        LecturerMainMenu lectMenu = new LecturerMainMenu(UserID);
+        LecturerMenu lectMenu = new LecturerMenu(UserID);
         lectMenu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BackButtonActionPerformed

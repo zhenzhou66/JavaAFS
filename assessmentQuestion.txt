@@ -5,3 +5,6 @@ asmn003,M002,The apple is red. True or False?,jTextField2,jTextField2,jTextField
 asmn004,M002,The apple is red. True or False?,jTextField2,jTextField2,jTextField2,jTextField2,True,True,True,True,True
 asmn005,M002,The apple is red. True or False?,abcde,dafssa,jTextField2,jTextField2,False,True,False,True,True
 asmn006,M002,The apple is red. True or False?,dsdsd,jTextField2,jTextField2,jTextField2,True,True,True,True,True
+asmn007,M001,q1,q2,q3,q4,q5,True,True,True,True,True
+asmn008,M002,q1,qq2,q3,q4,q5,True,True,True,True,True
+asmn009,M002,The apple is red. True or False?,jTextField2,jTextField2,jTextField2,jTextField2,True,True,True,True,True

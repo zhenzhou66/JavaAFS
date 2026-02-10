@@ -17,7 +17,7 @@ public class ClassManagement extends javax.swing.JFrame {
     
     private Map<String, String> moduleMap = new HashMap<>();
     
-    private Functions fn = new Functions();
+    private UserFunctions fn = new UserFunctions();
 
 
 
@@ -83,7 +83,7 @@ public class ClassManagement extends javax.swing.JFrame {
 //            JOptionPane.showMessageDialog(this, "Error loading modules: " + e.getMessage());
 //        }
 
-        ArrayList<String[]> modules = Functions.readCSV("modules.txt");
+        ArrayList<String[]> modules = UserFunctions.readCSV("modules.txt");
 
         for (String[] data : modules) {
             if (data.length >= 2) {
@@ -144,7 +144,7 @@ public class ClassManagement extends javax.swing.JFrame {
     
     
     private boolean hasModuleTimeClash(String moduleID, String newStart, String newEnd) {
-        ArrayList<String[]> classes = Functions.readCSV("classes.txt");
+        ArrayList<String[]> classes = UserFunctions.readCSV("classes.txt");
 
         for (String[] data : classes) {
 
@@ -230,7 +230,7 @@ public class ClassManagement extends javax.swing.JFrame {
 //        } catch (Exception ignored) {}
 //        return false;  // not found → valid
 
-        ArrayList<String[]> groups = Functions.readCSV("group.txt");
+        ArrayList<String[]> groups = UserFunctions.readCSV("group.txt");
 
         for (String[] data : groups) {
             if (data.length >= 3 &&
@@ -258,7 +258,7 @@ public class ClassManagement extends javax.swing.JFrame {
         String groupID = fn.generateNextID("group.txt", "G");
 
         try {
-            ArrayList<String[]> groups = Functions.readCSV("group.txt");
+            ArrayList<String[]> groups = UserFunctions.readCSV("group.txt");
 
             groups.add(new String[]{
                 groupID,
@@ -266,7 +266,7 @@ public class ClassManagement extends javax.swing.JFrame {
                 moduleID
             });
 
-            Functions.writeCSV("group.txt", groups);
+            UserFunctions.writeCSV("group.txt", groups);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error saving group: " + e.getMessage());
@@ -594,7 +594,7 @@ public class ClassManagement extends javax.swing.JFrame {
         String classID = fn.generateNextID("classes.txt", "C");
 
         try {
-            ArrayList<String[]> classes = Functions.readCSV("classes.txt");
+            ArrayList<String[]> classes = UserFunctions.readCSV("classes.txt");
 
             classes.add(new String[]{
                 classID,
@@ -604,7 +604,7 @@ public class ClassManagement extends javax.swing.JFrame {
                 groupID
             });
 
-            Functions.writeCSV("classes.txt", classes);
+            UserFunctions.writeCSV("classes.txt", classes);
 
             JOptionPane.showMessageDialog(this, "Class created successfully!");
 
@@ -629,7 +629,7 @@ public class ClassManagement extends javax.swing.JFrame {
             public void run() {
 //                new ClassManagement().setVisible(true);
             }
-        });
+        }); 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
