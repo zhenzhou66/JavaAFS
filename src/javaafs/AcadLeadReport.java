@@ -151,20 +151,20 @@ private void viewReport(){
     }
 }
 
-private void openModuleReport(String moduleID) {
-    ModuleReport report = new ModuleReport(moduleID);
-    report.setVisible(true);
-   }
+    private void openModuleReport(String moduleID) {
+        ModuleReport report = new ModuleReport(moduleID);
+        report.setVisible(true);
+       }
 
-private void openLecturerReport(String lecturerID) {
-    LecturerReport report = new LecturerReport(lecturerID);
-    report.setVisible(true);
-    }
-
-private void openStudentReport(String studentID) {
-    StudentReport report = new StudentReport(studentID);
-    report.setVisible(true);
+    private void openLecturerReport(String lecturerID) {
+        LecturerReport report = new LecturerReport(lecturerID);
+        report.setVisible(true);
         }
+
+    private void openStudentReport(String studentID) {
+        StudentReport report = new StudentReport(studentID);
+        report.setVisible(true);
+    }
 
 
     /**
@@ -431,7 +431,48 @@ private void openStudentReport(String studentID) {
     }//GEN-LAST:event_reporttypecbxActionPerformed
 
     private void viewreportbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewreportbtnActionPerformed
-        viewReport();
+        String reportType = (String) reporttypecbx.getSelectedItem();
+        String selectedID = (String) selectedidcbx.getSelectedItem();
+
+        if (reportType == null || selectedID == null) {
+            Status.setText("Please select report type and ID!");
+            return;
+        }
+
+        switch (reportType) {
+            case "Module":
+                openModuleReport(selectedID);
+                break;
+
+            case "Lecturer":
+                openLecturerReport(selectedID);
+                break;
+
+            case "Student":
+                openStudentReport(selectedID);
+                break;
+
+            default:
+                Status.setText("Invalid report type!");
+                break;
+            }
+        }                                             
+
+        private void openModuleReport(String moduleID) {
+            // Make sure ModuleReport has a constructor like ModuleReport(String moduleID)
+            ModuleReport report = new ModuleReport(moduleID);
+            report.setVisible(true);
+        }
+
+        private void openLecturerReport(String lecturerID) {
+            LecturerReport report = new LecturerReport(lecturerID);
+            report.setVisible(true);
+        }
+
+        private void openStudentReport(String studentID) {
+            StudentReport report = new StudentReport(studentID);
+            report.setVisible(true);
+        }
     }//GEN-LAST:event_viewreportbtnActionPerformed
 
     private void selectednametxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectednametxtActionPerformed

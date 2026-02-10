@@ -146,7 +146,7 @@ public class StudentAssessmentAnswer extends javax.swing.JFrame {
         }
         int marks = calculateMarks(correctAnswer);
         String ResultID = func.generateNextID("assessmentResult.txt", "R");
-        String[] newResult = { ResultID, UserID, AssessmentID};
+        String[] newResult = {ResultID, UserID, AssessmentID};
         assessmentResult.add(newResult);
         
         func.writeCSV("assessmentResult.txt", assessmentResult);
