@@ -16,3 +16,5 @@ A012,asmn011,S01,False,False,False,True,True
 A013,asmn011,S01,False,False,False,True,True
 A014,asmn011,S01,True,True,True,False,False
 A015,asmn011,S01,False,False,True,True,True
+A016,asmn005,S01,True,False,True,False,True
+A017,asmn005,S01,True,False,True,False,True

@@ -79,10 +79,10 @@ public class LecturerReport extends javax.swing.JFrame {
         return count;
     }
     
-    private double getAverageRating(String lecturerID) {
-        if (lecturerID ==)
-    }
-    
+//    private double getAverageRating(String lecturerID) {
+//        if (lecturerID ==)
+//    }
+//    
     
     
     
