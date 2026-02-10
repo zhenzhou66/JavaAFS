@@ -15,17 +15,13 @@ public class ModuleReport extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ModuleReport.class.getName());
 
-//    protected List<String[]> student;
     protected List<String[]> modules;    
-//    protected List<String[]> assessmentQuestion;
     protected List<String[]> assessmentResult;
-//    protected List<Double[]> grade;
 
     private UserFunctions func = new UserFunctions();
     
     private String moduleID;
     private String moduleName;
-//    private int totalStudents = getStudentCount();
     private double avgGrade;
     private double passRate;
     
@@ -33,18 +29,12 @@ public class ModuleReport extends javax.swing.JFrame {
     };
     
     public ModuleReport(String moduleID) {
-//        student = func.readCSV("users.txt");
         modules = func.readCSV("modules.txt");
-//        assessmentQuestion = func.readCSV("assessmentQuestion.txt");         
         assessmentResult = func.readCSV("assessmentResult.txt");
-//        grade = avgGrade();
         this.moduleID = moduleID;
         loadModulesName();
         calculateGrade();
-//        totalStudents = getStudentCount();
-//        avgGrade = SystemCalculateGrade.calculateModuleAverage(grade);
-//        passRate = SystemCalculateGrade.calculateModulePassRate(grade, passRate);
-        initComponents();
+       initComponents();
         loadModuleReport();
     }
     
@@ -69,34 +59,6 @@ public class ModuleReport extends javax.swing.JFrame {
 //        return count;
 //    }
 
-//    private int getAssessmentCount() {
-//        int count = 0;
-//        for (String[] assessment : assessmentQuestion) {
-//            if (assessment[1].equalsIgnoreCase(moduleID)) {
-//                count++;
-//            }
-//        }
-//        return count;
-//    }
-//    
-//    private double calculateAverageGrade() {
-//        int totalMarks = 0;
-//        int totalAssessments = getAssessmentCount();
-//        
-//        if (totalAssessments == 0) return 0;
-//        
-//        for (String[] result : assessmentResult) {
-//            totalMarks += Integer.parseInt(result[3]);
-//        }
-//        return (double) totalMarks / totalAssessments;
-//    }
-    
-//    private double calculatePassRate(String moduleID) {
-//        int totalStudents = 0;
-//        int studentsPassed = 0;
-//        return 0; 
-//    }
-    
     private void calculateGrade() {
         List<String> studentID = new ArrayList<>();
         List<Double> grades = new ArrayList<>();
