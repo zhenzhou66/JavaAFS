@@ -92,14 +92,22 @@ public class ModuleReport extends javax.swing.JFrame {
         for (double grade : grades) {
             sum += grade;
         }
-        avgGrade = grades.size() > 0 ? sum / grades.size() : 0;
-
-        // 4. Calculate module pass rate (pass mark = 50)
+        if (grades.size() > 0) {
+            avgGrade = sum / grades.size();
+        } else {
+            avgGrade = 0;
+        }
+        
+        // 4. Calculate module pass rate (pass mark = 40)
         int passCount = 0;
         for (double grade : grades) {
-            if (grade >= 50) passCount++;
+            if (grade >= 40) passCount++;
         }
-        passRate = grades.size() > 0 ? ((double) passCount / grades.size()) * 100 : 0;
+        if (grades.size() > 0) {
+            passRate = ((double) passCount / grades.size()) * 100;
+        } else {
+            passRate = 0;
+        }
     }
     
     private void loadModuleReport() {
