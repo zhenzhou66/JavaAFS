@@ -3,3 +3,10 @@ ans001,asmn008,S01,False,False,True,True,True
 ans002,asmn001,S01,True,False,False,True,False
 A001,,,True,True,True,True,True
 A002,asmn001,S01,True,True,False,True,True
+A003,asmn005,S01,False,True,False,True,True
+A004,asmn009,S01,True,False,True,True,False
+A005,asmn004,S01,True,True,True,True,True
+A006,asmn005,S01,True,False,True,True,True
+A007,asmn009,S01,True,True,True,True,True
+A008,asmn003,S01,True,True,True,True,True
+A009,asmn009,S01,True,False,True,True,True
