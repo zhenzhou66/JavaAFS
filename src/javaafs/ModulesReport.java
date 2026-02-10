@@ -11,39 +11,29 @@ import java.util.List;
  *
  * @author junjun
  */
-public class ModuleReport extends javax.swing.JFrame {
+public class ModulesReport extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ModuleReport.class.getName());
 
-//    protected List<String[]> student;
     protected List<String[]> modules;    
-//    protected List<String[]> assessmentQuestion;
     protected List<String[]> assessmentResult;
-//    protected List<Double[]> grade;
 
     private UserFunctions func = new UserFunctions();
     
     private String moduleID;
     private String moduleName;
-//    private int totalStudents = getStudentCount();
     private double avgGrade;
     private double passRate;
     
-    public ModuleReport() {
+    public ModulesReport() {
     };
     
-    public ModuleReport(String moduleID) {
-//        student = func.readCSV("users.txt");
+    public ModulesReport(String moduleID) {
         modules = func.readCSV("modules.txt");
-//        assessmentQuestion = func.readCSV("assessmentQuestion.txt");         
         assessmentResult = func.readCSV("assessmentResult.txt");
-//        grade = avgGrade();
         this.moduleID = moduleID;
         loadModulesName();
         calculateGrade();
-//        totalStudents = getStudentCount();
-//        avgGrade = SystemCalculateGrade.calculateModuleAverage(grade);
-//        passRate = SystemCalculateGrade.calculateModulePassRate(grade, passRate);
         initComponents();
         loadModuleReport();
     }
@@ -57,45 +47,6 @@ public class ModuleReport extends javax.swing.JFrame {
             }
         }
     }
-
-//    private int getStudentCount(String moduleID) {
-//        int count = 0;
-//        
-//        for (int i = 0; i < results.length; i++) {
-//            if (results[i][1].equals(moduleID)) {
-//                count++;
-//            }
-//        }
-//        return count;
-//    }
-
-//    private int getAssessmentCount() {
-//        int count = 0;
-//        for (String[] assessment : assessmentQuestion) {
-//            if (assessment[1].equalsIgnoreCase(moduleID)) {
-//                count++;
-//            }
-//        }
-//        return count;
-//    }
-//    
-//    private double calculateAverageGrade() {
-//        int totalMarks = 0;
-//        int totalAssessments = getAssessmentCount();
-//        
-//        if (totalAssessments == 0) return 0;
-//        
-//        for (String[] result : assessmentResult) {
-//            totalMarks += Integer.parseInt(result[3]);
-//        }
-//        return (double) totalMarks / totalAssessments;
-//    }
-    
-//    private double calculatePassRate(String moduleID) {
-//        int totalStudents = 0;
-//        int studentsPassed = 0;
-//        return 0; 
-//    }
     
     private void calculateGrade() {
         List<String> studentID = new ArrayList<>();
@@ -143,7 +94,6 @@ public class ModuleReport extends javax.swing.JFrame {
     private void loadModuleReport() {
         moduleidtxt.setText(moduleID);
         modulenametxt.setText(moduleName);
-//        numberstudenttxt.setText(String.valueOf(totalStudents));
         averagegradetxt.setText(String.format("%.2f", avgGrade));
         passratetxt.setText(String.format("%.1f%%", passRate));
     }
@@ -158,15 +108,16 @@ public class ModuleReport extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         moduleidlbl = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        modulenamelbl = new javax.swing.JLabel();
         moduleidtxt = new javax.swing.JTextField();
         modulenametxt = new javax.swing.JTextField();
         averagegradelbl = new javax.swing.JLabel();
         averagegradetxt = new javax.swing.JTextField();
         passratelbl = new javax.swing.JLabel();
         passratetxt = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        numofstudentlbl = new javax.swing.JLabel();
         numberstudenttxt = new javax.swing.JTextField();
         moduleReport = new javax.swing.JLabel();
         backbtn = new javax.swing.JButton();
@@ -176,17 +127,27 @@ public class ModuleReport extends javax.swing.JFrame {
         moduleidlbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         moduleidlbl.setText("Module ID");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Module Name");
+        modulenamelbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        modulenamelbl.setText("Module Name");
+
+        moduleidtxt.setEditable(false);
+
+        modulenametxt.setEditable(false);
 
         averagegradelbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         averagegradelbl.setText("Average Grade");
 
+        averagegradetxt.setEditable(false);
+
         passratelbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         passratelbl.setText("Pass Rate");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("Number of Student ");
+        passratetxt.setEditable(false);
+
+        numofstudentlbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        numofstudentlbl.setText("Number of Student ");
+
+        numberstudenttxt.setEditable(false);
 
         moduleReport.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         moduleReport.setText("Module Report");
@@ -198,64 +159,83 @@ public class ModuleReport extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 403, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(modulenamelbl)
+                                .addComponent(moduleidlbl)
+                                .addComponent(averagegradelbl)
+                                .addComponent(passratelbl)
+                                .addComponent(numofstudentlbl))
+                            .addGap(56, 56, 56)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(moduleidtxt)
+                                .addComponent(modulenametxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(passratetxt)
+                                .addComponent(averagegradetxt)
+                                .addComponent(numberstudenttxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(115, 115, 115)
+                            .addComponent(moduleReport))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(131, 131, 131)
+                            .addComponent(backbtn)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 275, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(moduleReport)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(moduleidlbl)
+                        .addComponent(moduleidtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(modulenamelbl)
+                        .addComponent(modulenametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(numberstudenttxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(numofstudentlbl))
+                    .addGap(18, 18, 18)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(averagegradelbl)
+                        .addComponent(averagegradetxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(passratelbl)
+                        .addComponent(passratetxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(27, 27, 27)
+                    .addComponent(backbtn)
+                    .addContainerGap()))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(moduleidlbl)
-                            .addComponent(averagegradelbl)
-                            .addComponent(passratelbl)
-                            .addComponent(jLabel4))
-                        .addGap(56, 56, 56)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(moduleidtxt)
-                            .addComponent(modulenametxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(passratetxt, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(averagegradetxt, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(numberstudenttxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(150, 150, 150)
-                        .addComponent(moduleReport))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(166, 166, 166)
-                        .addComponent(backbtn)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(moduleReport)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(moduleidlbl)
-                    .addComponent(moduleidtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(modulenametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(numberstudenttxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(averagegradelbl)
-                    .addComponent(averagegradetxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(passratelbl)
-                    .addComponent(passratetxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addComponent(backbtn)
-                .addGap(24, 24, 24))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -289,20 +269,21 @@ public class ModuleReport extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new ModuleReport().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new ModulesReport().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel averagegradelbl;
     private javax.swing.JTextField averagegradetxt;
     private javax.swing.JButton backbtn;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel moduleReport;
     private javax.swing.JLabel moduleidlbl;
     private javax.swing.JTextField moduleidtxt;
+    private javax.swing.JLabel modulenamelbl;
     private javax.swing.JTextField modulenametxt;
     private javax.swing.JTextField numberstudenttxt;
+    private javax.swing.JLabel numofstudentlbl;
     private javax.swing.JLabel passratelbl;
     private javax.swing.JTextField passratetxt;
     // End of variables declaration//GEN-END:variables
