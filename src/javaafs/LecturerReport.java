@@ -16,15 +16,21 @@ public class LecturerReport extends javax.swing.JFrame {
 
     protected List<String[]> userArray;
     protected List<String[]> modules;
-    protected List<String[]> feedback;
+    protected List<String[]> feedbacks;
     
     UserFunctions func = new UserFunctions();
 
     public String Role = "";
     public String UserID = "";
+    public String Name = "";
+    public String Assessment = "";
+    public String Feedback = "";
+    public String Rating = "";
         
     public LecturerReport() {
         userArray = func.readCSV("users.txt");
+        modules = func.readCSV("modules.txt");
+        feedbacks = func.readCSV("studentFeedback.txt");
         initComponents();
     }
     
@@ -36,24 +42,52 @@ public class LecturerReport extends javax.swing.JFrame {
 
     
     private void loadUserData(String userid) {
-    if (userArray == null || userArray.isEmpty()) 
-        return;
+        if (userArray == null || userArray.isEmpty()) 
+            return;
 
-    for (int i = 0; i < userArray.size(); i++) {
-        String[] user = userArray.get(i);
-        if (user[0].equalsIgnoreCase(userid)) {
-//            lecturerName.setText(user[3]);
-//            userRole.setText(user[2]);
-            break;
+        for (int i = 0; i < userArray.size(); i++) {
+            String[] user = userArray.get(i);
+            if (user[0].equalsIgnoreCase(userid)) {
+    //            lecturerName.setText(user[3]);
+    //            userRole.setText(user[2]);
+                break;
+            }
         }
+    }
+    
+    private String getLecturerName(String lecturerID) {
+        if (lecturerID == null || lecturerID.isEmpty()) {
+            return "";
+        }
+        for (String[] user : userArray) {
+            if ("lecturer".equalsIgnoreCase(user[2]) && user[0].equalsIgnoreCase(lecturerID)) {
+                return user[3];
+            }
+        }
+        return "";
+    }
+
+    private int getFeedbackCount(String lecturerID) {
+        if (lecturerID == null || lecturerID.isEmpty()) return 0;
+
+        int count = 0;
+        for (String[] feedback : feedbacks) { 
+            if (feedback[2].equalsIgnoreCase(lecturerID)) {
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    private double getAverageRating(String lecturerID) {
+        if (lecturerID ==)
     }
     
     
     
     
     
-    
-}
+
 
     /**
      * This method is called from within the constructor to initialize the form.

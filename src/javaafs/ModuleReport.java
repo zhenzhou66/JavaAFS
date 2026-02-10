@@ -17,21 +17,29 @@ public class ModuleReport extends javax.swing.JFrame {
 
     protected List<String[]> modules;    
     protected List<String[]> assessmentResult;
+    protected List<String[]> gradingcriteria;
 
     private UserFunctions func = new UserFunctions();
     
     private String moduleID;
     private String moduleName;
+    private String grade;
+    double minMark;
+    double maxMark;
     private double avgGrade;
     private double passRate;
     
     public ModuleReport() {
     };
     
-    public ModuleReport(String moduleID) {
+    public ModuleReport(String moduleID, String grade, double minMark, double maxMark) {
         modules = func.readCSV("modules.txt");
         assessmentResult = func.readCSV("assessmentResult.txt");
+        gradingcriteria = func.readCSV("gradingcriteria.txt");
         this.moduleID = moduleID;
+        this.grade = grade;
+        this.minMark = minMark;
+        this.maxMark = maxMark;
         loadModulesName();
         calculateGrade();
         initComponents();
@@ -62,7 +70,8 @@ public class ModuleReport extends javax.swing.JFrame {
     private void calculateGrade() {
         List<String> studentID = new ArrayList<>();
         List<Double> grades = new ArrayList<>();
-    
+        List<String> LetterGrades = new ArrayList<>();
+
         // 1. Find all students who took this module
         for (String[] entry : assessmentResult) {
             if (entry[1].equalsIgnoreCase(moduleID) && !studentID.contains(entry[0])) {
@@ -80,10 +89,24 @@ public class ModuleReport extends javax.swing.JFrame {
                     assessmentCount++;
                 }
             }
-
             if (assessmentCount > 0) {
                 double Grade = sumGrades / assessmentCount;
                 grades.add(Grade);
+                
+                String letter = "";
+                for (String[] gc : gradingcriteria) {
+                    if (gc[0].equalsIgnoreCase("grade")) continue; {
+                        double minMark = Double.parseDouble(gc[1]);
+                        double maxMark = Double.parseDouble(gc[2]);
+                        String gradeLetter = gc[0];
+
+                        if (Grade >= minMark && Grade <= maxMark) {
+                            letter = gc[0];
+                            break;
+                        }
+                    }
+                    LetterGrades.add(letter);
+                }
             }
         }
         
@@ -98,7 +121,7 @@ public class ModuleReport extends javax.swing.JFrame {
             avgGrade = 0;
         }
         
-        // 4. Calculate module pass rate (pass mark = 40)
+        // 4. Calculate module pass rate 
         int passCount = 0;
         for (double grade : grades) {
             if (grade >= 40) passCount++;
