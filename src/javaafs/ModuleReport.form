@@ -113,8 +113,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="moduleidtxt">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="modulenametxt">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="averagegradelbl">
       <Properties>
@@ -125,6 +131,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="averagegradetxt">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="passratelbl">
       <Properties>
@@ -135,6 +144,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="passratetxt">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
@@ -145,6 +157,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="numberstudenttxt">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="moduleReport">
       <Properties>

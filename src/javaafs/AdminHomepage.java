@@ -4,13 +4,25 @@ package javaafs;
 
 public class AdminHomepage extends javax.swing.JFrame {
     
-    private String userID;
+    private final String username;
 
 
-    public AdminHomepage(String userID) {
-        this.userID = userID;
+    public AdminHomepage(String username) {
+        this.username = username;
         initComponents();
         initButtonActions();
+        
+        // display username in the text field
+//        if (username != null) {
+//            userID.setText(username);
+//        }
+    }
+    
+    public AdminHomepage() {
+        this.username = null;  // satisfies final, no hardcoding
+        initComponents();
+        initButtonActions();
+
     }
     
     private void initButtonActions() {
@@ -22,19 +34,19 @@ public class AdminHomepage extends javax.swing.JFrame {
 
         // Assign Lecturer button
         AssignLecturer.addActionListener(e -> {
-            new AssignLecturer(userID).setVisible(true);
+            new AssignLecturer(username).setVisible(true);
             this.dispose();
         });
 
         // Grading System button
         GradingSystem.addActionListener(e -> {
-            new GradingSystem().setVisible(true);
+            new GradingSystem(username).setVisible(true);
             this.dispose();
         });
 
         // Class Management button
         ClassManagement.addActionListener(e -> {
-            new ClassManagement(userID).setVisible(true);
+            new ClassManagement(username).setVisible(true);
             this.dispose();
         });
     }
@@ -125,7 +137,7 @@ public class AdminHomepage extends javax.swing.JFrame {
 
     public static void main(String args[]) {
 
-//        java.awt.EventQueue.invokeLater(() -> new AdminHomepage().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new AdminHomepage().setVisible(true));
         
     }
 

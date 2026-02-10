@@ -17,24 +17,27 @@ public class ModuleReport extends javax.swing.JFrame {
 
     protected List<String[]> modules;    
     protected List<String[]> assessmentResult;
+    protected List<String[]> gradingcriteria;
 
     private UserFunctions func = new UserFunctions();
     
     private String moduleID;
     private String moduleName;
-    private double avgGrade;
-    private double passRate;
+    private String studentCount;
     
     public ModuleReport() {
+        
     };
     
     public ModuleReport(String moduleID) {
         modules = func.readCSV("modules.txt");
         assessmentResult = func.readCSV("assessmentResult.txt");
+        gradingcriteria = func.readCSV("gradingcriteria.txt");
         this.moduleID = moduleID;
+        initComponents();
         loadModulesName();
-        calculateGrade();
-       initComponents();
+        calculateAverageMark();
+        studentCount = String.valueOf(getStudentCount(moduleID));
         loadModuleReport();
     }
     
@@ -48,74 +51,56 @@ public class ModuleReport extends javax.swing.JFrame {
         }
     }
 
-//    private int getStudentCount(String moduleID) {
-//        int count = 0;
-//        
-//        for (int i = 0; i < results.length; i++) {
-//            if (results[i][1].equals(moduleID)) {
-//                count++;
-//            }
-//        }
-//        return count;
-//    }
+    private int getStudentCount(String moduleID) {
+        List<String> studentIDs = new ArrayList<>();
 
-    private void calculateGrade() {
-        List<String> studentID = new ArrayList<>();
-        List<Double> grades = new ArrayList<>();
-    
-        // 1. Find all students who took this module
-        for (String[] entry : assessmentResult) {
-            if (entry[1].equalsIgnoreCase(moduleID) && !studentID.contains(entry[0])) {
-                studentID.add(entry[0]);
-            }
-        }
-        // 2. Calculate final grade for each student
-        for (String studentid : studentID) {
-            double sumGrades = 0;
-            int assessmentCount = 0;
-
-            for (String[] entry : assessmentResult) {
-                if (entry[0].equals(studentid) && entry[1].equalsIgnoreCase(moduleID)) {
-                    sumGrades += Double.parseDouble(entry[3]); // grade column
-                    assessmentCount++;
+        for (int i = 1; i < assessmentResult.size(); i++) {
+            String[] result = assessmentResult.get(i);
+            if (result[4].equalsIgnoreCase(moduleID)) {
+                String studentID = result[1];
+                if (!studentIDs.contains(studentID)) {  // only add if not already in list
+                    studentIDs.add(studentID);
                 }
             }
+        }
 
-            if (assessmentCount > 0) {
-                double Grade = sumGrades / assessmentCount;
-                grades.add(Grade);
+        int count = studentIDs.size();
+        return count;
+    }
+
+    
+    private void calculateAverageMark() {
+        int sum = 0;
+        int count = 0;
+
+        // Loop through all assessment results
+        for (String[] result : assessmentResult) {
+            // Check if this entry is for the desired module
+            if (result[3].equalsIgnoreCase("mark")) {
+            continue; 
+            }
+            if (result[4].equalsIgnoreCase(moduleID)) {
+                try {
+                    int mark = Integer.parseInt(result[3]); // assuming mark is at index 2
+                    sum += mark;
+                    count++;
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid mark for student " + result[0]);
+                }
             }
         }
-        
-        // 3. Calculate module average
-        double sum = 0;
-        for (double grade : grades) {
-            sum += grade;
-        }
-        if (grades.size() > 0) {
-            avgGrade = sum / grades.size();
-        } else {
-            avgGrade = 0;
-        }
-        
-        // 4. Calculate module pass rate (pass mark = 40)
-        int passCount = 0;
-        for (double grade : grades) {
-            if (grade >= 40) passCount++;
-        }
-        if (grades.size() > 0) {
-            passRate = ((double) passCount / grades.size()) * 100;
-        } else {
-            passRate = 0;
+
+        // Calculate average
+        if (count > 0) {
+            double average = (double) sum / count;
+            averagegradetxt.setText(String.format("%.2f", average));
         }
     }
     
     private void loadModuleReport() {
         moduleidtxt.setText(moduleID);
         modulenametxt.setText(moduleName);
-//        numberstudenttxt.setText(String.valueOf(totalStudents));
-        averagegradetxt.setText(String.format("%.2f", avgGrade));
-        passratetxt.setText(String.format("%.1f%%", passRate));
+        numberstudenttxt.setText(studentCount);
     }
 
 
@@ -149,14 +134,24 @@ public class ModuleReport extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Module Name");
 
+        moduleidtxt.setEditable(false);
+
+        modulenametxt.setEditable(false);
+
         averagegradelbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         averagegradelbl.setText("Average Grade");
+
+        averagegradetxt.setEditable(false);
 
         passratelbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         passratelbl.setText("Pass Rate");
 
+        passratetxt.setEditable(false);
+
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Number of Student ");
+
+        numberstudenttxt.setEditable(false);
 
         moduleReport.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         moduleReport.setText("Module Report");
