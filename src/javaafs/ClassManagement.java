@@ -62,10 +62,10 @@ public class ClassManagement extends javax.swing.JFrame {
         moduleName.removeAllItems();
         moduleMap.clear();
         
-        // Placeholder
-        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
-        model.addElement("---Select---"); // first item
-        moduleName.setModel(model);
+//        // Placeholder
+//        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+//        model.addElement("---Select---"); // first item
+//        moduleName.setModel(model);
     
 //        try (BufferedReader br = new BufferedReader(new FileReader("modules.txt"))) {
 //            String line;
@@ -85,13 +85,14 @@ public class ClassManagement extends javax.swing.JFrame {
 
         ArrayList<String[]> modules = UserFunctions.readCSV("modules.txt");
 
-        for (String[] data : modules) {
+        for (int i = 1; i < modules.size(); i++) { // start from 1
+            String[] data = modules.get(i);
             if (data.length >= 2) {
-                String moduleID = data[0];
-                String moduleNameText = data[1];
+                String moduleID = data[0].trim();
+                String moduleNameText = data[1].trim();
 
-                moduleName.addItem(moduleNameText);
-                moduleMap.put(moduleNameText, moduleID);
+                moduleName.addItem(moduleNameText);      // add to combo box
+                moduleMap.put(moduleNameText, moduleID); // keep internal mapping
             }
         }
 
@@ -554,8 +555,8 @@ public class ClassManagement extends javax.swing.JFrame {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         String selectedModuleName = (String) moduleName.getSelectedItem();
-
-        if (selectedModuleName == null || selectedModuleName.equals("---Select---")) {
+        
+        if (selectedModuleName == null || selectedModuleName.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please select a module.");
             return;
         }
