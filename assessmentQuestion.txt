@@ -8,3 +8,5 @@ asmn006,M002,The apple is red. True or False?,dsdsd,jTextField2,jTextField2,jTex
 asmn007,M001,q1,q2,q3,q4,q5,True,True,True,True,True
 asmn008,M002,q1,qq2,q3,q4,q5,True,True,True,True,True
 asmn009,M002,The apple is red. True or False?,jTextField2,jTextField2,jTextField2,jTextField2,True,True,True,True,True
+asmn010,M001,1,2,3,4,5,False,False,False,True,True
+asmn011,M002,The 2,2,2,3,4,True,True,True,True,True
