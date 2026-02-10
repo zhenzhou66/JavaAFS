@@ -128,36 +128,36 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
-        String username = InputUserID.getText();
+        String userID = InputUserID.getText();
         String password = new String(InputPassword.getPassword());
 
-        boolean auth = func.authUser(userArray, username, password);
-        String userType = func.userType(userArray, username);
+        boolean auth = func.authUser(userArray, userID, password);
+        String userType = func.userType(userArray, userID);
         
         if (auth) {
             if (userType.equals("Admin")) {
                 Status.setText("Access granted!");
-                AdminHomepage adminMainMenu = new AdminHomepage();
+                AdminHomepage adminHomepage = new AdminHomepage(userID);
                 this.setVisible(false);
-                adminMainMenu.setVisible(true);
+                adminHomepage.setVisible(true);
 
             } else if (userType.equals("AcademicLeader")) {
                 Status.setText("Access granted!");
-                AcadLeaderMenu menu = new AcadLeaderMenu(username);
-                AcadLeadProfile profile = new AcadLeadProfile(username);
+                AcadLeaderMenu menu = new AcadLeaderMenu(userID);
+                AcadLeadProfile profile = new AcadLeadProfile(userID);
                 this.setVisible(false);
                 menu.setVisible(true);
                 profile.setVisible(false);
 
             } else if (userType.equals("Lecturer")) {
                 Status.setText("Access granted!");
-                LecturerMainMenu menu = new LecturerMainMenu(username);
+                LecturerMainMenu menu = new LecturerMainMenu(userID);
                 this.setVisible(false);
                 menu.setVisible(true);
 
             } else if (userType.equals("Student")) {
                 Status.setText("Access granted!");
-                StudentMainMenu menu = new StudentMainMenu(username);
+                StudentMainMenu menu = new StudentMainMenu(userID);
                 this.setVisible(false);
                 menu.setVisible(true);
 

@@ -22,7 +22,7 @@ public class AdminHomepage extends javax.swing.JFrame {
 
         // Assign Lecturer button
         AssignLecturer.addActionListener(e -> {
-            new AssignLecturer().setVisible(true);
+            new AssignLecturer(userID).setVisible(true);
             this.dispose();
         });
 
@@ -34,7 +34,7 @@ public class AdminHomepage extends javax.swing.JFrame {
 
         // Class Management button
         ClassManagement.addActionListener(e -> {
-            new ClassManagement().setVisible(true);
+            new ClassManagement(userID).setVisible(true);
             this.dispose();
         });
     }

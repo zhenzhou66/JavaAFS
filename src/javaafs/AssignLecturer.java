@@ -32,7 +32,7 @@ public class AssignLecturer extends javax.swing.JFrame {
 
 
 
-    public AssignLecturer() {
+    public AssignLecturer(String userID) {
         this.userID = userID;
         initComponents();
         loadLecturer();
@@ -321,7 +321,7 @@ public class AssignLecturer extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AssignLecturer().setVisible(true);
+//                new AssignLecturer().setVisible(true);
             }
         });
     }
