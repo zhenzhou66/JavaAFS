@@ -36,6 +36,7 @@ public class ModuleReport extends javax.swing.JFrame {
         this.moduleID = moduleID;
         initComponents();
         loadModulesName();
+        calculatePassRate();
         calculateAverageMark();
         studentCount = String.valueOf(getStudentCount(moduleID));
         loadModuleReport();
@@ -96,6 +97,29 @@ public class ModuleReport extends javax.swing.JFrame {
             averagegradetxt.setText(String.format("%.2f", average));
         }
     }
+    
+    private void calculatePassRate(){
+        int passCount = 0;
+        int totalCount = 0;
+
+        for (int i = 1; i < assessmentResult.size(); i++) {
+            String[] result = assessmentResult.get(i);
+            if (result[4].equalsIgnoreCase(moduleID)) { // column 4 = moduleID
+                double mark = Double.parseDouble(result[3]); // column 3 = mark
+                totalCount++;
+                if (mark >= 40) { // passing mark
+                    passCount++;
+                }
+            }
+        }
+        if (totalCount == 0) {
+            double passRate = (double) passCount / totalCount;
+            passratetxt.setText(String.format("%.2f%%", passRate));
+        }
+        else {
+            passratetxt.setText("0%");
+        }
+}
     
     private void loadModuleReport() {
         moduleidtxt.setText(moduleID);

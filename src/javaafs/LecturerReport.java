@@ -4,6 +4,7 @@
  */
 package javaafs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +18,7 @@ public class LecturerReport extends javax.swing.JFrame {
     protected List<String[]> userArray;
     protected List<String[]> modules;
     protected List<String[]> feedbacks;
+    protected List<String[]> assessments;
     
     UserFunctions func = new UserFunctions();
 
@@ -31,6 +33,7 @@ public class LecturerReport extends javax.swing.JFrame {
         userArray = func.readCSV("users.txt");
         modules = func.readCSV("modules.txt");
         feedbacks = func.readCSV("studentFeedback.txt");
+        assessments = func.readCSV("assessmentquestion.txt");
         initComponents();
     }
     
@@ -38,6 +41,8 @@ public class LecturerReport extends javax.swing.JFrame {
         this();               
         this.UserID = UserID; 
         loadUserData(UserID); 
+        getFeedbackCount(UserID);
+        calculateAverageRating(UserID);
     }
 
     
@@ -48,46 +53,78 @@ public class LecturerReport extends javax.swing.JFrame {
         for (int i = 0; i < userArray.size(); i++) {
             String[] user = userArray.get(i);
             if (user[0].equalsIgnoreCase(userid)) {
-    //            lecturerName.setText(user[3]);
-    //            userRole.setText(user[2]);
+                lectureridtxt.setText(user[3]);
+                lecturernametxt.setText(user[0]);
                 break;
             }
         }
-    }
-    
-    private String getLecturerName(String lecturerID) {
-        if (lecturerID == null || lecturerID.isEmpty()) {
-            return "";
-        }
-        for (String[] user : userArray) {
-            if ("lecturer".equalsIgnoreCase(user[2]) && user[0].equalsIgnoreCase(lecturerID)) {
-                return user[3];
-            }
-        }
-        return "";
+        
+        int totalfeedback = getFeedbackCount(userid);
+        numberfeedbacktxt.setText(String.valueOf(totalfeedback));
+
+        int totalAssessments = calculateAssessment(userid);
+        assessmentnumtxt.setText(String.valueOf(totalAssessments));
+
     }
 
     private int getFeedbackCount(String lecturerID) {
-        if (lecturerID == null || lecturerID.isEmpty()) return 0;
+        if (lecturerID == null || lecturerID.isEmpty())
+            return 0;
 
         int count = 0;
-        for (String[] feedback : feedbacks) { 
+        for (int i = 1; i < feedbacks.size(); i++) {  
+            String[] feedback = feedbacks.get(i);
             if (feedback[2].equalsIgnoreCase(lecturerID)) {
+                count++;
+            }
+        }
+
+        return count;
+    } 
+    
+    private void calculateAverageRating(String lecturerID) {
+        int totalrating = 0;
+        int studentcount = 0;
+        
+        for (int i = 1; i < feedbacks.size(); i++) {
+            String[] feedback = feedbacks.get(i);
+            if (feedback[2].equalsIgnoreCase(lecturerID)) {
+                int rating = Integer.parseInt(feedback[3]);
+                totalrating += rating;
+                studentcount++;
+            }
+        }
+
+        if (studentcount > 0) {
+            double avgrating = (double) totalrating / studentcount;
+            ratingtxt.setText(String.format("%.2f / 5", avgrating));
+        } else {
+            ratingtxt.setText("0");
+        }
+    }
+    
+    private int calculateAssessment(String lecturerID) {
+        if (lecturerID == null || lecturerID.isEmpty())
+            return 0;
+        
+        List<String> lecturerModules = new ArrayList<>();
+
+        for (int i = 1; i < modules.size(); i++) {  
+            String[] module = modules.get(i);
+            if (module.length > 2 && module[2].equalsIgnoreCase(lecturerID)) {  
+                lecturerModules.add(module[0]);           
+            }
+        }
+
+        int count = 0;
+        for (int i = 1; i < assessments.size(); i++) {  
+            String[] assessment = assessments.get(i);
+            if (assessment.length > 1 && lecturerModules.contains(assessment[1])) {      
                 count++;
             }
         }
         return count;
     }
-    
-//    private double getAverageRating(String lecturerID) {
-//        if (lecturerID ==)
-//    }
-//    
-    
-    
-    
-    
-
 
     /**
      * This method is called from within the constructor to initialize the form.
