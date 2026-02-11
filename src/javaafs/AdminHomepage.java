@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 public class AdminHomepage extends javax.swing.JFrame {
     
@@ -21,57 +19,61 @@ public class AdminHomepage extends javax.swing.JFrame {
         this.username = username;
         initComponents();
         userID.setText(username);
-
-//        this.setVisible(true);
-
-    // Read users to check if forceChange is true
+        
+        
+        // Read users to check forceChange
         List<String[]> users = UserFunctions.readCSV("users.txt");
+        forceChange = "false"; // default
+
         for (String[] row : users) {
-            if (row[0].equals(username)) {
-                forceChange = row[7]; // store "true" or "false"
+            // Skip header
+            if (row[0].equalsIgnoreCase("userID")) continue;
+
+            if (row[0].trim().equalsIgnoreCase(username.trim())) {
+                forceChange = row[7].trim();
                 break;
             }
         }
-
-        // If forceChange = true, show reminder dialog first
-        if ("true".equalsIgnoreCase(forceChange)) {
-            int result = JOptionPane.showConfirmDialog(
-                null, // no parent yet, so dialog appears centered
-                "You must change your password.",
-                "Notice",
-                JOptionPane.DEFAULT_OPTION,
-                JOptionPane.WARNING_MESSAGE
-            );
-
-            if (result == JOptionPane.OK_OPTION) {
-                // Open profile page only
-                new AdminProfile(username).setVisible(true);
-                return; // exit constructor, homepage never shows
-            }
-            // If user closes dialog → continue to show homepage
-        }
-
-        // Show homepage normally
-        this.setVisible(true);
         
-        
-
-//        ArrayList<String[]> users = UserFunctions.readCSV("users.txt");
-//
-//            if (UserFunctions.isForceChangeRequired(username, users)) {
-//
-//                JOptionPane.showMessageDialog(
-//                    this,
-//                    "You must change your password.",
-//                    "Notice",
-//                    JOptionPane.WARNING_MESSAGE
-//                );
-//
-//                new AdminProfile(username).setVisible(true);
-//                this.dispose();
-//            }
     }
 
+    
+    
+
+//        this.setVisible(true);
+
+    // Read users to check forceChange
+//        List<String[]> users = UserFunctions.readCSV("users.txt");
+//        for (String[] row : users) {
+//            if (row[0].equals(username)) {
+//                forceChange = row[7]; // true or false
+//                break;
+//            }
+//        }
+//
+//        // If forceChange = true
+//        if ("true".equalsIgnoreCase(forceChange)) {
+//
+//            JOptionPane.showMessageDialog(
+//                this, // IMPORTANT: use this as parent
+//                "You must change your password.",
+//                "Notice",
+//                JOptionPane.WARNING_MESSAGE
+//            );
+//
+//            // Close homepage BEFORE opening profile
+////            this.dispose();
+//
+//
+//            this.dispose();  
+//
+//            new AdminProfile(username).setVisible(true);
+//
+//            return;
+//        } else {
+//            // Show homepage normally
+//            this.setVisible(true);
+//        }
 
 
 //    public AdminHomepage(String username) {
@@ -91,6 +93,8 @@ public class AdminHomepage extends javax.swing.JFrame {
 //        initButtonActions();
 //
 //    }
+    
+    
     
     
 
@@ -217,26 +221,34 @@ public class AdminHomepage extends javax.swing.JFrame {
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
 
-        if ("true".equals(forceChange)) {
+        // Only show message when logout button is clicked
+        if (forceChange != null && forceChange.equalsIgnoreCase("true")) {
 
-            JOptionPane optionPane =
-            new JOptionPane(
-                "You must change your password before logging out.",
-                JOptionPane.WARNING_MESSAGE,
-                JOptionPane.DEFAULT_OPTION);
+            int choice = JOptionPane.showConfirmDialog(
+                    this,
+                    "You must change your password before logging out.\n\n"
+                    + "Press OK to change password now.\n"
+                    + "Press Cancel or close (X) to logout.",
+                    "Password Change Required",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.WARNING_MESSAGE
+            );
 
-            JDialog dialog = optionPane.createDialog("Notice");
-            dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-            dialog.setVisible(true);
+            if (choice == JOptionPane.OK_OPTION) {
+                // Open profile
+                new AdminProfile(username).setVisible(true);
+                this.dispose();
+            } else {
+                // Cancel or X → logout normally
+                new UserLogin().setVisible(true);
+                this.dispose();
+            }
 
-            new AdminProfile(username).setVisible(true);
+        } else {
+            // Normal logout
+            new UserLogin().setVisible(true);
             this.dispose();
-            return;
         }
-
-        // Normal logout
-        new UserLogin().setVisible(true);
-        this.dispose();
 
     }//GEN-LAST:event_logoutButtonActionPerformed
 

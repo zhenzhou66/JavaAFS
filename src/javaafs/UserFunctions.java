@@ -320,7 +320,7 @@ public class UserFunctions {
 
         for (String[] row : users) {
             if (row[0].equals(userID)) {
-                return row[8]; // forceChange column
+                return row[7]; // forceChange column
             }
         }
 

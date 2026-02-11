@@ -1,5 +1,5 @@
 userID,password,role,name,email,phoneNumber,moduleID,forceChange
-A002,b8698fb143dd2c1d81bff03e0c02a2603353ef5e2f4f3f0723eed5df36cb2afe,Admin,Hanbin,hanbin@yahoo.com,0215489656,NA,true
+L014,3bd0751655df119cd88971b8318c9c0184d71848a143a05084689189581756eb,Lecturer,Hanbin,hanbin@yahoo.com,0215489656,NA,false
 L001,81ce904c440ae32e7fcefbc297b2fecde084dd9b12b5dc179c13463392454050,Lecturer,Zhang Hao,hao@gmail.com,0215998656,NA,true
 A004,2448412937e9e8540d3e8650bf1701bdedd57a1dc6572a249d3d8fce8e32a528,Admin,Han Yujin,yujin@yahoo.com,0215896589,NA,true
 AL001,0277c91941bd347b5600dcdf8e032b12709d0468b0d19acee5876935cebfb727,AcademicLeader,Jiwoong,jw@yahoo.com,0215986532,NA,true
@@ -28,4 +28,4 @@ L013,123,Lecturer,Aisyah,aisyah22@gmail.com,0147788990,NA,false
 S011,123,Student,Irfan,irfan19@gmail.com,0156677889,NA,false
 AL003,33b0440d49cf9be91761fd86bb2c41f255762dcacf8e7b0a20b3f4bd24c6722c,AcademicLeader,Gunwook,gunwook@gmail.com,0125489862,NA,true
 L012,fc627d98d6d9e578db4baf3dfba4dca966e3c8ac6bb7cedee56beee1cfd4cdb8,Lecturer,Zz,zz@yahoo.com,0124589653,NA,true
-S010,af89ccd5ac0de2b04b8f251ecf595e8bfdb351598486c1704314268995314cd1,Student,Cc,cc@gmail.com,0124589656,NA,true
+S010,b31668fa0e68a7c14086b2e240487394bee83f446107f9e174b367e323600cc6,Student,Cc,cc@gmail.com,0124589656,NA,true

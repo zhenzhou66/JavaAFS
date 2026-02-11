@@ -25,6 +25,9 @@ public class LecturerMenu extends javax.swing.JFrame {
     public String Role = "";
     public String UserID = "";
     
+    private String forceChange;
+
+    
     public LecturerMenu() {
         userArray = func.readCSV("users.txt");
         initComponents();
@@ -34,19 +37,21 @@ public class LecturerMenu extends javax.swing.JFrame {
         this();               
         this.UserID = UserID; 
         loadUserData(UserID);
-        
-        // ===== FORCE CHANGE CHECK =====
-        if (UserFunctions.isForceChangeRequired(UserID, userArray)) {
+            
+            
+            // Read users to check forceChange
+            List<String[]> users = UserFunctions.readCSV("users.txt");
+            forceChange = "false"; // default
 
-            JOptionPane.showMessageDialog(
-                this,
-                "You must change your password.",
-                "Notice",
-                JOptionPane.WARNING_MESSAGE
-            );
+            for (String[] row : users) {
+                // Skip header
+                if (row[0].equalsIgnoreCase("userID")) continue;
 
-            new LecturerProfilePage(UserID).setVisible(true);
-            this.dispose();
+                if (row[0].trim().equalsIgnoreCase(UserID.trim())) {
+                    forceChange = row[7].trim();
+                    break;
+                }
+
         }
     }
 
@@ -217,10 +222,34 @@ public class LecturerMenu extends javax.swing.JFrame {
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
 
-        UserLogin loginScreen = new UserLogin();
-        loginScreen.setVisible(true);
+        // Only show message when logout button is clicked
+        if (forceChange != null && forceChange.equalsIgnoreCase("true")) {
 
-        this.dispose();
+            int choice = JOptionPane.showConfirmDialog(
+                    this,
+                    "You must change your password before logging out.\n\n"
+                    + "Press OK to change password now.\n"
+                    + "Press Cancel or close (X) to logout.",
+                    "Password Change Required",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.WARNING_MESSAGE
+            );
+
+            if (choice == JOptionPane.OK_OPTION) {
+                // Open profile
+                new LecturerProfilePage(UserID).setVisible(true);
+                this.dispose();
+            } else {
+                // Cancel or X → logout normally
+                new UserLogin().setVisible(true);
+                this.dispose();
+            }
+
+        } else {
+            // Normal logout
+            new UserLogin().setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_logOutActionPerformed
 
     private void designAsgmntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_designAsgmntActionPerformed
