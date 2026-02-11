@@ -11,37 +11,17 @@ import java.util.Map;
 
 public class AssignLecturer extends javax.swing.JFrame {
     
-    private String userID; 
-    
-//    protected List<String[]> userArray;
-//    public String UserID = "";
-//
-//    
-//    private void loadUserData(String userid) {
-//    if (userArray == null || userArray.isEmpty()) 
-//        return;
-//
-//    for (int i = 0; i < userArray.size(); i++) {
-//        String[] user = userArray.get(i);
-//        if (user[0].equalsIgnoreCase(userid)) {
-//            UserID = user[0];
-//            break;
-//            }
-//        }
-//    }
+    private final String username;
+    private UserFunctions func = new UserFunctions();
 
 
 
     public AssignLecturer(String userID) {
-        this.userID = userID;
+        this.username = userID;
         initComponents();
         loadLecturer();
     }
     
-//    private void goBack() {
-//    new AdminHomepage(userID).setVisible(true);
-//    this.dispose();
-//}
 
     
     private void loadLecturer() {
@@ -203,16 +183,36 @@ public class AssignLecturer extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        AdminHomepage = new javax.swing.JButton();
+        AdminProfile = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         LecturerTable = new javax.swing.JTable();
+        UserManagement = new javax.swing.JButton();
+        AssignLecturer = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         AcademicLeaderTable = new javax.swing.JTable();
+        GradingSystem = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        ClassManagement = new javax.swing.JButton();
         subHeading1 = new javax.swing.JLabel();
         assignLecturerButton = new javax.swing.JButton();
-        backButton = new javax.swing.JButton();
         subHeading2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        AdminHomepage.setText("Homepage");
+        AdminHomepage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AdminHomepageActionPerformed(evt);
+            }
+        });
+
+        AdminProfile.setText("Profile");
+        AdminProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AdminProfileActionPerformed(evt);
+            }
+        });
 
         LecturerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -227,6 +227,20 @@ public class AssignLecturer extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(LecturerTable);
 
+        UserManagement.setText("Manage User");
+        UserManagement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserManagementActionPerformed(evt);
+            }
+        });
+
+        AssignLecturer.setText("Assign Lecturer");
+        AssignLecturer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AssignLecturerActionPerformed(evt);
+            }
+        });
+
         AcademicLeaderTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -240,6 +254,23 @@ public class AssignLecturer extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(AcademicLeaderTable);
 
+        GradingSystem.setText("Grading System");
+        GradingSystem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GradingSystemActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setText("Assign Lecturer");
+
+        ClassManagement.setText("Class Management");
+        ClassManagement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClassManagementActionPerformed(evt);
+            }
+        });
+
         subHeading1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         subHeading1.setText("Academic Leader Table");
 
@@ -250,13 +281,6 @@ public class AssignLecturer extends javax.swing.JFrame {
             }
         });
 
-        backButton.setText("Back");
-        backButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backButtonActionPerformed(evt);
-            }
-        });
-
         subHeading2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         subHeading2.setText("Lecturer Table");
 
@@ -264,73 +288,120 @@ public class AssignLecturer extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addGap(65, 65, 65)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(314, 314, 314)
-                        .addComponent(subHeading2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(272, 272, 272)
-                        .addComponent(subHeading1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(assignLecturerButton, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                    .addComponent(backButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(56, 56, 56))
+                    .addComponent(AdminProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(GradingSystem, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AssignLecturer, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ClassManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(UserManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AdminHomepage, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(subHeading2)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(subHeading1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(assignLecturerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(136, 136, 136)))
+                .addGap(85, 85, 85))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(68, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(subHeading1)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(248, 248, 248)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(subHeading2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(subHeading1)
+                        .addGap(14, 14, 14)
+                        .addComponent(AdminHomepage)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)
-                        .addComponent(assignLecturerButton)
+                        .addComponent(UserManagement)
                         .addGap(18, 18, 18)
-                        .addComponent(backButton)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                        .addComponent(ClassManagement)
+                        .addGap(18, 18, 18)
+                        .addComponent(AssignLecturer)
+                        .addGap(18, 18, 18)
+                        .addComponent(GradingSystem)
+                        .addGap(18, 18, 18)
+                        .addComponent(AdminProfile)))
+                .addGap(18, 18, 18)
+                .addComponent(assignLecturerButton)
+                .addGap(39, 39, 39))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void AdminHomepageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminHomepageActionPerformed
+        new AdminHomepage(username).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_AdminHomepageActionPerformed
+
+    private void AdminProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminProfileActionPerformed
+        new AdminProfile(username).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_AdminProfileActionPerformed
+
+    private void UserManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserManagementActionPerformed
+        new UserManagement(username).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_UserManagementActionPerformed
+
+    private void AssignLecturerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AssignLecturerActionPerformed
+        new AssignLecturer(username).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_AssignLecturerActionPerformed
+
+    private void GradingSystemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GradingSystemActionPerformed
+        new GradingSystem(username).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_GradingSystemActionPerformed
+
+    private void ClassManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClassManagementActionPerformed
+        new ClassManagement(username).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ClassManagementActionPerformed
+
     private void assignLecturerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignLecturerButtonActionPerformed
         assignLecturer();
     }//GEN-LAST:event_assignLecturerButtonActionPerformed
 
-    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        new AdminHomepage(userID).setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_backButtonActionPerformed
 
-
-    public static void main(String args[]) {
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-//                new AssignLecturer().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+////                new AssignLecturer().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable AcademicLeaderTable;
+    private javax.swing.JButton AdminHomepage;
+    private javax.swing.JButton AdminProfile;
+    private javax.swing.JButton AssignLecturer;
+    private javax.swing.JButton ClassManagement;
+    private javax.swing.JButton GradingSystem;
     private javax.swing.JTable LecturerTable;
+    private javax.swing.JButton UserManagement;
     private javax.swing.JButton assignLecturerButton;
-    private javax.swing.JButton backButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel subHeading1;

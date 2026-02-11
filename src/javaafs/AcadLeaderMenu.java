@@ -5,6 +5,8 @@
 package javaafs;
 
 import java.util.List;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -29,6 +31,20 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
         this();
         this.UserID = userid;
         loadUserData(userid);
+        
+        // ===== FORCE CHANGE CHECK =====
+        if (UserFunctions.isForceChangeRequired(UserID, userArray)) {
+
+            JOptionPane.showMessageDialog(
+                this,
+                "You must change your password.",
+                "Notice",
+                JOptionPane.WARNING_MESSAGE
+            );
+
+            new AcadLeadProfile(UserID).setVisible(true);
+            this.dispose();
+        }
     }
    
     private void loadUserData(String userid) {

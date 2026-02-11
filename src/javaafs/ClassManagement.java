@@ -6,24 +6,23 @@ import java.io.FileReader;
 import javax.swing.JOptionPane;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.DefaultComboBoxModel;
 import java.io.*;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 public class ClassManagement extends javax.swing.JFrame {
     
-    private String userID; 
-    
+    private final String username;
+    private UserFunctions func = new UserFunctions();
+    private final String filePath = "users.txt";
     private Map<String, String> moduleMap = new HashMap<>();
-    
-    private UserFunctions fn = new UserFunctions();
+
 
 
 
 
     public ClassManagement(String userID) {
-        this.userID = userID;
+        this.username = userID;
         initComponents();
         loadModules();
         updateHistoryTable();
@@ -62,27 +61,6 @@ public class ClassManagement extends javax.swing.JFrame {
         moduleName.removeAllItems();
         moduleMap.clear();
         
-//        // Placeholder
-//        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
-//        model.addElement("---Select---"); // first item
-//        moduleName.setModel(model);
-    
-//        try (BufferedReader br = new BufferedReader(new FileReader("modules.txt"))) {
-//            String line;
-//            while ((line = br.readLine()) != null) {
-//                String[] data = line.split(",");
-//                if (data.length >= 2) {
-//                    String moduleID = data[0].trim();
-//                    String moduleNameText = data[1].trim();
-//
-//                    moduleName.addItem(moduleNameText);      // UI
-//                    moduleMap.put(moduleNameText, moduleID); // INTERNAL
-//                }
-//            }
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(this, "Error loading modules: " + e.getMessage());
-//        }
-
         ArrayList<String[]> modules = UserFunctions.readCSV("modules.txt");
 
         for (int i = 1; i < modules.size(); i++) { // start from 1
@@ -166,70 +144,12 @@ public class ClassManagement extends javax.swing.JFrame {
     }
 
     
-       // ================= GROUP VALIDATION =================
-//        private boolean isGroupDuplicate(String groupName, String moduleID) {
-//            try (BufferedReader br = new BufferedReader(new FileReader("group.txt"))) {
-//                String line;
-//                while ((line = br.readLine()) != null) {
-//                    String[] d = line.split(",");
-//                    if (d.length >= 3 &&
-//                        d[1].equalsIgnoreCase(groupName) &&
-//                        d[2].equals(moduleID)) {
-//                        return true;
-//                    }
-//                }
-//            } catch (Exception ignored) {}
-//            return false;
-//        }
-
-
-    // ================= ID GENERATOR =================
-//    private String generateID(String prefix, String fileName) {
-//        int maxID = 0;
-//
-//        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-//            String line;
-//            while ((line = br.readLine()) != null) {
-//
-//                // skip empty or header lines
-//                if (line.trim().isEmpty() || !line.startsWith(prefix)) {
-//                    continue;
-//                }
-//
-//                String[] data = line.split(",");
-//                String idStr = data[0].replace(prefix, "");
-//                int idNum = Integer.parseInt(idStr);
-//
-//                if (idNum > maxID) {
-//                    maxID = idNum;
-//                }
-//            }
-//        } catch (FileNotFoundException e) {
-//            // file doesn't exist yet → first ID
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(this, "ID generation error: " + e.getMessage());
-//        }
-//
-//        return prefix + String.format("%03d", maxID + 1);
-//    }
-
 
     
 
     
     private boolean isGroupNameDuplicateInModule(String groupNameText, String moduleID) {
-//        try (BufferedReader br = new BufferedReader(new FileReader("group.txt"))) {
-//            String line;
-//            while ((line = br.readLine()) != null) {
-//                String[] data = line.split(",");
-//                if (data.length >= 3 &&
-//                    data[1].equalsIgnoreCase(groupNameText.trim()) &&
-//                    data[2].equals(moduleID)) {  // <-- compares moduleID
-//                    return true;                 // duplicate found in same module
-//                }
-//            }
-//        } catch (Exception ignored) {}
-//        return false;  // not found → valid
+
 
         ArrayList<String[]> groups = UserFunctions.readCSV("group.txt");
 
@@ -256,7 +176,7 @@ public class ClassManagement extends javax.swing.JFrame {
         }
 
         // Always generate a NEW group ID
-        String groupID = fn.generateNextID("group.txt", "G");
+        String groupID = UserFunctions.generateNextID("group.txt", "G");
 
         try {
             ArrayList<String[]> groups = UserFunctions.readCSV("group.txt");
@@ -311,31 +231,6 @@ public class ClassManagement extends javax.swing.JFrame {
     }
 
 
-//    private void deleteLineFromFile(String fileName, String idToDelete, int columnIndex) {       
-//        File inputFile = new File(fileName);
-//        File tempFile = new File("temp_" + fileName);
-//
-//        try (BufferedReader br = new BufferedReader(new FileReader(inputFile));
-//             BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
-//
-//            String line;
-//            while ((line = br.readLine()) != null) {
-//                String[] parts = line.split(",");
-//                if (parts.length > columnIndex && parts[columnIndex].equals(idToDelete)) {
-//                    continue; // skip this line (delete)
-//                }
-//                bw.write(line);
-//                bw.newLine();
-//            }
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(this, "Error deleting data: " + e.getMessage());
-//            return;
-//        }
-//
-//        // Replace original file
-//        if (!inputFile.delete() || !tempFile.renameTo(inputFile)) {
-//            JOptionPane.showMessageDialog(this, "Error updating file after deletion.");
-//        }
 
     
 
@@ -345,10 +240,6 @@ public class ClassManagement extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        backButton = new javax.swing.JButton();
-        groupNameFormat = new javax.swing.JLabel();
-        moduleName = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
         groupLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         historyTable = new javax.swing.JTable();
@@ -360,29 +251,18 @@ public class ClassManagement extends javax.swing.JFrame {
         groupName = new javax.swing.JTextField();
         startTimeLabel = new javax.swing.JLabel();
         endTimeLabel = new javax.swing.JLabel();
+        GradingSystem = new javax.swing.JButton();
+        ClassManagement = new javax.swing.JButton();
+        AdminHomepage = new javax.swing.JButton();
+        AdminProfile = new javax.swing.JButton();
+        UserManagement = new javax.swing.JButton();
+        AssignLecturer = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
+        groupNameFormat = new javax.swing.JLabel();
+        moduleName = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        backButton.setText("Back");
-        backButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backButtonActionPerformed(evt);
-            }
-        });
-
-        groupNameFormat.setFont(new java.awt.Font("Segoe UI", 2, 10)); // NOI18N
-        groupNameFormat.setText("Format: Group A, Group B,....");
-
-        moduleName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        moduleName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                moduleNameActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setText("Class Management");
 
         groupLabel.setText("Group : ");
 
@@ -404,6 +284,8 @@ public class ClassManagement extends javax.swing.JFrame {
 
         endTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "08:00", "08:15", "08:30", "09:00", "09:15", "09:30", "10:00", "10:15", "10:30", "11:00", "11:15", "11:30", "12:00", "12:15", "12:30", "13:00", "13:15", "13:30", "14:00", "14:15", "14:30", "15:00", "15:15", "15:30", "16:00", "16:15", "16:30", "17:00", "17:15", "17:30", "18:00" }));
 
+        deleteButton.setBackground(new java.awt.Color(255, 51, 51));
+        deleteButton.setForeground(new java.awt.Color(255, 255, 255));
         deleteButton.setText("Delete");
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -415,6 +297,48 @@ public class ClassManagement extends javax.swing.JFrame {
 
         endTimeLabel.setText("End Time :");
 
+        GradingSystem.setText("Grading System");
+        GradingSystem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GradingSystemActionPerformed(evt);
+            }
+        });
+
+        ClassManagement.setText("Class Management");
+        ClassManagement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClassManagementActionPerformed(evt);
+            }
+        });
+
+        AdminHomepage.setText("Homepage");
+        AdminHomepage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AdminHomepageActionPerformed(evt);
+            }
+        });
+
+        AdminProfile.setText("Profile");
+        AdminProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AdminProfileActionPerformed(evt);
+            }
+        });
+
+        UserManagement.setText("Manage User");
+        UserManagement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserManagementActionPerformed(evt);
+            }
+        });
+
+        AssignLecturer.setText("Assign Lecturer");
+        AssignLecturer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AssignLecturerActionPerformed(evt);
+            }
+        });
+
         saveButton.setText("Save");
         saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -422,25 +346,49 @@ public class ClassManagement extends javax.swing.JFrame {
             }
         });
 
+        groupNameFormat.setFont(new java.awt.Font("Segoe UI", 2, 10)); // NOI18N
+        groupNameFormat.setText("Format: Group A, Group B,....");
+
+        moduleName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        moduleName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                moduleNameActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setText("Class Management");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(AdminProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(GradingSystem, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(AssignLecturer, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ClassManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(UserManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(AdminHomepage, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(groupLabel)
+                                .addGap(34, 34, 34)
+                                .addComponent(groupNameFormat))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(moduleLabel)
                                 .addGap(26, 26, 26)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(groupName)
-                                    .addComponent(moduleName, 0, 116, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(groupLabel)
-                                .addGap(34, 34, 34)
-                                .addComponent(groupNameFormat))
+                                    .addComponent(moduleName, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createSequentialGroup()
@@ -454,68 +402,65 @@ public class ClassManagement extends javax.swing.JFrame {
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                             .addGap(12, 12, 12)
                                             .addComponent(endTime, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                        .addGap(60, 60, 60)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(historyLabel)
-                            .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(backButton)))
-                .addGap(81, 81, 81))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(297, 297, 297)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(deleteButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(63, 63, 63))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(53, 53, 53)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(moduleName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(moduleLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(historyLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(groupLabel)
-                            .addComponent(groupName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(groupNameFormat)
-                        .addGap(48, 48, 48)
+                            .addComponent(moduleName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(moduleLabel)
+                            .addComponent(historyLabel))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(34, 34, 34)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(groupLabel)
+                                    .addComponent(groupName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(groupNameFormat)
+                                .addGap(48, 48, 48)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(startTimeLabel)
+                                    .addComponent(startTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(37, 37, 37)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(endTimeLabel)
+                                    .addComponent(endTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(startTimeLabel)
-                            .addComponent(startTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(endTimeLabel)
-                            .addComponent(endTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addComponent(deleteButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(saveButton)
-                    .addComponent(backButton))
-                .addGap(67, 67, 67))
+                            .addComponent(saveButton)
+                            .addComponent(deleteButton)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(AdminHomepage)
+                        .addGap(18, 18, 18)
+                        .addComponent(UserManagement)
+                        .addGap(18, 18, 18)
+                        .addComponent(ClassManagement)
+                        .addGap(18, 18, 18)
+                        .addComponent(AssignLecturer)
+                        .addGap(18, 18, 18)
+                        .addComponent(GradingSystem)
+                        .addGap(18, 18, 18)
+                        .addComponent(AdminProfile)))
+                .addGap(0, 81, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        new AdminHomepage(userID).setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_backButtonActionPerformed
-
-    private void moduleNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moduleNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_moduleNameActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         int selectedRow = historyTable.getSelectedRow();
@@ -538,11 +483,8 @@ public class ClassManagement extends javax.swing.JFrame {
         if (confirm != JOptionPane.YES_OPTION) return;
 
         // Delete class from classes.txt
-        fn.deleteRow("classes.txt", historyTable, 2);
-        fn.deleteRow("group.txt", historyTable, 1);
-
-        // Optional: delete corresponding group from group.txt (if you want to remove the group as well)
-        // deleteLineFromFile("group.txt", groupID, 0);
+        UserFunctions.deleteLineFromFile("classes.txt", classID, 0);
+        UserFunctions.deleteLineFromFile("group.txt", groupID, 0);
 
         // Refresh table
         updateHistoryTable();
@@ -553,9 +495,38 @@ public class ClassManagement extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Class deleted successfully.");
     }//GEN-LAST:event_deleteButtonActionPerformed
 
+    private void GradingSystemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GradingSystemActionPerformed
+        new GradingSystem(username).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_GradingSystemActionPerformed
+
+    private void ClassManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClassManagementActionPerformed
+        new ClassManagement(username).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ClassManagementActionPerformed
+
+    private void AdminHomepageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminHomepageActionPerformed
+        new AdminHomepage(username).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_AdminHomepageActionPerformed
+
+    private void AdminProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminProfileActionPerformed
+        new AdminProfile(username).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_AdminProfileActionPerformed
+
+    private void UserManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserManagementActionPerformed
+        new UserManagement(username).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_UserManagementActionPerformed
+
+    private void AssignLecturerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AssignLecturerActionPerformed
+        new AssignLecturer(username).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_AssignLecturerActionPerformed
+
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         String selectedModuleName = (String) moduleName.getSelectedItem();
-        
         if (selectedModuleName == null || selectedModuleName.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please select a module.");
             return;
@@ -592,20 +563,11 @@ public class ClassManagement extends javax.swing.JFrame {
         String groupID = saveGroup(groupText, moduleID);
         if (groupID == null) return;
 
-        String classID = fn.generateNextID("classes.txt", "C");
+        String classID = UserFunctions.generateNextID("classes.txt", "C");
 
-        try {
-            ArrayList<String[]> classes = UserFunctions.readCSV("classes.txt");
-
-            classes.add(new String[]{
-                classID,
-                start,
-                end,
-                moduleID,
-                groupID
-            });
-
-            UserFunctions.writeCSV("classes.txt", classes);
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("classes.txt", true))) {
+            bw.write(classID + "," + start + "," + end + "," + moduleID + "," + groupID);
+            bw.newLine();
 
             JOptionPane.showMessageDialog(this, "Class created successfully!");
 
@@ -619,22 +581,30 @@ public class ClassManagement extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error saving class: " + e.getMessage());
         }
 
-
         updateHistoryTable();
     }//GEN-LAST:event_saveButtonActionPerformed
 
+    private void moduleNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moduleNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_moduleNameActionPerformed
 
-    public static void main(String args[]) {
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-//                new ClassManagement().setVisible(true);
-            }
-        }); 
-    }
+//    public static void main(String args[]) {
+//
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+////                new ClassManagement().setVisible(true);
+//            }
+//        }); 
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backButton;
+    private javax.swing.JButton AdminHomepage;
+    private javax.swing.JButton AdminProfile;
+    private javax.swing.JButton AssignLecturer;
+    private javax.swing.JButton ClassManagement;
+    private javax.swing.JButton GradingSystem;
+    private javax.swing.JButton UserManagement;
     private javax.swing.JButton deleteButton;
     private javax.swing.JComboBox<String> endTime;
     private javax.swing.JLabel endTimeLabel;

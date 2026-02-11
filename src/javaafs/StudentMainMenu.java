@@ -5,6 +5,8 @@
 package javaafs;
 
 import java.util.List;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -34,7 +36,21 @@ public class StudentMainMenu extends javax.swing.JFrame {
     public StudentMainMenu(String UserID) {
         this();               
         this.UserID = UserID; 
-        loadUserData(UserID); 
+        loadUserData(UserID);
+        
+        // ===== FORCE CHANGE CHECK =====
+    if (UserFunctions.isForceChangeRequired(UserID, userArray)) {
+
+        JOptionPane.showMessageDialog(
+            this,
+            "You must change your password.",
+            "Notice",
+            JOptionPane.WARNING_MESSAGE
+        );
+
+        new StudentProfilePage(UserID).setVisible(true);
+        this.dispose();
+    }
     }
 
     

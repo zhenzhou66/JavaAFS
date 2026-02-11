@@ -1,6 +1,6 @@
-grade,minMark,maxMark,description
+Grade,Min Mark Range,Max Mark Range,Description
 A,80,100,Distinction
 B,60,79,Credit
 C,45,59,Pass
 D,40,44,Pass
-F,0,35,Fail
+F,0,34,Fail
