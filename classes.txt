@@ -1,3 +1,4 @@
 classID,classStartTime,classEndTime,moduleID,groupID
 C001,08:00,09:30,M002,G001
 C002,09:30,10:30,M002,G002
+C003,08:00,10:00,M001,G003
