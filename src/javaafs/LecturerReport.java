@@ -80,7 +80,7 @@ public class LecturerReport extends javax.swing.JFrame {
     }
     
 //    private double getAverageRating(String lecturerID) {
-//        if (lecturerID ==)
+//        if (lecturerID == )
 //    }
 //    
     
