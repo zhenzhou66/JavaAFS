@@ -35,47 +35,6 @@ public class UserManagement extends javax.swing.JFrame {
     }
     
     
-//    private void loadUsers() {
-//        DefaultTableModel model = (DefaultTableModel) userTable.getModel();
-//        model.setRowCount(0); // clear existing rows
-//
-//        try {
-//            System.out.println("Loading users from: " + USERS_FILE.getAbsolutePath());
-//
-//            if (!USERS_FILE.exists()) {
-//                JOptionPane.showMessageDialog(this, "users.txt not found at: " + USERS_FILE.getAbsolutePath());
-//                return;
-//            }
-//
-//            BufferedReader br = new BufferedReader(new FileReader(USERS_FILE));
-//            String line;
-//            boolean firstLine = true; // skip header
-//
-//            while ((line = br.readLine()) != null) {
-//                if (firstLine) {
-//                    firstLine = false;
-//                    continue;
-//                }
-//
-//                String[] parts = line.split(",");
-//                if (parts.length >= 8) {
-//                    String userID = parts[0];
-//                    String role = parts[2];
-//                    String name = parts[3];
-//                    String email = parts[4];
-//                    String phone = parts[5];
-//                    String moduleID = parts[6];
-//
-//                    model.addRow(new Object[]{userID, name, role, phone, email, moduleID});
-//                }
-//            }
-//            br.close();
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            JOptionPane.showMessageDialog(this, "Error loading users from users.txt");
-//        }
-//    }
     
     
     
@@ -146,67 +105,7 @@ public class UserManagement extends javax.swing.JFrame {
     }
     
     
-//    // Add user
-//    private void addUser(String userID, String password, String role, String name, String email, String phone) {
-//        ArrayList<String[]> users = UserFunctions.readCSV(filePath);
-//
-//        String hashedPassword = UserFunctions.hashPassword(password);
-//
-//        users.add(new String[]{userID, hashedPassword, role, name, email, phone, "", "false"});
-//        UserFunctions.writeCSV(filePath, users);
-//
-//        JOptionPane.showMessageDialog(null, "User added successfully!");
-//    }
-//
-//    // Delete user
-//    private void deleteUser(JTable table, int idColumn) {
-//        int selectedRow = table.getSelectedRow();
-//        if (selectedRow == -1) return;
-//        String userID = table.getValueAt(selectedRow, idColumn).toString();
-//        if (UserFunctions.deleteLineFromFile(filePath, userID, 0)) {
-//            ((DefaultTableModel) table.getModel()).removeRow(selectedRow);
-//            JOptionPane.showMessageDialog(null, "User deleted successfully!");
-//        }
-//    }
-//
-//    // Edit user
-//    private void editUser(JTable table, int idColumn, int editColumn) {
-//        func.editRow(filePath, table, idColumn, editColumn);
-//        JOptionPane.showMessageDialog(null, "User updated successfully!");
-//    }
 
-
-//    private boolean validateInputs(String username, String password, String email, String phone) {
-//        // Username: only letters, max 50
-//        if (!username.matches("[a-zA-Z ]{1,50}")) {
-//            JOptionPane.showMessageDialog(this,
-//                    "Username must contain only letters and spaces, max 50 characters.");
-//            return false;
-//        }
-//
-//        // Password: exactly 8 digits
-//        if (!password.matches("\\d{8}")) {
-//            JOptionPane.showMessageDialog(this, "Password must be exactly 8 digits.");
-//            return false;
-//        }
-//
-//        // Email: must end with @gmail.com or @yahoo.com and max 20 characters
-//        if (!email.matches("[\\w\\.]+@(gmail|yahoo)\\.com") || email.length() > 20) {
-//            JOptionPane.showMessageDialog(this, "Email must end with @gmail.com or @yahoo.com and max 20 characters.");
-//            return false;
-//        }
-//
-//        // Phone: exactly 10 digits
-//        if (!phone.matches("\\d{10}")) {
-//            JOptionPane.showMessageDialog(this, "Phone number must contain exactly 10 digits.");
-//            return false;
-//        }
-//
-//        return true; // all valid
-//    }
-//    
-//    
-//    
     private String generateTempPassword() {
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                      + "abcdefghijklmnopqrstuvwxyz"
@@ -222,28 +121,9 @@ public class UserManagement extends javax.swing.JFrame {
 
         return tempPass.toString();
     }
-//
-//    
-//    private String hashPassword(String password) {
-//        try {
-//            java.security.MessageDigest md =
-//                    java.security.MessageDigest.getInstance("SHA-256");
-//
-//            byte[] hashBytes = md.digest(password.getBytes());
-//            StringBuilder hexString = new StringBuilder();
-//
-//            for (byte b : hashBytes) {
-//                hexString.append(String.format("%02x", b));
-//            }
-//
-//            return hexString.toString();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-//    
-//    
+
+    
+    
     private void resetPasswordAction() {
         int selectedRow = userTable.getSelectedRow();
         if (selectedRow == -1) {
@@ -331,34 +211,19 @@ public class UserManagement extends javax.swing.JFrame {
 
 
     
-    private String generateUserID(String role) {
+    private String generateUserID(UserManage user) {
 
-        String prefix = "";
-
-        switch (role) {
-            case "Admin":
-                prefix = "A";
-                break;
-            case "AcademicLeader":
-                prefix = "AL";
-                break;
-            case "Lecturer":
-                prefix = "L";
-                break;
-            case "Student":
-                prefix = "S";
-                break;
-        }
-
+        String prefix = user.getPrefix();   // polymorphism here 🔥
         int maxNumber = 0;
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+
             String line;
             boolean firstLine = true;
 
             while ((line = br.readLine()) != null) {
 
-                if (firstLine) { // skip header
+                if (firstLine) {
                     firstLine = false;
                     continue;
                 }
@@ -366,8 +231,8 @@ public class UserManagement extends javax.swing.JFrame {
                 String[] parts = line.split(",");
                 String existingID = parts[0];
 
-                // Check only IDs with same prefix
                 if (existingID.startsWith(prefix)) {
+
                     String numberPart = existingID.substring(prefix.length());
 
                     try {
@@ -383,31 +248,27 @@ public class UserManagement extends javax.swing.JFrame {
             e.printStackTrace();
         }
 
-        // Next number
-        int nextNumber = maxNumber + 1;
-
-        // Format to 3 digits
-        return prefix + String.format("%03d", nextNumber);
+        return prefix + String.format("%03d", maxNumber + 1);
     }
 
     
     
     // Get role prefix from role name
-    private String getRolePrefix(String role) {
-        switch (role) {
-            case "Admin": return "A";
-            case "Academic Leader": return "AL";
-            case "Lecturer": return "L";
-            case "Student": return "S";
-            default: return "";
-        }
-    }
+//    private String getRolePrefix(String role) {
+//        switch (role) {
+//            case "Admin": return "A";
+//            case "Academic Leader": return "AL";
+//            case "Lecturer": return "L";
+//            case "Student": return "S";
+//            default: return "";
+//        }
+//    }
 
     // Get role prefix from an existing userID (e.g., "A003" → "A")
-    private String getRolePrefixFromID(String userID) {
-        // Extract letters at the start
-        return userID.replaceAll("\\d+", "");
-    }
+//    private String getRolePrefixFromID(String userID) {
+//        // Extract letters at the start
+//        return userID.replaceAll("\\d+", "");
+//    }
 
     
     
@@ -415,6 +276,8 @@ public class UserManagement extends javax.swing.JFrame {
         String query = userIDFilter.getText().trim().toLowerCase().replaceAll("\\s+", "");
         DefaultTableModel model = (DefaultTableModel) userTable.getModel();
         model.setRowCount(0); // clear table
+        
+        ArrayList<String[]> matchedUsers = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -439,20 +302,161 @@ public class UserManagement extends javax.swing.JFrame {
                         name.contains(query) || email.contains(query) || 
                         phone.contains(query)) {
 
-                        // Add original row to table
-                        DefaultTableModel m = (DefaultTableModel) userTable.getModel();
-                        m.addRow(new Object[]{parts[0], parts[3], parts[2], parts[5], parts[4], parts[6]});
+                        matchedUsers.add(parts);
+                        
+//                        // Add original row to table
+//                        DefaultTableModel m = (DefaultTableModel) userTable.getModel();
+//                        m.addRow(new Object[]{parts[0], parts[3], parts[2], parts[5], parts[4], parts[6]});
                     }
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error reading users file.");
+            return;
         }
+        
+        matchedUsers.sort((a, b) -> a[3].compareToIgnoreCase(b[3]));
+
+        // Populate table
+        for (String[] parts : matchedUsers) {
+            model.addRow(new Object[]{parts[0], parts[3], parts[2], parts[5], parts[4], parts[6]});
+        }
+
     }
 
     
     
+    private void addUser() {
+        String newName = formatUsername(usernameTextField.getText().trim());
+        String newPhone = phNumberTextField.getText().trim();
+        String newEmail = emailTextField.getText().trim();
+        String selectedRole = roleDropdown.getSelectedItem().toString();
+
+        // Validate inputs
+        if (!validateUserInputs(newName, newPhone, newEmail)) return;
+
+        // Get moduleID if needed
+        String moduleID = "NA"; // default
+//        if (selectedRole.equals("Student") || selectedRole.equals("Lecturer")) {
+//            // If you have a moduleID text field, read it here
+//            moduleID = moduleIDTextField != null ? moduleIDTextField.getText().trim() : "NA";
+//        }
+
+        // Generate temporary password and hash
+        String tempPassword = generateTempPassword();
+        String hashedPassword = UserFunctions.hashPassword(tempPassword);
+
+        // Create user dynamically
+        UserManage newUser;
+        String userID;
+        switch (selectedRole) {
+            case "Admin":
+                newUser = new Admin("", newName, newEmail, newPhone, moduleID);
+                break;
+            case "Lecturer":
+                newUser = new Lecturer("", newName, newEmail, newPhone, moduleID);
+                break;
+            case "Student":
+                newUser = new Student("", newName, newEmail, newPhone, moduleID);
+                break;
+            default: // AcademicLeader
+                newUser = new AcademicLeader("", newName, newEmail, newPhone, moduleID);
+        }
+        userID = generateUserID(newUser); // dynamic userID
+        String role = newUser.getRole();
+
+        // Append to file
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, true))) {
+            String roleNoSpace = role.replaceAll("\\s+", ""); // remove all spaces
+            bw.write(String.join(",", userID, hashedPassword, roleNoSpace, newName, newEmail, newPhone, moduleID, "true"));
+            bw.newLine();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error adding user.");
+            return;
+        }
+
+        loadUsers();
+        JOptionPane.showMessageDialog(this, "User added successfully!\nTemporary Password: " + tempPassword);
+
+        // Clear fields
+        usernameTextField.setText("");
+        phNumberTextField.setText("");
+        emailTextField.setText("");
+    }
+    
+    
+    
+    private void editUser() {
+        int selectedRow = userTable.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a user to edit.");
+            return;
+        }
+
+        String oldUserID = userTable.getValueAt(selectedRow, 0).toString();
+        String newName = formatUsername(usernameTextField.getText().trim());
+        String newPhone = phNumberTextField.getText().trim();
+        String newEmail = emailTextField.getText().trim();
+        String newRole = roleDropdown.getSelectedItem().toString();
+
+        if (!validateUserInputs(newName, newPhone, newEmail)) return;
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filePath));
+            StringBuilder sb = new StringBuilder();
+            String line;
+            boolean firstLine = true;
+
+            while ((line = br.readLine()) != null) {
+                if (firstLine) {
+                    sb.append(line).append("\n");
+                    firstLine = false;
+                    continue;
+                }
+
+                String[] parts = line.split(",");
+                if (parts[0].equals(oldUserID)) {
+                    String oldRole = parts[2];
+                    parts[1] = parts[1]; // keep password
+                    parts[2] = newRole.replaceAll("\\s+", ""); // remove spaces before saving;
+                    parts[3] = newName;
+                    parts[4] = newEmail;
+                    parts[5] = newPhone;
+
+                    // Update userID if role changed
+                    if (!oldRole.equals(newRole)) {
+                        UserManage tempUser;
+                        switch (newRole) {
+                            case "Admin": tempUser = new Admin("", newName, newEmail, newPhone, "NA"); break;
+                            case "Lecturer": tempUser = new Lecturer("", newName, newEmail, newPhone, "NA"); break;
+                            case "Student": tempUser = new Student("", newName, newEmail, newPhone, "NA"); break;
+                            default: tempUser = new AcademicLeader("", newName, newEmail, newPhone, "NA");
+                        }
+                        parts[0] = generateUserID(tempUser);
+                        parts[6] = "NA"; // moduleID reset
+                    }
+
+                    line = String.join(",", parts);
+                }
+
+                sb.append(line).append("\n");
+            }
+            br.close();
+
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+                bw.write(sb.toString());
+            }
+
+            loadUsers();
+            JOptionPane.showMessageDialog(this, "User updated successfully!");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error updating user.");
+        }
+    }
+
 
 
 
@@ -829,71 +833,7 @@ public class UserManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_ClassManagementActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        String newName = formatUsername(usernameTextField.getText().trim());
-        String newRole = roleDropdown.getSelectedItem().toString().replace(" ", "");
-        String newPhone = phNumberTextField.getText().trim();
-        String newEmail = emailTextField.getText().trim();
-        String newUserID = generateUserID(newRole);
-
-        String tempPassword = generateTempPassword();
-//        String hashedPassword = hashPassword(tempPassword);
-        String hashedPassword = UserFunctions.hashPassword(tempPassword);
-        String forceChange = "true";
-        String newModuleID = "NA"; // or get from a field if you have
-
-        // Validate inputs
-        if (!validateUserInputs(newName, newEmail, newPhone)) {
-            return; // stop if invalid
-        }
-
-        try {
-            // Check for duplicate userID
-            BufferedReader br = new BufferedReader(new FileReader(filePath));
-            String line;
-            boolean duplicate = false;
-            br.readLine(); // skip header
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts[0].equals(newUserID)) {
-                    duplicate = true;
-                    break;
-                }
-            }
-            br.close();
-
-            if (duplicate) {
-                JOptionPane.showMessageDialog(this, "UserID already exists. Please choose a different one.");
-                return;
-            }
-
-            // Append new user to file
-            BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, true));
-            String newLine = String.join(",",
-                newUserID,
-                hashedPassword,
-                newRole,
-                newName,
-                newEmail,
-                newPhone,
-                newModuleID,
-                forceChange);
-            bw.write(newLine);
-            bw.newLine();
-            bw.close();
-
-            loadUsers(); // refresh table
-            JOptionPane.showMessageDialog(this, "User added successfully!\n\nTemporary Password:\n" + tempPassword);
-
-            // Optional: clear fields
-            usernameTextField.setText("");
-            phNumberTextField.setText("");
-            emailTextField.setText("");
-            // passwordTextField.setText("");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error adding user.");
-        }
+        addUser();
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
@@ -967,78 +907,8 @@ public class UserManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-        int selectedRow = userTable.getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Please select a user to edit.");
-            return;
-        }
+        editUser();
 
-        String oldUserID = userTable.getValueAt(selectedRow, 0).toString();
-        //        String userID = userTable.getValueAt(selectedRow, 0).toString();
-        String newName = formatUsername(usernameTextField.getText().trim());
-        String newRole = roleDropdown.getSelectedItem().toString().replace(" ", "");
-        String newPhone = phNumberTextField.getText().trim().replaceAll("\\D", "");
-        String newEmail = emailTextField.getText().trim();
-
-        // Validate inputs
-        if (!validateUserInputs(newName, newPhone,newEmail)) {
-            return; // stop if invalid
-        }
-
-        try {
-            //            File file = new File("USERS_FILE");
-            BufferedReader br = new BufferedReader(new FileReader(filePath));
-            StringBuilder sb = new StringBuilder();
-            String line;
-            boolean firstLine = true;
-
-            while ((line = br.readLine()) != null) {
-                if (firstLine) {
-                    sb.append(line).append("\n");
-                    firstLine = false;
-                    continue;
-                }
-
-                String[] parts = line.split(",");
-                if (parts[0].equals(oldUserID)) {
-                    String oldRole = parts[2];   
-                    parts[3] = newName;
-                    parts[2] = newRole;
-                    parts[5] = newPhone;
-                    parts[4] = newEmail;
-                    
-//                    String oldModuleID = parts[6];
-
-                    // Update userID if role changed
-                    String oldPrefix = getRolePrefixFromID(oldUserID);
-                    String newPrefix = getRolePrefix(newRole);
-                    if (!oldPrefix.equals(newPrefix)) {
-                        parts[0] = generateUserID(newRole); // next available ID
-                    }
-
-                    // If role changed, overwrite moduleID with NA
-                    if (!oldRole.equals(newRole)) {
-                        parts[6] = "NA";
-                    }
-
-
-                    line = String.join(",", parts);
-                }
-
-                sb.append(line).append("\n");
-            }
-            br.close();
-
-            BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
-            bw.write(sb.toString());
-            bw.close();
-
-            loadUsers();
-            JOptionPane.showMessageDialog(this, "User updated successfully!");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error updating user.");
-        }
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void userTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTableMouseClicked

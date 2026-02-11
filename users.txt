@@ -6,24 +6,9 @@ AL001,0277c91941bd347b5600dcdf8e032b12709d0468b0d19acee5876935cebfb727,AcademicL
 A003,f81dff4f3b92b678b559723e597fad903e264809b77ef9bf78f6ef47d6de0aab,Admin,Matthew,matthew@gmail.com,0125689653,NA,true
 A005,d10ffd5059deabaf79f8fb3f5b205bb338521c769a155239dd8227b75e091660,Admin,CarrieYyy,carrieyyy@gmail.com,0166666666,NA,false
 AL002,2357a63d6fc7e52fe73ea400c9e094224beca34a7f551f87e3e272950bd84d6e,AcademicLeader,Ricky,ricky@gmail.com,0215468952,NA,true
-L01,123,Lecturer,john,john&may@gmail.com,0127355913asda,M001,false
-L02,123,Lecturer,sam,sam&may@gmail.com,0127355913,M002,false
-L03,123,Lecturer,lucas,lucas&may@gmail.com,0127355913,M001,false
-L04,samantha,Lecturer,samantha,samantha&may@gmail.com,0127355913,M004,false
-L05,cindy,Lecturer,cindy,cindy&may@gmail.com,0127355913,M005,false
-L06,syuan,Lecturer,syuan,syuan&may@gmail.com,0127355913,M006,false
-L07,xinyun,Lecturer,xinyun,xinyun&may@gmail.com,0127355913,M007,false
-L08,ying,Lecturer,ying,ying&may@gmail.com,0127355913,M008,false
-L09,hao,Lecturer,hao,hao&may@gmail.com,0127355913,M009,false
+AL004,samantha,Academic Leader,Samantha,ss@gmail.com,0127355913,NA,false
 L010,zhenkang,Lecturer,zhenkang,zhenkang&may@gmail.com,0127355913,M010,false
-S01,123,Student,zhenkang,zhenkang&may@gmail.com,01273551231,M002,false
-S02,123,Student,aliyah,aliyah02@gmail.com,0123456789,M002,false
-S03,123,Student,daniel,daniel22@gmail.com,0112345678,M002,false
-S04,123,Student,amir,amir04@gmail.com,0198765432,M002,false
-S05,123,Student,siti,ssiti21@gmail.com,0182233445,M001,false
-S06,123,Student,faris,faris23@gmail.com,0179988776,M002,false
-S07,123,Student,nabila,nabila07@gmail.com,0165566778,M003,false
-S08,123,Student,hakim,hakim24@gmail.com,0134455667,M001,false
+L015,123,Lecturer,Amir,amir04@gmail.com,0198765432,NA,false
 L013,123,Lecturer,Aisyah,aisyah22@gmail.com,0147788990,NA,false
 S011,123,Student,Irfan,irfan19@gmail.com,0156677889,NA,false
 AL003,33b0440d49cf9be91761fd86bb2c41f255762dcacf8e7b0a20b3f4bd24c6722c,AcademicLeader,Gunwook,gunwook@gmail.com,0125489862,NA,true
