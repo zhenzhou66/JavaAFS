@@ -4,6 +4,7 @@
  */
 package javaafs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,13 +16,19 @@ public class StudentReport extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(StudentReport.class.getName());
 
     protected List<String[]> userArray;
+    protected List<String[]> assessmentResult;
+    
     UserFunctions func = new UserFunctions();
 
     public String Role = "";
     public String UserID = "";
+    public String ResultID = "";
+    public String Mark = "";
+    public String ModuleID = "";
         
     public StudentReport() {
         userArray = func.readCSV("users.txt");
+        assessmentResult = func.readCSV("assessmentResult.txt");
         initComponents();
     }
     
@@ -29,6 +36,7 @@ public class StudentReport extends javax.swing.JFrame {
         this();               
         this.UserID = UserID; 
         loadUserData(UserID); 
+        calculateAverageMark(UserID);
     }
 
     
@@ -36,15 +44,35 @@ public class StudentReport extends javax.swing.JFrame {
     if (userArray == null || userArray.isEmpty()) 
         return;
 
-    for (int i = 0; i < userArray.size(); i++) {
-        String[] user = userArray.get(i);
-        if (user[0].equalsIgnoreCase(userid)) {
-//            studentName.setText(user[3]);
-//            userRole.setText(user[2]);
-            break;
+        for (int i = 0; i < userArray.size(); i++) {
+            String[] user = userArray.get(i);
+            if (user[0].equalsIgnoreCase(userid)) {
+                studentnametxt.setText(user[3]);
+                studentidtxt.setText(user[0]);
+                break;
+            }
         }
     }
-}
+    
+    private void calculateAverageMark(String studentID) {
+            int totalMarks = 0;
+            int moduleCount = 0;
+
+            for (int i = 0; i < assessmentResult.size(); i++) {
+                String[] record = assessmentResult.get(i);
+                if (record[1].equals(studentID)) {
+                    totalMarks += Integer.parseInt(record[3]); // mark is at index 3
+                    moduleCount++;
+                }
+            }
+            
+            if (moduleCount > 0) {
+                double gpa = (double) totalMarks / moduleCount;
+                avgmarktxt.setText(String.format("%.2f", gpa));
+            } else {
+                avgmarktxt.setText("0");
+        }
+    }  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -55,21 +83,109 @@ public class StudentReport extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        studentReport = new javax.swing.JLabel();
+        studentidlbl = new javax.swing.JLabel();
+        studentnamelbl = new javax.swing.JLabel();
+        avgmarklbl = new javax.swing.JLabel();
+        studentidtxt = new javax.swing.JTextField();
+        studentnametxt = new javax.swing.JTextField();
+        avgmarktxt = new javax.swing.JTextField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        studentReport.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        studentReport.setText("Student Report");
+
+        studentidlbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        studentidlbl.setText("Student ID");
+
+        studentnamelbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        studentnamelbl.setText("Student Name");
+
+        avgmarklbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        avgmarklbl.setText("Average Mark");
+
+        studentidtxt.setEditable(false);
+        studentidtxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentidtxtActionPerformed(evt);
+            }
+        });
+
+        studentnametxt.setEditable(false);
+        studentnametxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentnametxtActionPerformed(evt);
+            }
+        });
+
+        avgmarktxt.setEditable(false);
+        avgmarktxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                avgmarktxtActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(avgmarklbl)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addComponent(avgmarktxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(95, 95, 95))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(studentnamelbl)
+                        .addGap(29, 29, 29)
+                        .addComponent(studentnametxt))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(studentidlbl)
+                        .addGap(54, 54, 54)
+                        .addComponent(studentidtxt)))
+                .addGap(27, 27, 27))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(124, 124, 124)
+                .addComponent(studentReport)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(studentReport)
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(studentidlbl)
+                    .addComponent(studentidtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(studentnametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(studentnamelbl))
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(avgmarktxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(avgmarklbl))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void studentidtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentidtxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_studentidtxtActionPerformed
+
+    private void studentnametxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentnametxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_studentnametxtActionPerformed
+
+    private void avgmarktxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avgmarktxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_avgmarktxtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -97,5 +213,12 @@ public class StudentReport extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel avgmarklbl;
+    private javax.swing.JTextField avgmarktxt;
+    private javax.swing.JLabel studentReport;
+    private javax.swing.JLabel studentidlbl;
+    private javax.swing.JTextField studentidtxt;
+    private javax.swing.JLabel studentnamelbl;
+    private javax.swing.JTextField studentnametxt;
     // End of variables declaration//GEN-END:variables
 }
