@@ -85,8 +85,8 @@ public class StudentAssessmentAnswer extends javax.swing.JFrame {
     }
     
     private String[] getCorrectAnswer() {
-        for (String[] answer : assessmentAnswer) {
-            if (answer[1].equalsIgnoreCase(AssessmentID)) {
+        for (String[] answer : assessmentQuestion) {
+            if (answer[0].equalsIgnoreCase(AssessmentID)) {
                 return answer;
             }
         }
@@ -96,10 +96,10 @@ public class StudentAssessmentAnswer extends javax.swing.JFrame {
     private int calculateMarks(String[] correctAnswer) {
         int marks = 0;
 
-        String[] studentAnswer = {A1, A2, A3, A4, A5};
+        String[] studentAnswer = {"","","","","","","",A1, A2, A3, A4, A5};
 
-        for (int i = 0; i < 5; i++) {
-            if (studentAnswer[i].equalsIgnoreCase(correctAnswer[i + 3])) {
+        for (int i = 7; i < 12; i++) {
+            if (studentAnswer[i].equalsIgnoreCase(correctAnswer[i])) {
                 marks++;
             }
             
@@ -499,6 +499,9 @@ public class StudentAssessmentAnswer extends javax.swing.JFrame {
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         saveAnswer();
         saveMarks();
+        StudentAssessmentList StuAsmntList = new StudentAssessmentList(UserID);
+        this.setVisible(false);
+        StuAsmntList.setVisible(true);
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void CreateFeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateFeedbackActionPerformed

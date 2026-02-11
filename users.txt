@@ -5,8 +5,8 @@ AL02,yap,AcademicLeader,yap,yap&may@gmail.com,0127355913,NA
 AL03,ho,AcademicLeader,ho,ho&may@gmail.com,0127355913,NA
 AL04,chong,AcademicLeader,chong,chong&may@gmail.com,0127355913,NA
 L01,123,Lecturer,john,john&may@gmail.com,0127355913asda,M001
-L02,sam,Lecturer,sam,sam&may@gmail.com,0127355913,M002
-L03,lucas,Lecturer,lucas,lucas&may@gmail.com,0127355913,M003
+L02,123,Lecturer,sam,sam&may@gmail.com,0127355913,M002
+L03,123,Lecturer,lucas,lucas&may@gmail.com,0127355913,M001
 L04,samantha,Lecturer,samantha,samantha&may@gmail.com,0127355913,M004
 L05,cindy,Lecturer,cindy,cindy&may@gmail.com,0127355913,M005
 L06,syuan,Lecturer,syuan,syuan&may@gmail.com,0127355913,M006
@@ -14,4 +14,14 @@ L07,xinyun,Lecturer,xinyun,xinyun&may@gmail.com,0127355913,M007
 L08,ying,Lecturer,ying,ying&may@gmail.com,0127355913,M008
 L09,hao,Lecturer,hao,hao&may@gmail.com,0127355913,M009
 L010,zhenkang,Lecturer,zhenkang,zhenkang&may@gmail.com,0127355913,M010
-S01,12,Student,zhenkang,zhenkang&may@gmail.com,01273551231,M002
+S01,123,Student,zhenkang,zhenkang&may@gmail.com,01273551231,M002
+S02,123,Student,aliyah,aliyah02@gmail.com,0123456789,M002
+S03,123,Student,daniel,daniel22@gmail.com,0112345678,M002
+S04,123,Student,amir,amir04@gmail.com,0198765432,M002
+S05,123,Student,siti,ssiti21@gmail.com,0182233445,M001
+S06,123,Student,faris,faris23@gmail.com,0179988776,M002
+S07,123,Student,nabila,nabila07@gmail.com,0165566778,M003
+S08,123,Student,hakim,hakim24@gmail.com,0134455667,M001
+S09,123,Student,aisyah,aisyah22@gmail.com,0147788990,M002
+S10,123,Student,irfan,irfan19@gmail.com,0156677889,M003
+S11,123,Student,adriana,adriana21@gmail.com,0109988776,M001

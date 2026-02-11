@@ -4,7 +4,9 @@
  */
 package javaafs;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -22,6 +24,7 @@ public class StudentAssessmentList extends javax.swing.JFrame {
     protected List<String[]> userArray;
     protected List<String[]> moduleArray;
     protected List<String[]> assessmentQuestions;
+    protected List<String[]> assessmentResult;
     UserFunctions func = new UserFunctions();
 
     //user information
@@ -36,7 +39,7 @@ public class StudentAssessmentList extends javax.swing.JFrame {
         userArray = func.readCSV("users.txt");
         moduleArray = func.readCSV("modules.txt");
         assessmentQuestions = func.readCSV("assessmentQuestion.txt");
-
+        assessmentResult = func.readCSV("assessmentResult.txt");
         initComponents();
     }
     
@@ -74,24 +77,36 @@ public class StudentAssessmentList extends javax.swing.JFrame {
         }
     }
     private void loadAssessments() {
-        DefaultListModel<String> model = new DefaultListModel<>();
+    DefaultListModel<String> model = new DefaultListModel<>();
 
-        if (ModuleID == null || ModuleID.isEmpty()) {
-            asmntList.setModel(model);
-            return;
+    if (ModuleID == null || ModuleID.isEmpty()) {
+        asmntList.setModel(model);
+        return;
+    }
+
+    // 1. Collect all assessmentIDs already answered by this user
+    Set<String> answeredAssessments = new HashSet<>();
+
+    for (String[] ans : assessmentResult) {
+        if (ans[1].equalsIgnoreCase(UserID)) {   // studentID
+            answeredAssessments.add(ans[2]);           // assessmentID
         }
+    }
 
-        // Loop through assessmentQuestions.txt data
-        for (String[] quiz : assessmentQuestions) {
-            // Index 1 is the moduleID in assessmentQuestions.txt
-            if (quiz[1].equalsIgnoreCase(ModuleID)) {
-                // Index 0 is the assessmentID
-                model.addElement(quiz[0]);
+    // 2. Loop through assessmentQuestions.txt
+    for (String[] quiz : assessmentQuestions) {
+        if (quiz[1].equalsIgnoreCase(ModuleID)) {       // moduleID
+            String assessmentID = quiz[0];
+
+            // 3. Only add if user has NOT answered it
+            if (!answeredAssessments.contains(assessmentID)) {
+                model.addElement(assessmentID);
             }
         }
-
-        asmntList.setModel(model);
     }
+
+    asmntList.setModel(model);
+}
 
     /**
      * This method is called from within the constructor to initialize the form.

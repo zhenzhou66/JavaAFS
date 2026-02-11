@@ -5,33 +5,47 @@
 package javaafs;
 
 import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author zhenz
  */
-public class LecturerMenu extends javax.swing.JFrame {
+public class LecturerResultsTable extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LecturerMenu.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LecturerResultsTable.class.getName());
 
     /**
      * Creates new form Lecturer
      */
     protected List<String[]> userArray;
+    protected List<String[]> assessmentQuestions;
+    protected List<String[]> resultArray;
+    protected List<String[]> gradingCriteria;
     UserFunctions func = new UserFunctions();
 
     public String Role = "";
     public String UserID = "";
+    public String ModuleID = "";
+    public String AssessmentID = "";
+   
     
-    public LecturerMenu() {
+    public LecturerResultsTable() {
         userArray = func.readCSV("users.txt");
+        assessmentQuestions = func.readCSV("assessmentQuestion.txt");
+        resultArray = func.readCSV("assessmentResult.txt");
+        gradingCriteria = func.readCSV("gradingCriteria.txt");
         initComponents();
     }
     
-    public LecturerMenu(String UserID) {
+    public LecturerResultsTable(String UserID, String selectedAssessment) {
         this();               
         this.UserID = UserID; 
+        this.AssessmentID = selectedAssessment;
         loadUserData(UserID); 
+        populateResultsTable();
+        assessmentID.setText(AssessmentID.toUpperCase());
     }
 
     
@@ -44,8 +58,36 @@ public class LecturerMenu extends javax.swing.JFrame {
         if (user[0].equalsIgnoreCase(userid)) {
             lecturerName.setText(user[3]);
             userRole.setText(user[2]);
+            ModuleID = user[6];
+            
             break;
         }
+    }
+}
+    private void populateResultsTable() {
+    DefaultTableModel model = (DefaultTableModel) resultsTable.getModel();
+    model.setRowCount(0); // Clear existing data
+
+    for (String[] result : resultArray) {
+
+        // Skip header row
+        if (result[0].equalsIgnoreCase("resultID")) {
+            continue;
+        }
+
+        // 🔹 Filter by selected AssessmentID
+        if (!result[2].equalsIgnoreCase(AssessmentID)) {
+            continue;
+        }
+
+        String studentID = result[1];
+        int mark = Integer.parseInt(result[3]);
+
+        // Assign grade
+        String grade = func.calculateGrade(mark, gradingCriteria);
+
+        // Add to table
+        model.addRow(new Object[]{studentID, mark, grade});
     }
 }
 
@@ -65,6 +107,10 @@ public class LecturerMenu extends javax.swing.JFrame {
         lecturerName = new javax.swing.JLabel();
         userRole = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        assessmentID = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        resultsTable = new javax.swing.JTable();
         designAsgmnt = new javax.swing.JButton();
         resultAsgmnt = new javax.swing.JButton();
         viewFeedback = new javax.swing.JButton();
@@ -97,15 +143,47 @@ public class LecturerMenu extends javax.swing.JFrame {
         userRole.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         userRole.setText("yourRole");
 
+        assessmentID.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        assessmentID.setText("AssessmentID");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel2.setText("Student's result on the assessment.");
+
+        resultsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "StudentID", "Marks", "Grade"
+            }
+        ));
+        jScrollPane1.setViewportView(resultsTable);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(assessmentID)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addComponent(assessmentID)
+                .addGap(2, 2, 2)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
         );
 
         designAsgmnt.setText("Design Assessment");
@@ -171,12 +249,12 @@ public class LecturerMenu extends javax.swing.JFrame {
                         .addComponent(designAsgmnt)
                         .addGap(25, 25, 25)
                         .addComponent(resultAsgmnt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(viewFeedback)
                         .addGap(175, 175, 175)
-                        .addComponent(logOut))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addComponent(logOut)
+                        .addContainerGap())
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -247,18 +325,22 @@ public class LecturerMenu extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new LecturerMenu().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new LecturerResultsTable().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel assessmentID;
     private javax.swing.JButton designAsgmnt;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lecturerName;
     private javax.swing.JButton logOut;
     private javax.swing.JLabel pageTitle;
     private javax.swing.JButton profilePage;
     private javax.swing.JButton resultAsgmnt;
+    private javax.swing.JTable resultsTable;
     private javax.swing.JLabel userRole;
     private javax.swing.JButton viewFeedback;
     // End of variables declaration//GEN-END:variables
