@@ -5,6 +5,7 @@
 package javaafs;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -407,7 +408,7 @@ private void loadSelectedName() {
         String selectedID = (String) selectedidcbx.getSelectedItem();
 
         if (reportType == null || selectedID == null) {
-            Status.setText("Please select report type and ID!");
+            JOptionPane.showMessageDialog(this, "Please select report type and ID!");
             return;
         }
 
@@ -425,7 +426,7 @@ private void loadSelectedName() {
                 break;
 
             default:
-                Status.setText("Invalid report type!");
+                JOptionPane.showMessageDialog(this, "Invalid report type!");
                 break;
         } 
     }//GEN-LAST:event_viewreportbtnActionPerformed

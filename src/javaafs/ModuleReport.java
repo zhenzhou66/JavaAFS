@@ -21,6 +21,7 @@ public class ModuleReport extends javax.swing.JFrame {
 
     private UserFunctions func = new UserFunctions();
     
+    private String UserID;
     private String moduleID;
     private String moduleName;
     private String studentCount;
