@@ -47,6 +47,8 @@ private void loadUserData(String userid) {
             emailtxt.setText(user[4]);
             phonetxt.setText(user[5]);
             roletxt.setText(user[2]);
+            AcadLeadName.setText(user[3]);
+            userRole.setText(user[2]);
             break;
             }
         }
