@@ -75,6 +75,7 @@ public class LecturerDesign extends javax.swing.JFrame {
             }
         }
     }
+    
     public String[] getModuleData() {
     if (moduleArray == null) 
         return null;

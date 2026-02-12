@@ -32,6 +32,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
     public String UserID = "";
     protected String ModuleID = "";
     public String ModuleName = "";
+    public String AssessmentID = "";
     
     private String forceChange;
 
@@ -124,39 +125,23 @@ public class StudentMainMenu extends javax.swing.JFrame {
     }
     
     private void updateBadges() {
-        ImageIcon trophy = new ImageIcon("src/images/trophy.png");
+        ImageIcon trophy = new ImageIcon(getClass().getResource("/images/trophy.png")); 
 
-        for (String[] quiz : assessmentQuestions) {
-            String assessmentID = quiz[0];
-            boolean perfect = false;
+        for (String[] result : assessmentResult) {
+            // Check if this result belongs to the current user
+            if (result[1].equalsIgnoreCase(UserID)) {
+                int mark = Integer.parseInt(result[3].trim()); // mark is 4th column
 
-            // Check if student has 100% for this assessment
-            for (String[] ans : assessmentResult) {
-                if (ans[1].equalsIgnoreCase(UserID) && ans[2].equalsIgnoreCase(assessmentID)) {
-                    int correctCount = 0;
-                    for (int i = 0; i < 5; i++) {
-                        if (ans[i + 3].equalsIgnoreCase(quiz[i + 7])) { // student vs correct
-                            correctCount++;
-                        }
-                    }
-                    if (correctCount == 5) perfect = true;
-                    break;
+                if (mark == 100) { // perfect score
+                    String assessmentID = result[2]; // 3rd column
+                    JLabel badgeLabel = new JLabel(trophy);
+                    JLabel textLabel = new JLabel(assessmentID);
+
+                    badgePanel.add(badgeLabel);
+                    badgePanel.add(textLabel);
                 }
             }
-            
-            // Badge label
-            JLabel badgeLabel = new JLabel();
-            if (perfect) badgeLabel.setIcon(trophy);
-            badgePanel.add(badgeLabel);
-
-            // Assessment ID label
-            JLabel textLabel = new JLabel(" " + assessmentID); // space for padding
-            badgePanel.add(textLabel);
-            
-            // Add slot to main badge panel
-            badgePanel.add(badgePanel);
-            }
-
+        }
         badgePanel.revalidate();
         badgePanel.repaint();
     }
@@ -180,12 +165,12 @@ public class StudentMainMenu extends javax.swing.JFrame {
         userRole = new javax.swing.JLabel();
         courseName = new javax.swing.JLabel();
         viewResult = new javax.swing.JButton();
+        CreateFeedback = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         studentProgress = new javax.swing.JProgressBar();
         assessmentProgress = new javax.swing.JLabel();
         badgePanel = new javax.swing.JPanel();
         badges = new javax.swing.JLabel();
-        CreateFeedback = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -240,6 +225,13 @@ public class StudentMainMenu extends javax.swing.JFrame {
             }
         });
 
+        CreateFeedback.setText("Create Feedback");
+        CreateFeedback.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CreateFeedbackActionPerformed(evt);
+            }
+        });
+
         studentProgress.setStringPainted(true);
 
         assessmentProgress.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -280,13 +272,6 @@ public class StudentMainMenu extends javax.swing.JFrame {
                 .addComponent(badgePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63))
         );
-
-        CreateFeedback.setText("Create Feedback");
-        CreateFeedback.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CreateFeedbackActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

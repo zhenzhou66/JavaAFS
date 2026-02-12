@@ -9,7 +9,7 @@ AL002,g123,AcademicLeader,Ricky,ricky@gmail.com,0215468952,NA,true
 AL004,samantha,Academic Leader,Samantha,ss@gmail.com,0127355913,NA,false
 L010,zhenkang,Lecturer,zhenkang,zhenkang&may@gmail.com,0127355913,M010,false
 L013,123,Lecturer,Aisyah,aisyah22@gmail.com,0147788990,NA,false
-S011,123,Student,Irfan,irfan19@gmail.com,0156677889,NA,false
+S011,123,Student,Irfan,irfan19@gmail.com,0156677889,M010,false
 AL003,TT,AcademicLeader,Gunwook,gunwook@gmail.com,0125489862,NA,true
 L012,e123,Lecturer,Zz,zz@yahoo.com,0124589653,NA,true
 S010,vScDV*Tf,Student,Cc,cc@gmail.com,0124589656,NA,true
