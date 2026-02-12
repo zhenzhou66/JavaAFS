@@ -5,6 +5,7 @@
 package javaafs;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -359,6 +360,9 @@ public class StudentCreateFeedback extends javax.swing.JFrame {
         // 4. update array and write to the text file
         FeedbackArray.add(newRecord);
         func.writeCSV("studentFeedback.txt", FeedbackArray);
+        JOptionPane.showMessageDialog(this, "Submitted successfully!");
+        FeedbackText.setText("Enter feedback for your Lecturer");
+        Rating.setSelectedIndex(0);
     }//GEN-LAST:event_SubmitButtonActionPerformed
 
     private void mainmenubtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainmenubtnActionPerformed
