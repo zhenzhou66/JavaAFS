@@ -44,3 +44,4 @@ S006,Stud0007,Student,George Chen,student7@gmail.com,0123456730,M007,FALSE
 S007,Stud0008,Student,Helen Wong,student8@yahoo.com,0123456731,M008,FALSE
 S008,Stud0009,Student,Ian Lim,student9@gmail.com,0123456732,M009,FALSE
 S009,Stud0010,Student,Julia Lee,student10@yahoo.com,0123456733,M010,FALSE
+L020,P%0%ENjz,Lecturer,Zhang Hao,zhanghao@gmail.com,0156855596,NA,true
