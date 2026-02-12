@@ -9,6 +9,9 @@ import java.util.Map;
 import java.io.*;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import java.util.Calendar;
+import java.util.Date;
+
 
 public class ClassManagement extends javax.swing.JFrame {
     
@@ -17,6 +20,14 @@ public class ClassManagement extends javax.swing.JFrame {
     private final String filePath = "users.txt";
     private Map<String, String> moduleMap = new HashMap<>();
 
+    private String[] allTimes = {
+        "08:00","08:15","08:30","09:00","09:15","09:30",
+        "10:00","10:15","10:30","11:00","11:15","11:30",
+        "12:00","12:15","12:30","13:00","13:15","13:30",
+        "14:00","14:15","14:30","15:00","15:15","15:30",
+        "16:00","16:15","16:30","17:00","17:15","17:30",
+        "18:00"
+    };
 
 
 
@@ -25,8 +36,15 @@ public class ClassManagement extends javax.swing.JFrame {
         this.username = userID;
         initComponents();
         loadModules();
+        setCalendarDateLimit(); 
         updateHistoryTable();
         
+        jCalendar1.addPropertyChangeListener("calendar", evt -> {
+            updateStartTimeOptions();
+        });
+
+        updateStartTimeOptions();
+    
          // Row selection only
         historyTable.setRowSelectionAllowed(true);
         historyTable.setColumnSelectionAllowed(false);
@@ -54,6 +72,74 @@ public class ClassManagement extends javax.swing.JFrame {
 
     }
     
+    
+    
+    private void updateStartTimeOptions() {
+
+        Date selectedDate = jCalendar1.getDate();
+        if (selectedDate == null) return;
+
+        Calendar today = Calendar.getInstance();
+        Calendar selected = Calendar.getInstance();
+        selected.setTime(selectedDate);
+
+        startTime.removeAllItems();
+
+        boolean isToday =
+                today.get(Calendar.YEAR) == selected.get(Calendar.YEAR) &&
+                today.get(Calendar.DAY_OF_YEAR) == selected.get(Calendar.DAY_OF_YEAR);
+
+        int currentMinutes =
+                today.get(Calendar.HOUR_OF_DAY) * 60 +
+                today.get(Calendar.MINUTE);
+        
+        // Minimum 1 hour duration
+        // Last end time is 18:00
+        // So latest start time allowed is 17:00
+        int latestStartAllowed = 18 * 60 - 60; // 17:00
+
+        boolean hasAvailableTime = false;
+
+        for (String time : allTimes) {
+            
+            int timeMinutes = timeToMinutes(time);
+            if (timeMinutes < 0) continue;
+
+            if (!isToday) {
+                // Future date → allow any time that can still fit 1 hour
+                if (timeMinutes <= latestStartAllowed) {
+                    startTime.addItem(time);
+                    hasAvailableTime = true;
+                }
+            } else {
+                // Today → must be future time AND allow 1 hour
+                if (timeMinutes > currentMinutes &&
+                    timeMinutes <= latestStartAllowed) {
+
+                    startTime.addItem(time);
+                    hasAvailableTime = true;
+                }
+            }
+            
+            
+        // If no available time → disable Save button
+        if (!hasAvailableTime) {
+            saveButton.setEnabled(false);
+
+            if (isToday) {
+                JOptionPane.showMessageDialog(this,
+                    "No available class time remaining for today.\n" +
+                    "Minimum class duration is 1 hour.");
+            }
+        } else {
+            saveButton.setEnabled(true);
+        }
+    }
+        
+        
+        
+    }
+
 
 
     // ================= LOAD MODULES =================
@@ -146,18 +232,93 @@ public class ClassManagement extends javax.swing.JFrame {
     
 
     
+    private void setCalendarDateLimit() {
+        Calendar today = Calendar.getInstance();
+
+        // Remove time part (important)
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
+
+        // Minimum selectable date = today
+        jCalendar1.setMinSelectableDate(today.getTime());
+
+        // Maximum selectable date = today + 2 years
+        Calendar maxDate = Calendar.getInstance();
+        maxDate.add(Calendar.YEAR, 2);
+    
+        // Disable all dates before today
+        jCalendar1.setMinSelectableDate(today.getTime());
+    }
+    
+    
+    private boolean hasModuleClassTypeOnDate(String moduleID, String classType, Date date) {
+        ArrayList<String[]> classes = UserFunctions.readCSV("classes.txt");
+
+        for (String[] cls : classes) {
+            if (cls.length < 7) continue;
+
+            String existingModuleID = cls[4];
+            String existingGroupID = cls[5];
+            String existingClassID = cls[0];
+            String existingClassName = cls[1]; // e.g., Lecture-M101
+
+            // Determine existing class type from className
+            String existingType = existingClassName.split("-")[0]; // Lecture or Tutorial
+
+            Date classDate = UserFunctions.getClassDate(existingClassID);
+            if (existingModuleID.equals(moduleID)
+                    && existingType.equalsIgnoreCase(classType)
+                    && classDate != null
+                    && UserFunctions.formatDateToString(classDate).equals(UserFunctions.formatDateToString(date))) {
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
+
+
 
     
-    private boolean isGroupNameDuplicateInModule(String groupNameText, String moduleID) {
+
+    
+    private boolean isGroupNameDuplicateInModule(String groupNameText, String moduleID, String classType) {
 
 
         ArrayList<String[]> groups = UserFunctions.readCSV("group.txt");
+        ArrayList<String[]> classes = UserFunctions.readCSV("classes.txt");
 
-        for (String[] data : groups) {
-            if (data.length >= 3 &&
-                data[1].equalsIgnoreCase(groupNameText.trim()) &&
-                data[2].equals(moduleID)) {
-                return true;
+
+        // Find if there is already a class for this module with the same classType
+        for (String[] cls : classes) {
+            if (cls.length >= 7) {
+                String existingModuleID = cls[4];
+                String existingClassID = cls[0];
+                String existingClassName = cls[1]; // e.g., Lecture-M101
+
+                if (existingModuleID.equals(moduleID) && existingClassName.startsWith(classType)) {
+                    // A class of this type already exists for this module
+                    return true;
+                }
+            }
+        }
+
+        // Optional: you can still check duplicate group names within the same class type if needed
+        // (for example, prevent "Group A" being added twice in Lecture)
+        for (String[] group : groups) {
+            if (group.length >= 3) {
+                String existingGroupName = group[1];
+                String existingGroupModuleID = group[2];
+
+                if (existingGroupModuleID.equals(moduleID) &&
+                    existingGroupName.equalsIgnoreCase(groupNameText.trim())) {
+                    // Duplicate group name exists for module
+                    return true;
+                }
             }
         }
         return false;
@@ -167,14 +328,8 @@ public class ClassManagement extends javax.swing.JFrame {
     
     
     // ================= SAVE GROUP =================
-    private String saveGroup(String groupNameText, String moduleID) {
-        if (isGroupNameDuplicateInModule(groupNameText, moduleID)) {
-            JOptionPane.showMessageDialog(this,
-                "This group name already exists for the selected module.\n" +
-                "Please choose a different group name.");
-            return null;
-        }
-
+    private String saveGroup(String groupNameText, String moduleID, String classType) {
+        
         // Always generate a NEW group ID
         String groupID = UserFunctions.generateNextID("group.txt", "G");
 
@@ -215,7 +370,7 @@ public class ClassManagement extends javax.swing.JFrame {
                 }
 
                 String[] data = line.split(",");
-                if (data.length == 6) {
+                if (data.length == 7) {
                     model.addRow(new Object[]{
                         data[4], // Module ID
                         data[5], // Group ID
@@ -263,6 +418,8 @@ public class ClassManagement extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         classType = new javax.swing.JComboBox<>();
+        jCalendar1 = new com.toedter.calendar.JCalendar();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -361,9 +518,11 @@ public class ClassManagement extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setText("Class Management");
 
-        jLabel2.setText("Class Name:");
+        jLabel2.setText("Class Type :");
 
         classType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lecture", "Tutorial" }));
+
+        jLabel3.setText("Date :");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -382,57 +541,60 @@ public class ClassManagement extends javax.swing.JFrame {
                             .addComponent(AssignLecturer, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ClassManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(UserManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(AdminHomepage, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)
+                            .addComponent(AdminHomepage, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(historyLabel))
+                        .addGap(67, 67, 67)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(moduleLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(moduleName, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(startTimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(endTimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(endTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(startTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(groupLabel)
+                                            .addComponent(moduleLabel))
+                                        .addGap(40, 40, 40)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(moduleName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(groupNameFormat)
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                            .addComponent(groupName)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(31, 31, 31)
+                                        .addComponent(classType, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 3, Short.MAX_VALUE)))
+                                .addGap(64, 64, 64))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(saveButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(groupLabel)
-                                            .addGap(34, 34, 34))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(jLabel2)
-                                            .addGap(7, 7, 7)))
-                                    .addGap(24, 24, 24)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(groupName)
-                                        .addComponent(classType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(90, 90, 90)
-                                .addComponent(groupNameFormat)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(startTimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(endTimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(30, 30, 30)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(endTime, 0, 179, Short.MAX_VALUE)
+                                                .addComponent(startTime, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(31, 31, 31)
+                                            .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(historyLabel)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(deleteButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(53, 53, 53)
                         .addComponent(jLabel1)
                         .addGap(44, 44, 44)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2)
-                                .addComponent(classType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(AdminHomepage)
                                 .addGap(18, 18, 18)
@@ -440,41 +602,48 @@ public class ClassManagement extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(ClassManagement)
                                 .addGap(18, 18, 18)
-                                .addComponent(AssignLecturer)))
-                        .addGap(18, 18, 18)
-                        .addComponent(GradingSystem)
-                        .addGap(18, 18, 18)
-                        .addComponent(AdminProfile)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(145, 145, 145)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(historyLabel)
-                                .addGap(19, 19, 19)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                .addComponent(AssignLecturer)
+                                .addGap(18, 18, 18)
+                                .addComponent(GradingSystem)
+                                .addGap(18, 18, 18)
+                                .addComponent(AdminProfile)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(moduleName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(moduleLabel))
-                                .addGap(34, 34, 34)
+                                .addGap(19, 19, 19)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(groupLabel)
                                     .addComponent(groupName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(groupNameFormat)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(classType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(startTimeLabel)
-                                    .addComponent(startTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(37, 37, 37)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(endTimeLabel)
-                                    .addComponent(endTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(27, 27, 27)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(saveButton)
-                    .addComponent(deleteButton))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(startTimeLabel)
+                                            .addComponent(startTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(endTimeLabel)
+                                            .addComponent(endTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel3))
+                                .addGap(27, 27, 27)
+                                .addComponent(saveButton))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(145, 145, 145)
+                        .addComponent(historyLabel)
+                        .addGap(19, 19, 19)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(27, 27, 27)
+                        .addComponent(deleteButton)))
                 .addGap(43, 43, 43))
         );
 
@@ -556,6 +725,9 @@ public class ClassManagement extends javax.swing.JFrame {
         String start = (String) startTime.getSelectedItem();
         String end = (String) endTime.getSelectedItem();
         String type = (String) classType.getSelectedItem();
+        Date selectedDate = jCalendar1.getDate();
+        String dateStr = UserFunctions.formatDateToString(selectedDate);
+
 
         if (groupText.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter group name.");
@@ -568,11 +740,20 @@ public class ClassManagement extends javax.swing.JFrame {
                 "Group name must strictly follow the format 'Group A'");
             return;
         }
-
+        
+        // Check if Lecture/Tutorial already exists for this module on that date
+        if (hasModuleClassTypeOnDate(moduleID, type, selectedDate)) {
+            JOptionPane.showMessageDialog(this, 
+                "A " + type + " for this module already exists on the selected date.");
+            return;
+        }
+        
+        // Validate Time
         if (!isValidDuration(start, end)) {
             return;
         }
-
+        
+        // Check for time clash
         if (hasModuleTimeClash(moduleID, start, end)) {
             JOptionPane.showMessageDialog(this,
                 "Time clash detected!\n" +
@@ -580,15 +761,16 @@ public class ClassManagement extends javax.swing.JFrame {
             return;
         }
 
-        String groupID = saveGroup(groupText, moduleID);
+        // Save Group
+        String groupID = saveGroup(groupText, moduleID, type);
         if (groupID == null) return;
 
-        String classID = UserFunctions.generateNextID("classes.txt", "C");
-        
+        // Save Class
+        String classID = UserFunctions.generateNextID("classes.txt", "C");       
         String className = type + "-" + moduleID; // automatically generated className
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("classes.txt", true))) {
-            bw.write(classID + "," + className + "," + start + "," + end + "," + moduleID + "," + groupID);
+            bw.write(classID + "," + className + "," + start + "," + end + "," + moduleID + "," + groupID + "," + dateStr);
             bw.newLine();
 
             JOptionPane.showMessageDialog(this, "Class created successfully!");
@@ -604,6 +786,16 @@ public class ClassManagement extends javax.swing.JFrame {
         }
 
         updateHistoryTable();
+        
+        JOptionPane.showMessageDialog(this, "Class created successfully!");
+
+        // Refresh table
+        updateHistoryTable();
+
+        // Reset calendar to today
+        Calendar today = Calendar.getInstance();
+        jCalendar1.setDate(today.getTime());
+
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void moduleNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moduleNameActionPerformed
@@ -636,8 +828,10 @@ public class ClassManagement extends javax.swing.JFrame {
     private javax.swing.JLabel groupNameFormat;
     private javax.swing.JLabel historyLabel;
     private javax.swing.JTable historyTable;
+    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel moduleLabel;
     private javax.swing.JComboBox<String> moduleName;
