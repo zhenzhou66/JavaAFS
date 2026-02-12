@@ -126,6 +126,7 @@ private void changePassword() {
         showpassword2 = new javax.swing.JButton();
         showpassword3 = new javax.swing.JButton();
         CreateFeedback = new javax.swing.JButton();
+        mainmenubtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -324,6 +325,13 @@ private void changePassword() {
             }
         });
 
+        mainmenubtn.setText("Main Menu");
+        mainmenubtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mainmenubtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -342,9 +350,10 @@ private void changePassword() {
                             .addComponent(logOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(viewAssessments, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(profilePage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(CreateFeedback)
+                            .addComponent(CreateFeedback, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(viewClassSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(viewResult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(viewResult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(mainmenubtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -371,6 +380,8 @@ private void changePassword() {
                         .addComponent(viewClassSchedule)
                         .addGap(18, 18, 18)
                         .addComponent(CreateFeedback)
+                        .addGap(18, 18, 18)
+                        .addComponent(mainmenubtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(logOut))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -479,6 +490,12 @@ private void changePassword() {
         stuCreateFB.setVisible(true);
     }//GEN-LAST:event_CreateFeedbackActionPerformed
 
+    private void mainmenubtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainmenubtnActionPerformed
+        StudentMainMenu stuMainMenu = new StudentMainMenu(UserID);
+        this.setVisible(false);
+        stuMainMenu.setVisible(true);
+    }//GEN-LAST:event_mainmenubtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -515,6 +532,7 @@ private void changePassword() {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lecturerName;
     private javax.swing.JButton logOut;
+    private javax.swing.JButton mainmenubtn;
     private javax.swing.JLabel newpasswordlbl;
     private javax.swing.JPasswordField newpasswordtxt;
     private javax.swing.JLabel oldpasswordlbl;

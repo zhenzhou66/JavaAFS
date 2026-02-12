@@ -238,7 +238,7 @@ public class ModuleReport extends javax.swing.JFrame {
         userRole.setText("userRole");
 
         pagetitile.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        pagetitile.setText("ACADEMIC LEADER REPORTS");
+        pagetitile.setText("ACADEMIC LEADER VIEW REPORTS");
 
         moduleidlbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         moduleidlbl.setText("Module ID");

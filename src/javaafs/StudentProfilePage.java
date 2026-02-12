@@ -77,21 +77,22 @@ public class StudentProfilePage extends javax.swing.JFrame {
         lecturerName = new javax.swing.JLabel();
         userRole = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        profilelbl2 = new javax.swing.JLabel();
-        namelbl2 = new javax.swing.JLabel();
-        nametxt2 = new javax.swing.JTextField();
-        rolelbl2 = new javax.swing.JLabel();
-        phonetxt2 = new javax.swing.JTextField();
-        emailtxt2 = new javax.swing.JTextField();
-        roletxt2 = new javax.swing.JTextField();
-        emaillbl2 = new javax.swing.JLabel();
-        phonelbl2 = new javax.swing.JLabel();
-        editbtn2 = new javax.swing.JButton();
-        useridlbl2 = new javax.swing.JLabel();
-        useridtxt2 = new javax.swing.JTextField();
-        savebtn2 = new javax.swing.JButton();
-        statustxt2 = new javax.swing.JTextField();
+        profilelbl = new javax.swing.JLabel();
+        namelbl = new javax.swing.JLabel();
+        nametxt = new javax.swing.JTextField();
+        rolelbl = new javax.swing.JLabel();
+        phonetxt = new javax.swing.JTextField();
+        emailtxt = new javax.swing.JTextField();
+        roletxt = new javax.swing.JTextField();
+        emaillbl = new javax.swing.JLabel();
+        phonelbl = new javax.swing.JLabel();
+        editbtn = new javax.swing.JButton();
+        useridlbl = new javax.swing.JLabel();
+        useridtxt = new javax.swing.JTextField();
+        savebtn = new javax.swing.JButton();
+        statustxt = new javax.swing.JTextField();
         CreateFeedback = new javax.swing.JButton();
+        mainmenubtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -142,58 +143,58 @@ public class StudentProfilePage extends javax.swing.JFrame {
         userRole.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         userRole.setText("yourRole");
 
-        profilelbl2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        profilelbl2.setText("PROFILE");
+        profilelbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        profilelbl.setText("PROFILE");
 
-        namelbl2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        namelbl2.setText("Name");
+        namelbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        namelbl.setText("Name");
 
-        nametxt2.setEditable(false);
-        nametxt2.addActionListener(new java.awt.event.ActionListener() {
+        nametxt.setEditable(false);
+        nametxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nametxtActionPerformed(evt);
             }
         });
 
-        rolelbl2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        rolelbl2.setText("Role");
+        rolelbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        rolelbl.setText("Role");
 
-        emailtxt2.addActionListener(new java.awt.event.ActionListener() {
+        emailtxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 emailtxtActionPerformed(evt);
             }
         });
 
-        roletxt2.setEditable(false);
+        roletxt.setEditable(false);
 
-        emaillbl2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        emaillbl2.setText("Email");
+        emaillbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        emaillbl.setText("Email");
 
-        phonelbl2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        phonelbl2.setText("Phone Number");
+        phonelbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        phonelbl.setText("Phone Number");
 
-        editbtn2.setText("Edit Password");
-        editbtn2.addActionListener(new java.awt.event.ActionListener() {
+        editbtn.setText("Edit Password");
+        editbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editbtnActionPerformed(evt);
             }
         });
 
-        useridlbl2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        useridlbl2.setText("UserID");
+        useridlbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        useridlbl.setText("UserID");
 
-        useridtxt2.setEditable(false);
+        useridtxt.setEditable(false);
 
-        savebtn2.setText("SAVE");
-        savebtn2.addActionListener(new java.awt.event.ActionListener() {
+        savebtn.setText("SAVE");
+        savebtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 savebtnActionPerformed(evt);
             }
         });
 
-        statustxt2.setEditable(false);
-        statustxt2.setBorder(null);
-        statustxt2.addActionListener(new java.awt.event.ActionListener() {
+        statustxt.setEditable(false);
+        statustxt.setBorder(null);
+        statustxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 statustxtActionPerformed(evt);
             }
@@ -205,76 +206,78 @@ public class StudentProfilePage extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addContainerGap(245, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(editbtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(editbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(savebtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(statustxt2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(savebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(statustxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel4Layout.createSequentialGroup()
                                     .addGap(31, 31, 31)
                                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(namelbl2)
-                                        .addComponent(useridlbl2)
-                                        .addComponent(rolelbl2)
-                                        .addComponent(profilelbl2))
+                                        .addComponent(namelbl)
+                                        .addComponent(useridlbl)
+                                        .addComponent(rolelbl)
+                                        .addComponent(profilelbl))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(phonelbl2)
+                                    .addComponent(phonelbl)
                                     .addGap(18, 18, 18)))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(29, 29, 29)
-                                .addComponent(emaillbl2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(emaillbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(79, 79, 79)))
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(phonetxt2, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
-                            .addComponent(roletxt2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(nametxt2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(emailtxt2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(useridtxt2))))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(roletxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+                                .addComponent(nametxt, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(emailtxt, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(useridtxt))
+                            .addComponent(phonetxt, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(37, 37, 37))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addComponent(profilelbl2)
+                .addComponent(profilelbl)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nametxt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(namelbl2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(phonetxt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(emaillbl2))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(namelbl, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(emaillbl))
+                    .addComponent(emailtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(phonelbl2)
-                            .addComponent(emailtxt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(phonelbl)
+                            .addComponent(phonetxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rolelbl2)
-                            .addComponent(roletxt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(rolelbl)
+                            .addComponent(roletxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(useridlbl2)
+                        .addComponent(useridlbl)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(103, 103, 103)
-                        .addComponent(useridtxt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                        .addComponent(useridtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(savebtn2)
-                            .addComponent(editbtn2))
+                            .addComponent(savebtn)
+                            .addComponent(editbtn))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(statustxt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(statustxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(12, 12, 12))
         );
 
@@ -282,6 +285,13 @@ public class StudentProfilePage extends javax.swing.JFrame {
         CreateFeedback.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CreateFeedbackActionPerformed(evt);
+            }
+        });
+
+        mainmenubtn.setText("Main Menu");
+        mainmenubtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mainmenubtnActionPerformed(evt);
             }
         });
 
@@ -306,7 +316,8 @@ public class StudentProfilePage extends javax.swing.JFrame {
                                 .addComponent(viewAssessments, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(viewClassSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
                                 .addComponent(profilePage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(CreateFeedback, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(CreateFeedback, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(mainmenubtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -333,6 +344,8 @@ public class StudentProfilePage extends javax.swing.JFrame {
                         .addComponent(viewClassSchedule)
                         .addGap(18, 18, 18)
                         .addComponent(CreateFeedback)
+                        .addGap(18, 18, 18)
+                        .addComponent(mainmenubtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(logOut))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -412,6 +425,12 @@ public class StudentProfilePage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CreateFeedbackActionPerformed
 
+    private void mainmenubtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainmenubtnActionPerformed
+        StudentMainMenu stuMainMenu = new StudentMainMenu(UserID);
+        this.setVisible(false);
+        stuMainMenu.setVisible(true);
+    }//GEN-LAST:event_mainmenubtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -440,56 +459,27 @@ public class StudentProfilePage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CreateFeedback;
     private javax.swing.JButton editbtn;
-    private javax.swing.JButton editbtn1;
-    private javax.swing.JButton editbtn2;
     private javax.swing.JLabel emaillbl;
-    private javax.swing.JLabel emaillbl1;
-    private javax.swing.JLabel emaillbl2;
     private javax.swing.JTextField emailtxt;
-    private javax.swing.JTextField emailtxt1;
-    private javax.swing.JTextField emailtxt2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lecturerName;
     private javax.swing.JButton logOut;
+    private javax.swing.JButton mainmenubtn;
     private javax.swing.JLabel namelbl;
-    private javax.swing.JLabel namelbl1;
-    private javax.swing.JLabel namelbl2;
     private javax.swing.JTextField nametxt;
-    private javax.swing.JTextField nametxt1;
-    private javax.swing.JTextField nametxt2;
     private javax.swing.JLabel pageTitle;
     private javax.swing.JLabel phonelbl;
-    private javax.swing.JLabel phonelbl1;
-    private javax.swing.JLabel phonelbl2;
     private javax.swing.JTextField phonetxt;
-    private javax.swing.JTextField phonetxt1;
-    private javax.swing.JTextField phonetxt2;
     private javax.swing.JButton profilePage;
     private javax.swing.JLabel profilelbl;
-    private javax.swing.JLabel profilelbl1;
-    private javax.swing.JLabel profilelbl2;
     private javax.swing.JLabel rolelbl;
-    private javax.swing.JLabel rolelbl1;
-    private javax.swing.JLabel rolelbl2;
     private javax.swing.JTextField roletxt;
-    private javax.swing.JTextField roletxt1;
-    private javax.swing.JTextField roletxt2;
     private javax.swing.JButton savebtn;
-    private javax.swing.JButton savebtn1;
-    private javax.swing.JButton savebtn2;
     private javax.swing.JTextField statustxt;
-    private javax.swing.JTextField statustxt1;
-    private javax.swing.JTextField statustxt2;
     private javax.swing.JLabel userRole;
     private javax.swing.JLabel useridlbl;
-    private javax.swing.JLabel useridlbl1;
-    private javax.swing.JLabel useridlbl2;
     private javax.swing.JTextField useridtxt;
-    private javax.swing.JTextField useridtxt1;
-    private javax.swing.JTextField useridtxt2;
     private javax.swing.JButton viewAssessments;
     private javax.swing.JButton viewClassSchedule;
     private javax.swing.JButton viewResult;
