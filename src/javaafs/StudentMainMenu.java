@@ -5,6 +5,9 @@
 package javaafs;
 
 import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 
@@ -21,11 +24,15 @@ public class StudentMainMenu extends javax.swing.JFrame {
      */
     protected List<String[]> userArray;
     protected List<String[]> moduleArray;
+    protected List<String[]> assessmentQuestions;
+    protected List<String[]> assessmentResult;
     UserFunctions func = new UserFunctions();
 
     public String Role = "";
     public String UserID = "";
+    protected String ModuleID = "";
     public String ModuleName = "";
+    public String AssessmentID = "";
     
     private String forceChange;
 
@@ -33,6 +40,8 @@ public class StudentMainMenu extends javax.swing.JFrame {
     public StudentMainMenu() {
         userArray = func.readCSV("users.txt");
         moduleArray = func.readCSV("modules.txt");
+        assessmentQuestions = func.readCSV("assessmentQuestion.txt");
+        assessmentResult = func.readCSV("assessmentResult.txt");
         initComponents();
     }
     
@@ -40,6 +49,8 @@ public class StudentMainMenu extends javax.swing.JFrame {
         this();               
         this.UserID = UserID; 
         loadUserData(UserID);
+        updateProgressBar();
+        updateBadges();
         
         // Read users to check forceChange
         List<String[]> users = UserFunctions.readCSV("users.txt");
@@ -60,7 +71,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
     private void loadUserData(String userid) {
     if (userArray == null || userArray.isEmpty()) 
         return;
-    
+
     String userModuleID = "";
 
     for (int i = 0; i < userArray.size(); i++) {
@@ -82,6 +93,57 @@ public class StudentMainMenu extends javax.swing.JFrame {
         }
     }
 }
+    private void updateProgressBar() {
+        if (ModuleID == null || ModuleID.isEmpty()) {
+            studentProgress.setValue(0);
+            return;
+        }
+
+        int totalAssessments = 0;
+        for (String[] quiz : assessmentQuestions) {
+            if (quiz[1].equalsIgnoreCase(ModuleID)) {
+                totalAssessments++;
+            }
+        }
+
+        int completed = 0;
+        for (String[] ans : assessmentResult) {
+            if (ans[1].equalsIgnoreCase(UserID)) { // studentID
+                // check if this assessment belongs to this module
+                for (String[] quiz : assessmentQuestions) {
+                    if (quiz[0].equalsIgnoreCase(ans[2]) && quiz[1].equalsIgnoreCase(ModuleID)) {
+                        completed++;
+                        break;
+                    }
+                }
+            }
+        }
+
+        int percent = (totalAssessments == 0) ? 0 : (int)(((double)completed / totalAssessments) * 100);
+        studentProgress.setValue(percent);
+    }
+    
+    private void updateBadges() {
+        ImageIcon trophy = new ImageIcon(getClass().getResource("/images/trophy.png")); 
+
+        for (String[] result : assessmentResult) {
+            // Check if this result belongs to the current user
+            if (result[1].equalsIgnoreCase(UserID)) {
+                int mark = Integer.parseInt(result[3].trim()); // mark is 4th column
+
+                if (mark == 100) { // perfect score
+                    String assessmentID = result[2]; // 3rd column
+                    JLabel badgeLabel = new JLabel(trophy);
+                    JLabel textLabel = new JLabel(assessmentID);
+
+                    badgePanel.add(badgeLabel);
+                    badgePanel.add(textLabel);
+                }
+            }
+        }
+        badgePanel.revalidate();
+        badgePanel.repaint();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -102,8 +164,12 @@ public class StudentMainMenu extends javax.swing.JFrame {
         userRole = new javax.swing.JLabel();
         courseName = new javax.swing.JLabel();
         viewResult = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
         CreateFeedback = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        studentProgress = new javax.swing.JProgressBar();
+        assessmentProgress = new javax.swing.JLabel();
+        badgePanel = new javax.swing.JPanel();
+        badges = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -158,23 +224,53 @@ public class StudentMainMenu extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         CreateFeedback.setText("Create Feedback");
         CreateFeedback.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CreateFeedbackActionPerformed(evt);
             }
         });
+
+        studentProgress.setStringPainted(true);
+
+        assessmentProgress.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        assessmentProgress.setText("Assessment Progress");
+
+        badges.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        badges.setText("Perfect Score Badges");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(assessmentProgress)
+                        .addGap(219, 219, 219))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(studentProgress, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                            .addComponent(badgePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(94, 94, 94))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(badges)
+                        .addGap(218, 218, 218))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(assessmentProgress)
+                .addGap(18, 18, 18)
+                .addComponent(studentProgress, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(badges)
+                .addGap(18, 18, 18)
+                .addComponent(badgePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -311,6 +407,9 @@ public class StudentMainMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CreateFeedback;
+    private javax.swing.JLabel assessmentProgress;
+    private javax.swing.JPanel badgePanel;
+    private javax.swing.JLabel badges;
     private javax.swing.JLabel courseName;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -318,6 +417,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
     private javax.swing.JButton logOut;
     private javax.swing.JLabel pageTitle;
     private javax.swing.JButton profilePage;
+    private javax.swing.JProgressBar studentProgress;
     private javax.swing.JLabel userRole;
     private javax.swing.JButton viewAssessments;
     private javax.swing.JButton viewClassSchedule;

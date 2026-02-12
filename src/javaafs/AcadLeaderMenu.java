@@ -19,36 +19,36 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
     protected List<String[]> userArray;
     UserFunctions func = new UserFunctions();
     
-    public String UserID = "";
-    public String Role = "";
+    public String forceChange;
+    private String UserID = "";
     
-    private String forceChange;
-
+    public void setUserID(String userID) {
+        this.UserID = userID;
+    }
     
+    public String getUserID() {
+        return UserID;
+    }
+  
     public AcadLeaderMenu() {
         userArray = func.readCSV("users.txt");
         initComponents();
     }
     
-    public AcadLeaderMenu(String userid){
+    public AcadLeaderMenu(String currentUserID){
         this();
-        this.UserID = userid;
-        loadUserData(userid);
-            
-            
-            
-            // Read users to check forceChange
-            List<String[]> users = UserFunctions.readCSV("users.txt");
-            forceChange = "false"; // default
+        setUserID(currentUserID);
+        loadUserData(currentUserID);
 
-            for (String[] row : users) {
-                // Skip header
-                if (row[0].equalsIgnoreCase("userID")) continue;
+        forceChange = "false"; // default
+        for (String[] row : userArray) {
+            // Skip header
+            if (row[0].equalsIgnoreCase("userID")) continue;
 
-                if (row[0].trim().equalsIgnoreCase(UserID.trim())) {
-                    forceChange = row[7].trim();
-                    break;
-                }
+            if (row[0].trim().equalsIgnoreCase(UserID.trim())) {
+                forceChange = row[7].trim();
+                break;
+            }
         }
     }
    
@@ -222,7 +222,7 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
 
-        func.logout(this, UserID);
+        func.logout(this, getUserID());
 
     }//GEN-LAST:event_logOutActionPerformed
 
