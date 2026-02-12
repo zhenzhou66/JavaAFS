@@ -6,6 +6,7 @@ package javaafs;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -83,7 +84,7 @@ private void saveEditedModule() {
     String moduleName = modulenametxt.getText().trim();
 
     if (moduleName.isEmpty()) {
-        Status.setText("Error: Please enter module name!");
+        JOptionPane.showMessageDialog(this, "Error: Please enter module name!");
         return;
     }
 
@@ -97,7 +98,7 @@ private void saveEditedModule() {
     }
 
     func.writeCSV("modules.txt", modules);
-    Status.setText("Module updated successfully!");
+    JOptionPane.showMessageDialog(this, "Module updated successfully!");
 }
 
 
@@ -126,7 +127,6 @@ private void saveEditedModule() {
         modulenametxt = new javax.swing.JTextField();
         savebtn = new javax.swing.JButton();
         backbtn = new javax.swing.JButton();
-        Status = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -207,47 +207,38 @@ private void saveEditedModule() {
             }
         });
 
-        Status.setBorder(null);
-        Status.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StatusActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(backbtn)
+                .addGap(32, 32, 32))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
+                        .addGap(68, 68, 68)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(modulenamelbl)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(modulenametxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(35, 35, 35)
+                                .addComponent(modulenametxt, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(moduleidlbl)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(83, 83, 83)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(savebtn)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(backbtn))
-                                            .addComponent(Status, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 80, Short.MAX_VALUE))))
+                                .addComponent(moduleidlbl)
+                                .addGap(64, 64, 64)
+                                .addComponent(moduleidcbx, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(moduleidcbx, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(86, 86, 86))
+                        .addGap(185, 185, 185)
+                        .addComponent(savebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(81, 81, 81)
+                .addGap(15, 15, 15)
+                .addComponent(backbtn)
+                .addGap(43, 43, 43)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(moduleidcbx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(moduleidlbl))
@@ -255,13 +246,9 @@ private void saveEditedModule() {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(modulenamelbl)
                     .addComponent(modulenametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addComponent(Status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(savebtn)
-                    .addComponent(backbtn))
-                .addGap(39, 39, 39))
+                .addGap(64, 64, 64)
+                .addComponent(savebtn)
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -387,10 +374,6 @@ private void saveEditedModule() {
         acadleadmodules.setVisible(true);
     }//GEN-LAST:event_backbtnActionPerformed
 
-    private void StatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_StatusActionPerformed
-
     private void modulenametxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulenametxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_modulenametxtActionPerformed
@@ -422,7 +405,6 @@ private void saveEditedModule() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AcadLeadName;
-    private javax.swing.JTextField Status;
     private javax.swing.JButton backbtn;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

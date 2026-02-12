@@ -6,6 +6,7 @@ package javaafs;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -70,11 +71,11 @@ private void loadModulesToTable() {
 private void deleteModules() {
     int selectedRow = modulestable.getSelectedRow();
     if (selectedRow == -1) {
-        Status.setText("Error: Please select a module to delete!");
+        JOptionPane.showMessageDialog(this, "Error: Please select a module to delete!");
         return;
     }
     func.deleteRow("modules.txt", modulestable, 0);
-    Status.setText("Module deleted successfully!");
+    JOptionPane.showMessageDialog(this, "Module deleted successfully!");
 }
 
     @SuppressWarnings("unchecked")
@@ -94,7 +95,6 @@ private void deleteModules() {
         deletebtn = new javax.swing.JButton();
         addbtn = new javax.swing.JButton();
         editbtn = new javax.swing.JButton();
-        Status = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         modulestable = new javax.swing.JTable();
 
@@ -165,13 +165,6 @@ private void deleteModules() {
             }
         });
 
-        Status.setBorder(null);
-        Status.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StatusActionPerformed(evt);
-            }
-        });
-
         modulestable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -201,36 +194,30 @@ private void deleteModules() {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
-                        .addComponent(Status, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(addbtn)
-                        .addGap(61, 61, 61)
-                        .addComponent(editbtn)
-                        .addGap(51, 51, 51)
-                        .addComponent(deletebtn)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addGap(44, 44, 44)
+                .addComponent(addbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addComponent(editbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(deletebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addbtn)
                     .addComponent(editbtn)
                     .addComponent(deletebtn))
-                .addGap(18, 18, 18)
-                .addComponent(Status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addGap(19, 19, 19))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -350,10 +337,6 @@ private void deleteModules() {
         acadleadeditmodules.setVisible(true);
     }//GEN-LAST:event_editbtnActionPerformed
 
-    private void StatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_StatusActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -363,7 +346,6 @@ private void deleteModules() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AcadLeadName;
-    private javax.swing.JTextField Status;
     private javax.swing.JButton addbtn;
     private javax.swing.JButton deletebtn;
     private javax.swing.JButton editbtn;

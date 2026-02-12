@@ -5,6 +5,7 @@
 package javaafs;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -57,7 +58,7 @@ private void saveUserProfile(){
 
     func.saveProfile(userArray, UserID, newEmail, newPhoneNumber);
     func.savePassword(userArray, "users.txt");
-    statustxt.setText("Profile updated succesfully!");
+    JOptionPane.showMessageDialog(this, "Profile updated succesfully!");
 }
 
     /**
@@ -79,7 +80,6 @@ private void saveUserProfile(){
         userRole = new javax.swing.JLabel();
         pagetitile = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        profilelbl = new javax.swing.JLabel();
         namelbl = new javax.swing.JLabel();
         nametxt = new javax.swing.JTextField();
         rolelbl = new javax.swing.JLabel();
@@ -92,7 +92,6 @@ private void saveUserProfile(){
         useridlbl = new javax.swing.JLabel();
         useridtxt = new javax.swing.JTextField();
         savebtn = new javax.swing.JButton();
-        statustxt = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -140,9 +139,6 @@ private void saveUserProfile(){
         pagetitile.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         pagetitile.setText("ACADEMIC LEADER PROFILE");
 
-        profilelbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        profilelbl.setText("PROFILE");
-
         namelbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         namelbl.setText("Name");
 
@@ -189,28 +185,12 @@ private void saveUserProfile(){
             }
         });
 
-        statustxt.setEditable(false);
-        statustxt.setBorder(null);
-        statustxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                statustxtActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(editbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(savebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(statustxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,8 +199,7 @@ private void saveUserProfile(){
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(namelbl)
                                         .addComponent(useridlbl)
-                                        .addComponent(rolelbl)
-                                        .addComponent(profilelbl))
+                                        .addComponent(rolelbl))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -235,15 +214,19 @@ private void saveUserProfile(){
                             .addComponent(roletxt, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(nametxt, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(emailtxt, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(useridtxt))))
+                            .addComponent(useridtxt)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(118, Short.MAX_VALUE)
+                        .addComponent(editbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65)
+                        .addComponent(savebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(80, 80, 80)))
                 .addGap(37, 37, 37))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(profilelbl)
-                .addGap(18, 18, 18)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(namelbl, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -252,6 +235,9 @@ private void saveUserProfile(){
                     .addComponent(emaillbl)
                     .addComponent(emailtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addComponent(useridtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -262,18 +248,12 @@ private void saveUserProfile(){
                             .addComponent(rolelbl)
                             .addComponent(roletxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(useridlbl)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
-                        .addComponent(useridtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(savebtn)
-                            .addComponent(editbtn))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(statustxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(12, 12, 12))
+                        .addComponent(useridlbl)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(savebtn)
+                    .addComponent(editbtn))
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -403,10 +383,6 @@ private void saveUserProfile(){
         saveUserProfile();
     }//GEN-LAST:event_savebtnActionPerformed
 
-    private void statustxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statustxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_statustxtActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -447,12 +423,10 @@ private void saveUserProfile(){
     private javax.swing.JLabel phonelbl;
     private javax.swing.JTextField phonetxt;
     private javax.swing.JButton profilebtn;
-    private javax.swing.JLabel profilelbl;
     private javax.swing.JButton reportsbtn;
     private javax.swing.JLabel rolelbl;
     private javax.swing.JTextField roletxt;
     private javax.swing.JButton savebtn;
-    private javax.swing.JTextField statustxt;
     private javax.swing.JLabel userRole;
     private javax.swing.JLabel useridlbl;
     private javax.swing.JTextField useridtxt;

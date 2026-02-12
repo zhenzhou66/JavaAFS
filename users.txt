@@ -14,3 +14,4 @@ S011,123,Student,Irfan,irfan19@gmail.com,0156677889,NA,false
 AL003,33b0440d49cf9be91761fd86bb2c41f255762dcacf8e7b0a20b3f4bd24c6722c,AcademicLeader,Gunwook,gunwook@gmail.com,0125489862,NA,true
 L012,fc627d98d6d9e578db4baf3dfba4dca966e3c8ac6bb7cedee56beee1cfd4cdb8,Lecturer,Zz,zz@yahoo.com,0124589653,NA,true
 S010,b31668fa0e68a7c14086b2e240487394bee83f446107f9e174b367e323600cc6,Student,Cc,cc@gmail.com,0124589656,NA,true
+AL01,tan,AcademicLeader,tan,tantan@gmail.com,0127218442,NA,false

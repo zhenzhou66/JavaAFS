@@ -17,6 +17,7 @@ public class StudentReport extends javax.swing.JFrame {
 
     protected List<String[]> userArray;
     protected List<String[]> assessmentResult;
+    protected List<String[]> gradingCriteria;
     
     UserFunctions func = new UserFunctions();
 
@@ -29,6 +30,7 @@ public class StudentReport extends javax.swing.JFrame {
     public StudentReport() {
         userArray = func.readCSV("users.txt");
         assessmentResult = func.readCSV("assessmentResult.txt");
+        gradingCriteria = func.readCSV("gradingCriteria.txt");
         initComponents();
     }
     
@@ -36,7 +38,7 @@ public class StudentReport extends javax.swing.JFrame {
         this();               
         this.UserID = UserID; 
         loadUserData(UserID); 
-        calculateAverageMark(UserID);
+        calculateOverallGrade();
     }
 
     
@@ -54,25 +56,32 @@ public class StudentReport extends javax.swing.JFrame {
         }
     }
     
-    private void calculateAverageMark(String studentID) {
-            int totalMarks = 0;
-            int moduleCount = 0;
-
-            for (int i = 0; i < assessmentResult.size(); i++) {
-                String[] record = assessmentResult.get(i);
-                if (record[1].equals(studentID)) {
-                    totalMarks += Integer.parseInt(record[3]); // mark is at index 3
-                    moduleCount++;
-                }
-            }
-            
-            if (moduleCount > 0) {
-                double gpa = (double) totalMarks / moduleCount;
-                avgmarktxt.setText(String.format("%.2f", gpa));
-            } else {
-                avgmarktxt.setText("0");
+    private void calculateOverallGrade() {
+        if (assessmentResult == null || assessmentResult.isEmpty()) {
+            gradetxt.setText("NA");
+            return;
         }
-    }  
+
+        int totalMarks = 0;
+        int assessmentCount = 0;
+
+        for (int i = 0; i < assessmentResult.size(); i++) {
+            String[] record = assessmentResult.get(i);
+
+            if (record[1].equals(UserID)) {
+                totalMarks += Integer.parseInt(record[3]);
+                assessmentCount++;
+            }
+        }
+
+        if (assessmentCount > 0) {
+            double average = (double) totalMarks / assessmentCount;
+            String grade = func.calculateGrade((int) average, gradingCriteria);
+            gradetxt.setText(grade);
+        } else {
+            gradetxt.setText("NA");
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,18 +92,73 @@ public class StudentReport extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        logOut = new javax.swing.JButton();
+        profilebtn = new javax.swing.JButton();
+        viewlecturerlistbtn1 = new javax.swing.JButton();
+        modulesbtn = new javax.swing.JButton();
+        reportsbtn = new javax.swing.JButton();
+        AcadLeadName = new javax.swing.JLabel();
+        userRole = new javax.swing.JLabel();
+        pagetitile = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         studentReport = new javax.swing.JLabel();
         studentidlbl = new javax.swing.JLabel();
         studentnamelbl = new javax.swing.JLabel();
-        avgmarklbl = new javax.swing.JLabel();
+        gradelbl = new javax.swing.JLabel();
         studentidtxt = new javax.swing.JTextField();
         studentnametxt = new javax.swing.JTextField();
-        avgmarktxt = new javax.swing.JTextField();
+        gradetxt = new javax.swing.JTextField();
+        backbtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(153, 255, 255));
+
+        logOut.setText("Log Out");
+        logOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logOutActionPerformed(evt);
+            }
+        });
+
+        profilebtn.setText("Profile");
+        profilebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profilebtnActionPerformed(evt);
+            }
+        });
+
+        viewlecturerlistbtn1.setText("View Lecturer List");
+        viewlecturerlistbtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewlecturerlistbtn1ActionPerformed(evt);
+            }
+        });
+
+        modulesbtn.setText("Modules");
+        modulesbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modulesbtnActionPerformed(evt);
+            }
+        });
+
+        reportsbtn.setText("Reports");
+        reportsbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportsbtnActionPerformed(evt);
+            }
+        });
+
+        AcadLeadName.setText("AcadLeadName");
+
+        userRole.setText("userRole");
+
+        pagetitile.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        pagetitile.setText("ACADEMIC LEADER REPORTS");
+
         studentReport.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        studentReport.setText("Student Report");
+        studentReport.setText("STUDENT REPORT");
 
         studentidlbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         studentidlbl.setText("Student ID");
@@ -102,8 +166,8 @@ public class StudentReport extends javax.swing.JFrame {
         studentnamelbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         studentnamelbl.setText("Student Name");
 
-        avgmarklbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        avgmarklbl.setText("Average Mark");
+        gradelbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        gradelbl.setText("Grade");
 
         studentidtxt.setEditable(false);
         studentidtxt.addActionListener(new java.awt.event.ActionListener() {
@@ -119,57 +183,136 @@ public class StudentReport extends javax.swing.JFrame {
             }
         });
 
-        avgmarktxt.setEditable(false);
-        avgmarktxt.addActionListener(new java.awt.event.ActionListener() {
+        gradetxt.setEditable(false);
+        gradetxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                avgmarktxtActionPerformed(evt);
+                gradetxtActionPerformed(evt);
             }
         });
+
+        backbtn.setText("BACK");
+        backbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backbtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(182, 182, 182)
+                .addComponent(studentReport)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(backbtn)
+                .addGap(25, 25, 25))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(82, 82, 82)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(studentidlbl)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(studentidtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(studentnamelbl)
+                            .addComponent(gradelbl))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(gradetxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(studentnametxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(153, 153, 153))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(studentReport)
+                    .addComponent(backbtn))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(studentidtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(studentidlbl))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(studentnametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(studentnamelbl))
+                .addGap(47, 47, 47)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(gradelbl)
+                    .addComponent(gradetxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(58, 58, 58))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(logOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(modulesbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(viewlecturerlistbtn1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(profilebtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(reportsbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(116, 116, 116))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(pagetitile, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(AcadLeadName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(userRole, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(AcadLeadName)
+                        .addGap(12, 12, 12)
+                        .addComponent(userRole)
+                        .addGap(11, 11, 11))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(pagetitile)
+                        .addGap(18, 18, 18)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(profilebtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(viewlecturerlistbtn1)
+                        .addGap(18, 18, 18)
+                        .addComponent(modulesbtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(reportsbtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                        .addComponent(logOut))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(avgmarklbl)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                        .addComponent(avgmarktxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(95, 95, 95))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(studentnamelbl)
-                        .addGap(29, 29, 29)
-                        .addComponent(studentnametxt))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(studentidlbl)
-                        .addGap(54, 54, 54)
-                        .addComponent(studentidtxt)))
-                .addGap(27, 27, 27))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(124, 124, 124)
-                .addComponent(studentReport)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 689, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(studentReport)
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(studentidlbl)
-                    .addComponent(studentidtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(studentnametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(studentnamelbl))
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(avgmarktxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(avgmarklbl))
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addGap(8, 8, 8)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(8, 8, 8))
         );
 
         pack();
@@ -183,9 +326,47 @@ public class StudentReport extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_studentnametxtActionPerformed
 
-    private void avgmarktxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avgmarktxtActionPerformed
+    private void gradetxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradetxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_avgmarktxtActionPerformed
+    }//GEN-LAST:event_gradetxtActionPerformed
+
+    private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
+        AcadLeadReport acadleadreport = new AcadLeadReport();
+        this.setVisible(false);
+        acadleadreport.setVisible(true);
+    }//GEN-LAST:event_backbtnActionPerformed
+
+    private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
+
+        UserLogin loginScreen = new UserLogin();
+        loginScreen.setVisible(true);
+
+        this.dispose();
+    }//GEN-LAST:event_logOutActionPerformed
+
+    private void profilebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilebtnActionPerformed
+        AcadLeadProfile acadleadprofile = new AcadLeadProfile(UserID);
+        this.setVisible(false);
+        acadleadprofile.setVisible(true);
+    }//GEN-LAST:event_profilebtnActionPerformed
+
+    private void viewlecturerlistbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewlecturerlistbtn1ActionPerformed
+        AcadLeadViewLecturerList acadleadviewlecturerlist = new AcadLeadViewLecturerList(UserID);
+        this.setVisible(false);
+        acadleadviewlecturerlist.setVisible(true);
+    }//GEN-LAST:event_viewlecturerlistbtn1ActionPerformed
+
+    private void modulesbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulesbtnActionPerformed
+        AcadLeadModules acadleadmodules = new AcadLeadModules(UserID);
+        this.setVisible(false);
+        acadleadmodules.setVisible(true);
+    }//GEN-LAST:event_modulesbtnActionPerformed
+
+    private void reportsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportsbtnActionPerformed
+        AcadLeadReport acadleadreport = new AcadLeadReport(UserID);
+        this.setVisible(false);
+        acadleadreport.setVisible(true);
+    }//GEN-LAST:event_reportsbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,12 +394,23 @@ public class StudentReport extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel avgmarklbl;
-    private javax.swing.JTextField avgmarktxt;
+    private javax.swing.JLabel AcadLeadName;
+    private javax.swing.JButton backbtn;
+    private javax.swing.JLabel gradelbl;
+    private javax.swing.JTextField gradetxt;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton logOut;
+    private javax.swing.JButton modulesbtn;
+    private javax.swing.JLabel pagetitile;
+    private javax.swing.JButton profilebtn;
+    private javax.swing.JButton reportsbtn;
     private javax.swing.JLabel studentReport;
     private javax.swing.JLabel studentidlbl;
     private javax.swing.JTextField studentidtxt;
     private javax.swing.JLabel studentnamelbl;
     private javax.swing.JTextField studentnametxt;
+    private javax.swing.JLabel userRole;
+    private javax.swing.JButton viewlecturerlistbtn1;
     // End of variables declaration//GEN-END:variables
 }

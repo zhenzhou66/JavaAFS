@@ -5,6 +5,7 @@
 package javaafs;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -53,29 +54,29 @@ private void changePassword() {
         String confirmPassword = new String(confirmpasswordtxt.getPassword());
         
         if (oldPassword.equals("")) {
-            statustxt.setText("Old Password cannot be empty.");
+            JOptionPane.showMessageDialog(this, "Old Password cannot be empty.");
             return;
         }
         
         if (newPassword.equals("")) {
-            statustxt.setText("New Password cannot be empty.");
+            JOptionPane.showMessageDialog(this, "New Password cannot be empty.");
             return;
         }
         
         if (confirmPassword.equals("")) {
-            statustxt.setText("Confirm Password cannot be empty.");
+            JOptionPane.showMessageDialog(this, "Confirm Password cannot be empty.");
             return;
        }
         
         boolean validOld = func.authUser(userArray, UserID, oldPassword);
 
         if (!validOld) {
-            statustxt.setText("Old password is incorrect!");
+            JOptionPane.showMessageDialog(this, "Old password is incorrect!");
             return;
         }
         
         if (!newPassword.equals(confirmPassword)) {
-            statustxt.setText("New password do not match!");
+            JOptionPane.showMessageDialog(this, "New password do not match!");
             return;
         }
         
@@ -83,14 +84,14 @@ private void changePassword() {
     
         if (updated) {
             func.savePassword(userArray, "users.txt");
-            statustxt.setText("Password changed successfully!");
+            JOptionPane.showMessageDialog(this, "Password changed successfully!");
             
             oldpasswordtxt.setText("");
             newpasswordtxt.setText("");
             confirmpasswordtxt.setText("");
         } 
         else {
-            statustxt.setText("Password change failed.");
+            JOptionPane.showMessageDialog(this, "Password change failed.");
         }
 }
 
@@ -118,8 +119,6 @@ private void changePassword() {
         confirmpasswordlbl = new javax.swing.JLabel();
         confirmbtn = new javax.swing.JButton();
         backbtn = new javax.swing.JButton();
-        statuslbl = new javax.swing.JLabel();
-        statustxt = new javax.swing.JTextField();
         confirmpasswordtxt = new javax.swing.JPasswordField();
         newpasswordtxt = new javax.swing.JPasswordField();
         oldpasswordtxt = new javax.swing.JPasswordField();
@@ -196,12 +195,6 @@ private void changePassword() {
             }
         });
 
-        statuslbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        statuslbl.setText("Status");
-
-        statustxt.setEditable(false);
-        statustxt.setBorder(null);
-
         oldpasswordtxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 oldpasswordtxtActionPerformed(evt);
@@ -242,42 +235,37 @@ private void changePassword() {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(confirmbtn)
-                        .addGap(18, 18, 18)
-                        .addComponent(backbtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(oldpasswordlbl)
+                    .addComponent(newpasswordlbl)
+                    .addComponent(confirmpasswordlbl))
+                .addGap(89, 89, 89)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(confirmpasswordtxt)
+                        .addComponent(newpasswordtxt)
+                        .addComponent(oldpasswordtxt))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(oldpasswordlbl)
-                            .addComponent(newpasswordlbl)
-                            .addComponent(confirmpasswordlbl)
-                            .addComponent(statuslbl))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(statustxt, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(89, 89, 89)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(confirmpasswordtxt)
-                                        .addComponent(newpasswordtxt)
-                                        .addComponent(oldpasswordtxt))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(showpassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(showpassword2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(showpassword3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                            .addComponent(showpassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(showpassword2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(showpassword3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(52, 52, 52))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(435, Short.MAX_VALUE)
+                .addComponent(backbtn)
+                .addGap(31, 31, 31))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(184, 184, 184)
+                .addComponent(confirmbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(234, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addGap(13, 13, 13)
+                .addComponent(backbtn)
+                .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(oldpasswordlbl)
                     .addComponent(oldpasswordtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -295,14 +283,8 @@ private void changePassword() {
                     .addComponent(confirmpasswordtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(showpassword3, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(statuslbl)
-                    .addComponent(statustxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(confirmbtn)
-                    .addComponent(backbtn))
+                .addGap(30, 30, 30)
+                .addComponent(confirmbtn)
                 .addGap(65, 65, 65))
         );
 
@@ -518,8 +500,6 @@ private void changePassword() {
     private javax.swing.JButton showpassword1;
     private javax.swing.JButton showpassword2;
     private javax.swing.JButton showpassword3;
-    private javax.swing.JLabel statuslbl;
-    private javax.swing.JTextField statustxt;
     private javax.swing.JLabel userRole;
     private javax.swing.JButton viewlecturerlistbtn1;
     // End of variables declaration//GEN-END:variables
