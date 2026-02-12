@@ -1,6 +1,6 @@
 package javaafs;
 
-public class Student extends UserManage {
+public class Student extends User {
 
     public Student(String userID, String name, String email, String phone, String moduleID) {
         super(userID, name, email, phone, moduleID);

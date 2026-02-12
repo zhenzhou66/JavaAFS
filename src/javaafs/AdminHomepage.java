@@ -1,23 +1,19 @@
 
 package javaafs;
 
-import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 
 public class AdminHomepage extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LecturerMenu.class.getName());
 
     
-//    private String username;
+    private Admin admin; // store Admin object
     private String forceChange;
     protected List<String[]> userArray;
     public String Role = "";
     public String UserID = "";
-    private UserFunctions func = new UserFunctions();
-    
+//    private UserFunctions func = new UserFunctions();
     
     
     
@@ -25,6 +21,82 @@ public class AdminHomepage extends javax.swing.JFrame {
         initComponents();
         this.UserID = UserID;
         userID.setText(UserID);
+
+        // ================== READ USERS CSV ==================
+        List<String[]> users = UserFunctions.readCSV("users.txt");
+        forceChange = "false"; // default
+
+        String name = "";
+        String email = "";
+        String phone = "";
+        String moduleID = "";
+
+        for (String[] row : users) {
+            if (row[0].equalsIgnoreCase(UserID)) {
+                forceChange = row[7].trim();
+                name = row[3].trim();
+                email = row[4].trim();
+                phone = row[5].trim();
+                moduleID = row[6].trim(); // assuming this is the module column
+                break;
+            }
+        }
+
+        // ================== CREATE ADMIN OBJECT ==================
+//        Admin admin = new Admin(UserID, name, email, phone, moduleID);
+        this.admin = new Admin(UserID, name, email, phone, moduleID);
+
+
+    }
+    
+    
+    
+//    public AdminHomepage(String UserID) {
+//        initComponents();
+//        this.UserID = UserID;
+//        userID.setText(UserID);
+//        
+//        
+//        List<String[]> users = UserFunctions.readCSV("users.txt");
+//        forceChange = "false"; // default
+//
+//        String name = "";
+//        String email = "";
+//        String phone = "";
+//        String moduleID = "";
+//
+//        for (String[] row : users) {
+//            if (row[0].equalsIgnoreCase(UserID)) {
+//                forceChange = row[7].trim();
+//                name = row[3].trim();
+//                email = row[4].trim();
+//                phone = row[5].trim();
+//                moduleID = row[6].trim(); // assuming this is the module column
+//                break;
+//            }
+//        }
+//
+//        // ================== CREATE ADMIN OBJECT ==================
+//        Admin admin = new Admin(UserID, name, email, phone, moduleID);
+//        
+//        
+//                // Read users to check forceChange
+//        List<String[]> users = UserFunctions.readCSV("users.txt");
+//        forceChange = "false"; // default
+//
+//        for (String[] row : users) {
+//            // Skip header
+//            if (row[0].equalsIgnoreCase("userID")) continue;
+//
+//            if (row[0].trim().equalsIgnoreCase(UserID.trim())) {
+//                forceChange = row[7].trim();
+//                break;
+//            }
+//        }
+//    }
+
+        
+        
         
         
         
@@ -50,21 +122,7 @@ public class AdminHomepage extends javax.swing.JFrame {
         
         
         
-        // Read users to check forceChange
-        List<String[]> users = UserFunctions.readCSV("users.txt");
-        forceChange = "false"; // default
 
-        for (String[] row : users) {
-            // Skip header
-            if (row[0].equalsIgnoreCase("userID")) continue;
-
-            if (row[0].trim().equalsIgnoreCase(UserID.trim())) {
-                forceChange = row[7].trim();
-                break;
-            }
-        }
-        
-    }
     
 
 //        this.setVisible(true);
@@ -248,8 +306,7 @@ public class AdminHomepage extends javax.swing.JFrame {
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
 
-        func.logout(this, UserID);
-
+        admin.logout(this);
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void AdminProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminProfileActionPerformed
