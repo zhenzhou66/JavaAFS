@@ -14,20 +14,40 @@ public class AdminHomepage extends javax.swing.JFrame {
 //    private String username;
     private String forceChange;
     protected List<String[]> userArray;
-//    UserFunctions func = new UserFunctions();
-
     public String Role = "";
     public String UserID = "";
-
     private UserFunctions func = new UserFunctions();
     
     
     
     
     public AdminHomepage(String UserID) {
-        this.UserID = UserID;
         initComponents();
+        this.UserID = UserID;
         userID.setText(UserID);
+        
+        
+        
+        
+    // ================== FORCE CHANGE CHECK ==================
+//           List<String[]> users = UserFunctions.readCSV("users.txt");
+//           // Use encapsulated static method to check if password change is required
+//           boolean forceChangeRequired = UserFunctions.isForceChangeRequired(UserID, users);
+//           forceChange = forceChangeRequired ? "true" : "false";
+//
+//           if (forceChangeRequired) {
+//               JOptionPane.showMessageDialog(
+//                       this,
+//                       "You must change your password.",
+//                       "Notice",
+//                       JOptionPane.WARNING_MESSAGE
+//               );
+//               this.dispose();
+//               new AdminProfile(UserID).setVisible(true);
+//               return; // exit constructor
+//           }
+//       }
+        
         
         
         // Read users to check forceChange
@@ -45,8 +65,6 @@ public class AdminHomepage extends javax.swing.JFrame {
         }
         
     }
-
-    
     
 
 //        this.setVisible(true);
