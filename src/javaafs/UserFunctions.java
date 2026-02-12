@@ -423,7 +423,26 @@ public class UserFunctions {
     }
 
     public static boolean isValidPassword(String password) {
-        return password != null && !password.trim().isEmpty() && !password.equals("********");
+        if (password == null || password.length() < 8)
+            return false;
+
+        boolean hasLetter = false;
+        boolean hasDigit = false;
+        boolean hasSymbol = false;
+
+        for (char c : password.toCharArray()) {
+            if (Character.isLetter(c)) {
+                hasLetter = true;
+            } 
+            else if (Character.isDigit(c)) {
+                hasDigit = true;
+            } 
+            else {
+                hasSymbol = true; // anything not letter or digit
+            }
+        }
+
+        return hasLetter && hasDigit && hasSymbol;
     }
 
     // ================== Profile Field Setup ==================
@@ -548,8 +567,22 @@ public class UserFunctions {
                     user[1] = rawPassword;
                     user[7] = "false"; // forceChange done
                 } else {
-                    if (!rawPassword.isEmpty() && !rawPassword.equals("********")) {
+                    if (!rawPassword.equals("********")) {
+
+                        if (!isValidPassword(rawPassword)) {
+                            JOptionPane.showMessageDialog(null,
+                                "Password must:\n"
+                                + "- Be at least 8 characters\n"
+                                + "- Contain letters\n"
+                                + "- Contain numbers\n"
+                                + "- Contain symbols",
+                                "Invalid Password",
+                                JOptionPane.WARNING_MESSAGE);
+                            return;
+                        }
+
                         user[1] = rawPassword;
+
                     }
                 }
 

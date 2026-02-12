@@ -13,4 +13,4 @@ S011,123,Student,Irfan,irfan19@gmail.com,0156677889,NA,false
 AL003,TT,AcademicLeader,Gunwook,gunwook@gmail.com,0125489862,NA,true
 L012,CC,Lecturer,Zz,zz@yahoo.com,0124589653,NA,false
 S010,vScDV*Tf,Student,Cc,cc@gmail.com,0124589656,M001,true
-A006,tan,Admin,Tan,tantan@gmail.com,2222222222,NA,false
+A006,1234car#,Admin,tan,tantan@gmail.com,1423145824,NA,false
