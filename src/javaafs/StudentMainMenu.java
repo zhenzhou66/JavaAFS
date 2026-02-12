@@ -69,8 +69,10 @@ public class StudentMainMenu extends javax.swing.JFrame {
 
     
     private void loadUserData(String userid) {
-        if (userArray == null || userArray.isEmpty()) 
-            return;
+    if (userArray == null || userArray.isEmpty()) 
+        return;
+
+    String userModuleID = "";
 
     for (int i = 0; i < userArray.size(); i++) {
         String[] user = userArray.get(i);
@@ -89,17 +91,8 @@ public class StudentMainMenu extends javax.swing.JFrame {
                 break;
             }
         }
-        if (!userModuleID.isEmpty()) {
-            for (String[] module : moduleArray) {
-                if (module[0].equalsIgnoreCase(userModuleID)) {
-                    this.ModuleName = module[1]; // Index 1 is moduleName in modules.txt
-                    courseName.setText(this.ModuleName); 
-                    break;
-                }
-            }
-        }
     }
-    
+}
     private void updateProgressBar() {
         if (ModuleID == null || ModuleID.isEmpty()) {
             studentProgress.setValue(0);
