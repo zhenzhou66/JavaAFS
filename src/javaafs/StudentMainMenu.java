@@ -75,8 +75,8 @@ public class StudentMainMenu extends javax.swing.JFrame {
     if (!userModuleID.isEmpty()) {
         for (String[] module : moduleArray) {
             if (module[0].equalsIgnoreCase(userModuleID)) {
-                this.ModuleName = module[1]; // Index 1 is moduleName in modules.txt
-                courseName.setText(this.ModuleName); 
+                ModuleName = module[1]; // Index 1 is moduleName in modules.txt
+                courseName.setText(ModuleName); 
                 break;
             }
         }
