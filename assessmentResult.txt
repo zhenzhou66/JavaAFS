@@ -1,2 +1,4 @@
-resultID,studentID,assessmentID,mark,ModuleID
-
+resultID,studentID,assessmentID,mark,moduleID
+R001,S000,AS001,80,M001
+R002,S000,AS002,80,M001
+R003,S000,AS003,100,M001

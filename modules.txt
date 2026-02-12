@@ -1,11 +1,21 @@
 moduleID,moduleName,lecturerID
-M001,aaa,L001
-M002,Systems Analysis & Design,L002
-M003,jjj,L003
-M004,ghg,L004
-M005,ggg,L005
-M006,Academic English,L006
-M007,Accounting Principles,L007
-M008,Programming with Python,L008
-M009,World History,L009
-M010,Philosophy and Current Issues,L010
+M001,Mathematics,L000
+M002,Systems Analysis & Design,L001
+M003,Science,L002
+M004,Data Analysis,L003
+M005,Biology,L004
+M006,Academic English,L005
+M007,Accounting Principles,L006
+M008,Programming with Python,L007
+M009,World History,L008
+M010,Philosophy and Current Issues,L009
+M011,Digital Marketing,L010
+M012,Software Engineering,L011
+M013,Environmental Studies,L012
+M014,Statistics,L013
+M015,Artificial Intelligence,L014
+M016,Entrepreneurship,
+M017,Creative Writing,
+M018,Modern Art,
+M019,Ethics and Society,
+M020,Cybersecurity,

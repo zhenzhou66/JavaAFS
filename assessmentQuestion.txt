@@ -1,2 +1,21 @@
 assessmentID,moduleID,q1,q2,q3,q4,q5,a1,a2,a3,a4,a5
-
+AS001,M001,2+2=4?,3+5=8?,7-4=3?,10/2=5?,6*3=18?,True,True,True,True,True
+AS002,M001,System is a set of components?,Analysis is studying system?,Design is creating system?,SDLC=System Development Life Cycle?,Library is system?,True,True,True,True,False
+AS003,M001,Water is H2O?,Gravity pulls objects?,Photosynthesis occurs in plants?,Atom is smallest particle?,Matter has mass?,True,True,True,True,True
+AS004,M001,Mean=average?,Median=middle?,Mode=most frequent?,SD>0?,Variance>=0?,True,True,True,True,True
+AS005,M005,DNA stores genetic info?,Cell is basic unit?,Organism is living thing?,Gene is part of DNA?,Protein made of amino acids?,True,True,True,True,True
+AS006,M006,English is an academic language?,Essay has introduction?,Paragraph has topic sentence?,Reading improves writing?,Grammar rules are important?,True,True,True,True,True
+AS007,M007,Accounting tracks money?,Debit increases assets?,Credit decreases assets?,Balance sheet shows position?,Revenue increases capital?,True,True,True,True,True
+AS008,M008,Python is a programming language?,Lists can store items?,Loops repeat code?,Functions take arguments?,Variables store data?,True,True,True,True,True
+AS009,M009,History studies past?,WWII ended in 1945?,Ancient Rome existed?,Industrial revolution started?,Medieval period is 5th century?,True,True,True,True,True
+AS010,M010,Philosophy studies life?,Logic analyzes arguments?,Ethics studies right/wrong?,Metaphysics studies reality?,Current issues affect society?,True,True,True,True,True
+AS011,M011,Marketing sells products?,Digital marketing uses internet?,Branding builds identity?,Target audience is important?,Social media is tool?,True,True,True,True,True
+AS012,M012,Software Engineering develops software?,Requirements analysis needed?,Testing ensures quality?,Design uses diagrams?,Maintenance is phase?,True,True,True,True,True
+AS013,M013,Environment studies nature?,Pollution affects health?,Conservation saves resources?,Recycling is useful?,Climate change exists?,True,True,True,True,True
+AS014,M014,Statistics studies data?,Mean is average?,Median is middle?,Mode is frequent?,Standard deviation>0?,True,True,True,True,True
+AS015,M015,AI can learn?,Machine learning exists?,Neural networks used?,Algorithms improve?,Automation helps?,True,True,True,True,True
+AS016,M016,Entrepreneurship involves business?,Startups take risk?,Profit is goal?,Innovation is key?,Market research important?,True,True,True,True,True
+AS017,M017,Writing requires practice?,Draft improves content?,Editing removes errors?,Grammar is important?,Style matters?,True,True,True,True,True
+AS018,M018,Art expresses ideas?,Painting uses color?,Sculpture uses shape?,Modern art is style?,Creativity needed?,True,True,True,True,True
+AS019,M019,Ethics guides behavior?,Right vs wrong?,Morality matters?,Decision making needs ethics?,Values affect choices?,True,True,True,True,True
+AS020,M020,Cybersecurity protects data?,Password is key?,Firewall blocks attacks?,Encryption keeps safe?,Phishing is threat?,True,True,True,True,True

@@ -386,7 +386,7 @@ public class LecturerDesign extends javax.swing.JFrame {
         this.A5 = Ans5.getSelectedItem().toString();
 
         // 2. DummyID
-        String asmtID = func.generateNextID("assessmentQuestion.txt", "asmn"); 
+        String asmtID = func.generateNextID("assessmentQuestion.txt", "AS"); 
 
         // 3. create new assessment question row
         String[] newRecord = {
