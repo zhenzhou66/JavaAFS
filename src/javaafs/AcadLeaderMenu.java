@@ -221,9 +221,7 @@ public class AcadLeaderMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
-
         func.logout(this, getUserID());
-
     }//GEN-LAST:event_logOutActionPerformed
 
     private void profilebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilebtnActionPerformed

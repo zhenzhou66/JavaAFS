@@ -4,8 +4,11 @@
  */
 package javaafs;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,17 +18,18 @@ import javax.swing.JOptionPane;
  *
  * @author zhenz
  */
-public class StudentMainMenu extends javax.swing.JFrame {
+public class StudentRegisterGroup extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(StudentMainMenu.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(StudentRegisterGroup.class.getName());
 
     /**
      * Creates new form Lecturer
      */
     protected List<String[]> userArray;
     protected List<String[]> moduleArray;
-    protected List<String[]> assessmentQuestions;
-    protected List<String[]> assessmentResult;
+    protected List<String[]> groupArray;
+    protected List<String[]> studentGroupRelationship;
+
     UserFunctions func = new UserFunctions();
 
     public String Role = "";
@@ -37,20 +41,20 @@ public class StudentMainMenu extends javax.swing.JFrame {
     private String forceChange;
 
     
-    public StudentMainMenu() {
+    public StudentRegisterGroup() {
         userArray = func.readCSV("users.txt");
         moduleArray = func.readCSV("modules.txt");
-        assessmentQuestions = func.readCSV("assessmentQuestion.txt");
-        assessmentResult = func.readCSV("assessmentResult.txt");
+        groupArray = func.readCSV("group.txt");
+        studentGroupRelationship = func.readCSV("studentGroup.txt");
         initComponents();
     }
     
-    public StudentMainMenu(String UserID) {
+    public StudentRegisterGroup(String UserID) {
         this();               
         this.UserID = UserID; 
         loadUserData(UserID);
-        updateProgressBar();
-        updateBadges();
+        loadGroup();
+
         
         // Read users to check forceChange
         List<String[]> users = UserFunctions.readCSV("users.txt");
@@ -72,20 +76,19 @@ public class StudentMainMenu extends javax.swing.JFrame {
     if (userArray == null || userArray.isEmpty()) 
         return;
 
-    String userModuleID = "";
 
     for (int i = 0; i < userArray.size(); i++) {
         String[] user = userArray.get(i);
         if (user[0].equalsIgnoreCase(userid)) {
             lecturerName.setText(user[3]);
             userRole.setText(user[2]); 
-            userModuleID = user[6];
+            ModuleID = user[6];
             break;
         }
     }
-    if (!userModuleID.isEmpty()) {
+    if (!ModuleID.isEmpty()) {
         for (String[] module : moduleArray) {
-            if (module[0].equalsIgnoreCase(userModuleID)) {
+            if (module[0].equalsIgnoreCase(ModuleID)) {
                 ModuleName = module[1]; // Index 1 is moduleName in modules.txt
                 courseName.setText(ModuleName); 
                 break;
@@ -93,57 +96,34 @@ public class StudentMainMenu extends javax.swing.JFrame {
         }
     }
 }
-    private void updateProgressBar() {
-        if (ModuleID == null || ModuleID.isEmpty()) {
-            studentProgress.setValue(0);
-            return;
-        }
+private void loadGroup() {
+    DefaultListModel<String> model = new DefaultListModel<>();
 
-        int totalAssessments = 0;
-        for (String[] quiz : assessmentQuestions) {
-            if (quiz[1].equalsIgnoreCase(ModuleID)) {
-                totalAssessments++;
-            }
-        }
-
-        int completed = 0;
-        for (String[] ans : assessmentResult) {
-            if (ans[1].equalsIgnoreCase(UserID)) { // studentID
-                // check if this assessment belongs to this module
-                for (String[] quiz : assessmentQuestions) {
-                    if (quiz[0].equalsIgnoreCase(ans[2]) && quiz[1].equalsIgnoreCase(ModuleID)) {
-                        completed++;
-                        break;
-                    }
-                }
-            }
-        }
-
-        int percent = (totalAssessments == 0) ? 0 : (int)(((double)completed / totalAssessments) * 100);
-        studentProgress.setValue(percent);
+    // Safety check: If the user has no ModuleID, don't try to find groups
+    if (ModuleID == null || ModuleID.isEmpty()) {
+        GroupList.setModel(model);
+        return;
     }
-    
-    private void updateBadges() {
-        ImageIcon trophy = new ImageIcon(getClass().getResource("/images/trophy.png")); 
 
-        for (String[] result : assessmentResult) {
-            // Check if this result belongs to the current user
-            if (result[1].equalsIgnoreCase(UserID)) {
-                int mark = Integer.parseInt(result[3].trim()); // mark is 4th column
+    // Loop through the data loaded from group.txt
+    for (String[] group : groupArray) {
+        // Skip header row if it exists
+        if (group[0].equalsIgnoreCase("groupID")) continue;
 
-                if (mark == 100) { // perfect score
-                    String assessmentID = result[2]; // 3rd column
-                    JLabel badgeLabel = new JLabel(trophy);
-                    JLabel textLabel = new JLabel(assessmentID);
+        // group[2] is the moduleID column in your group.txt
+        String moduleInFile = group[2].trim();
 
-                    badgePanel.add(badgeLabel);
-                    badgePanel.add(textLabel);
-                }
-            }
+        // Check if the group's module matches the current user's module
+        if (moduleInFile.equalsIgnoreCase(ModuleID.trim())) {
+            
+            model.addElement(group[1]);
         }
-        badgePanel.revalidate();
-        badgePanel.repaint();
     }
+
+    GroupList.setModel(model);
+}
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -166,10 +146,11 @@ public class StudentMainMenu extends javax.swing.JFrame {
         viewResult = new javax.swing.JButton();
         CreateFeedback = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        studentProgress = new javax.swing.JProgressBar();
-        assessmentProgress = new javax.swing.JLabel();
-        badgePanel = new javax.swing.JPanel();
-        badges = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        GroupList = new javax.swing.JList<>();
+        JoinGroup = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -231,45 +212,58 @@ public class StudentMainMenu extends javax.swing.JFrame {
             }
         });
 
-        studentProgress.setStringPainted(true);
+        GroupList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(GroupList);
 
-        assessmentProgress.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        assessmentProgress.setText("Assessment Progress");
+        JoinGroup.setText("Join");
+        JoinGroup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JoinGroupActionPerformed(evt);
+            }
+        });
 
-        badges.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        badges.setText("Perfect Score Badges");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Group List");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel2.setText("Select a group and join, each group provides different class time.");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(assessmentProgress)
-                        .addGap(219, 219, 219))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(studentProgress, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-                            .addComponent(badgePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(94, 94, 94))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(badges)
-                        .addGap(218, 218, 218))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(JoinGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(35, 35, 35))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(125, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(assessmentProgress)
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1)
+                .addGap(2, 2, 2)
+                .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(studentProgress, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(badges)
-                .addGap(18, 18, 18)
-                .addComponent(badgePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addComponent(JoinGroup)
+                .addGap(21, 21, 21))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -283,7 +277,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(pageTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 331, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lecturerName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(userRole, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -336,7 +330,9 @@ public class StudentMainMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -359,9 +355,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_viewAssessmentsActionPerformed
 
     private void viewClassScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewClassScheduleActionPerformed
-        StudentRegisterGroup ViewClassList = new StudentRegisterGroup(UserID);
-        this.setVisible(false);
-        ViewClassList.setVisible(true);
+        // TODO add your handling code here:
     }//GEN-LAST:event_viewClassScheduleActionPerformed
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
@@ -381,6 +375,43 @@ public class StudentMainMenu extends javax.swing.JFrame {
         this.setVisible(false);
         stuCreateFB.setVisible(true);
     }//GEN-LAST:event_CreateFeedbackActionPerformed
+
+    private void JoinGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JoinGroupActionPerformed
+        String selectedGroupName = GroupList.getSelectedValue();
+        if (selectedGroupName == null){
+            JOptionPane.showMessageDialog(this, "Please select a Student first.");
+        } else {
+            StudentViewClasses viewClass = new StudentViewClasses(UserID);
+            viewClass.setVisible(true);
+            this.dispose();
+        }
+        String selectedGroupID = "";
+
+        // 1. Search for the ID that matches the Name AND the ModuleID
+        for (String[] row : groupArray) {
+            String idInFile = row[0].trim();
+            String nameInFile = row[1].trim();
+            String moduleInFile = row[2].trim();
+
+            if (nameInFile.equalsIgnoreCase(selectedGroupName) && 
+                moduleInFile.equalsIgnoreCase(this.ModuleID)) {
+
+                selectedGroupID = idInFile;
+                break; // Stop looking once we find the match
+            }
+        }
+
+        // 2. Now you have the ID, you can save the record
+            if (!selectedGroupID.isEmpty()) {
+                String[] newRecord = {    
+                    this.UserID, // Encapsulation: using the getter
+                    selectedGroupID   // Storing G001, G004, etc.
+            };
+
+            studentGroupRelationship.add(newRecord);
+            func.writeCSV("studentGroup.txt", studentGroupRelationship);
+        }
+    }//GEN-LAST:event_JoinGroupActionPerformed
 
     /**
      * @param args the command line arguments
@@ -404,22 +435,23 @@ public class StudentMainMenu extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new StudentMainMenu().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new StudentRegisterGroup().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CreateFeedback;
-    private javax.swing.JLabel assessmentProgress;
-    private javax.swing.JPanel badgePanel;
-    private javax.swing.JLabel badges;
+    private javax.swing.JList<String> GroupList;
+    private javax.swing.JButton JoinGroup;
     private javax.swing.JLabel courseName;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lecturerName;
     private javax.swing.JButton logOut;
     private javax.swing.JLabel pageTitle;
     private javax.swing.JButton profilePage;
-    private javax.swing.JProgressBar studentProgress;
     private javax.swing.JLabel userRole;
     private javax.swing.JButton viewAssessments;
     private javax.swing.JButton viewClassSchedule;

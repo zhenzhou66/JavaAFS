@@ -1,1 +1,1 @@
-studentID,groupID
+studentID,groupID,groupName

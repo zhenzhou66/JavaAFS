@@ -15,9 +15,9 @@ import javax.swing.JOptionPane;
  *
  * @author zhenz
  */
-public class StudentMainMenu extends javax.swing.JFrame {
+public class StudentViewClasses extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(StudentMainMenu.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(StudentViewClasses.class.getName());
 
     /**
      * Creates new form Lecturer
@@ -37,7 +37,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
     private String forceChange;
 
     
-    public StudentMainMenu() {
+    public StudentViewClasses() {
         userArray = func.readCSV("users.txt");
         moduleArray = func.readCSV("modules.txt");
         assessmentQuestions = func.readCSV("assessmentQuestion.txt");
@@ -45,7 +45,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
         initComponents();
     }
     
-    public StudentMainMenu(String UserID) {
+    public StudentViewClasses(String UserID) {
         this();               
         this.UserID = UserID; 
         loadUserData(UserID);
@@ -359,9 +359,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_viewAssessmentsActionPerformed
 
     private void viewClassScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewClassScheduleActionPerformed
-        StudentRegisterGroup ViewClassList = new StudentRegisterGroup(UserID);
-        this.setVisible(false);
-        ViewClassList.setVisible(true);
+        // TODO add your handling code here:
     }//GEN-LAST:event_viewClassScheduleActionPerformed
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
@@ -404,7 +402,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new StudentMainMenu().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new StudentViewClasses().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
