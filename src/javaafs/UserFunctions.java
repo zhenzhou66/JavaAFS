@@ -264,7 +264,7 @@ public class UserFunctions {
         String role = "";
         for (String[] user : users) {
             if (user[0].equalsIgnoreCase(UserID)) {
-                role = user[2]; // index 2 = role
+                role = user[2]; 
                 break;
             }
         }
