@@ -135,7 +135,7 @@ public class UserManagement extends javax.swing.JFrame {
 
         // Generate temporary password
         String tempPassword = generateTempPassword();
-        String hashedPassword = UserFunctions.hashPassword(tempPassword);
+//        String hashedPassword = UserFunctions.hashPassword(tempPassword);
 
         // Load users
         ArrayList<String[]> users = UserFunctions.readCSV(filePath);
@@ -143,7 +143,7 @@ public class UserManagement extends javax.swing.JFrame {
 
         for (String[] user : users) {
             if (user[0].equals(userID)) {
-                user[1] = hashedPassword;  // update password
+                user[1] = tempPassword;  // update password
                 if (user.length > 7) user[7] = "true"; // mark force-change
                 userFound = true;
                 break;
@@ -343,9 +343,9 @@ public class UserManagement extends javax.swing.JFrame {
 //            moduleID = moduleIDTextField != null ? moduleIDTextField.getText().trim() : "NA";
 //        }
 
-        // Generate temporary password and hash
+        // Generate temporary password
         String tempPassword = generateTempPassword();
-        String hashedPassword = UserFunctions.hashPassword(tempPassword);
+//        String hashedPassword = UserFunctions.hashPassword(tempPassword);
 
         // Create user dynamically
         UserManage newUser;
@@ -369,7 +369,7 @@ public class UserManagement extends javax.swing.JFrame {
         // Append to file
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, true))) {
             String roleNoSpace = role.replaceAll("\\s+", ""); // remove all spaces
-            bw.write(String.join(",", userID, hashedPassword, roleNoSpace, newName, newEmail, newPhone, moduleID, "true"));
+            bw.write(String.join(",", userID, tempPassword, roleNoSpace, newName, newEmail, newPhone, moduleID, "true"));
             bw.newLine();
         } catch (IOException ex) {
             ex.printStackTrace();

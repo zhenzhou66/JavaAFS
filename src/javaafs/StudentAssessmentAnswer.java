@@ -464,10 +464,8 @@ public class StudentAssessmentAnswer extends javax.swing.JFrame {
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
 
-        UserLogin loginScreen = new UserLogin();
-        loginScreen.setVisible(true);
+        func.logout(this, UserID);
 
-        this.dispose();
     }//GEN-LAST:event_logOutActionPerformed
 
     private void viewResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewResultActionPerformed

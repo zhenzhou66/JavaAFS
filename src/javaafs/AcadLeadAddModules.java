@@ -309,10 +309,8 @@ private void loadUserData(String userid) {
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
 
-        UserLogin loginScreen = new UserLogin();
-        loginScreen.setVisible(true);
-
-        this.dispose();
+        func.logout(this, UserID);
+        
     }//GEN-LAST:event_logOutActionPerformed
 
     private void profilebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilebtnActionPerformed

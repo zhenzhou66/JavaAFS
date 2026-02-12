@@ -415,10 +415,8 @@ private void changePassword() {
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
 
-        UserLogin loginScreen = new UserLogin();
-        loginScreen.setVisible(true);
+        func.logout(this, UserID);
 
-        this.dispose();
     }//GEN-LAST:event_logOutActionPerformed
 
     private void confirmbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmbtnActionPerformed
