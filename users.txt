@@ -10,8 +10,8 @@ AL004,samantha,Academic Leader,Samantha,ss@gmail.com,0127355913,NA,false
 L010,zhenkang,Lecturer,zhenkang,zhenkang&may@gmail.com,0127355913,M010,false
 L015,123,Lecturer,Amir,amir04@gmail.com,0198765432,NA,false
 L013,123,Lecturer,Aisyah,aisyah22@gmail.com,0147788990,NA,false
-S011,123,Student,Irfan,irfan19@gmail.com,0156677889,NA,false
+S011,33f70889c0c1cdf53c616352a25a24eede38b43c0cc8fa5013d97dd2b86f4b5b,Student,Irfan,irfan19@gmail.com,0156677889,NA,true
 AL003,33b0440d49cf9be91761fd86bb2c41f255762dcacf8e7b0a20b3f4bd24c6722c,AcademicLeader,Gunwook,gunwook@gmail.com,0125489862,NA,true
 L012,fc627d98d6d9e578db4baf3dfba4dca966e3c8ac6bb7cedee56beee1cfd4cdb8,Lecturer,Zz,zz@yahoo.com,0124589653,NA,true
-S010,b31668fa0e68a7c14086b2e240487394bee83f446107f9e174b367e323600cc6,Student,Cc,cc@gmail.com,0124589656,NA,true
-AL01,tan,AcademicLeader,tan,tantan@gmail.com,0127218442,NA,false
+S010,87c1822c6239c28fdd64c53486b3422b0d76ddb757780ccf5c62842a1b9c8fde,Student,Cc,cc@gmail.com,0124589656,NA,true
+S011,abc,Student,SS,sdfg@gmail.com,0127218442,M001,true

@@ -17,7 +17,7 @@ public class ModuleReport extends javax.swing.JFrame {
 
     protected List<String[]> modules;    
     protected List<String[]> assessmentResult;
-    protected List<String[]> gradingcriteria;
+    protected List<String[]> gradingCriteria;
 
     private UserFunctions func = new UserFunctions();
     
@@ -33,12 +33,12 @@ public class ModuleReport extends javax.swing.JFrame {
     public ModuleReport(String moduleID) {
         modules = func.readCSV("modules.txt");
         assessmentResult = func.readCSV("assessmentResult.txt");
-        gradingcriteria = func.readCSV("gradingcriteria.txt");
+        gradingCriteria = func.readCSV("gradingcriteria.txt");
         this.moduleID = moduleID;
         initComponents();
         loadModulesName();
         calculatePassRate();
-        calculateAverageMark();
+        calculateAverageGrade();
         studentCount = String.valueOf(getStudentCount(moduleID));
         loadModuleReport();
     }
@@ -71,7 +71,7 @@ public class ModuleReport extends javax.swing.JFrame {
     }
 
     
-    private void calculateAverageMark() {
+    private void calculateAverageGrade() {
         int sum = 0;
         int count = 0;
 
@@ -95,7 +95,24 @@ public class ModuleReport extends javax.swing.JFrame {
         // Calculate average
         if (count > 0) {
             double average = (double) sum / count;
-            averagegradetxt.setText(String.format("%.2f", average));
+            
+            String grade = "N/A"; // default
+
+            for (String[] g : gradingCriteria) {
+                if (g[0].equalsIgnoreCase("Grade")) continue; // skip header
+
+                int min = Integer.parseInt(g[1]);
+                int max = Integer.parseInt(g[2]);
+
+                if (average >= min && average <= max) {
+                    grade = g[0]; // assign grade
+                    break;
+                }
+            }
+
+            averagegradetxt.setText(grade);
+        } else {
+            averagegradetxt.setText("N/A");
         }
     }
     
@@ -111,8 +128,24 @@ public class ModuleReport extends javax.swing.JFrame {
                 if (mark >= 40) { // passing mark
                     passCount++;
                 }
-            }
-        }
+
+                String grade = "F"; // default
+                for (String[] g : gradingCriteria) {
+                    if (g[0].equalsIgnoreCase("Grade")) continue; // skip header
+                    int min = Integer.parseInt(g[1]);
+                    int max = Integer.parseInt(g[2]);
+                    if (mark >= min && mark <= max) {
+                        grade = g[0];
+                        break;
+                        }
+                    }
+
+                    // Count as pass if grade is not F
+                    if (!grade.equalsIgnoreCase("F")) {
+                        passCount++;
+                    }
+                }
+            }   
         if (totalCount == 0) {
             double passRate = (double) passCount / totalCount;
             passratetxt.setText(String.format("%.2f%%", passRate));
@@ -120,7 +153,7 @@ public class ModuleReport extends javax.swing.JFrame {
         else {
             passratetxt.setText("0%");
         }
-}
+    }
     
     private void loadModuleReport() {
         moduleidtxt.setText(moduleID);

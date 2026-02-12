@@ -1,11 +1,2 @@
 answerID,assessmentID,StudentID,a1,a2,a3,a4,a5
-A001,,,True,True,True,True,True
-A002,asmn002,S01,True,True,True,True,True
-A003,asmn003,S01,True,True,True,True,True
-A004,asmn005,S01,True,True,True,True,True
-A005,asmn005,S02,True,True,True,False,True
-A006,asmn005,S03,False,False,False,True,True
-A007,asmn005,S01,True,True,True,True,True
-A008,asmn005,S01,True,True,True,True,True
-A009,asmn005,S02,False,False,False,True,True
-A010,asmn005,S03,True,True,False,False,False
+
