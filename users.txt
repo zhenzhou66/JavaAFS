@@ -1,17 +1,17 @@
 userID,password,role,name,email,phoneNumber,moduleID,forceChange
-L014,3bd0751655df119cd88971b8318c9c0184d71848a143a05084689189581756eb,Lecturer,Hanbin,hanbin@yahoo.com,0215489656,NA,false
-L001,81ce904c440ae32e7fcefbc297b2fecde084dd9b12b5dc179c13463392454050,Lecturer,Zhang Hao,hao@gmail.com,0215998656,NA,true
-A004,2448412937e9e8540d3e8650bf1701bdedd57a1dc6572a249d3d8fce8e32a528,Admin,Han Yujin,yujin@yahoo.com,0215896589,NA,true
-AL001,0277c91941bd347b5600dcdf8e032b12709d0468b0d19acee5876935cebfb727,AcademicLeader,Jiwoong,jw@yahoo.com,0215986532,NA,true
-A003,f81dff4f3b92b678b559723e597fad903e264809b77ef9bf78f6ef47d6de0aab,Admin,Matthew,matthew@gmail.com,0125689653,NA,true
-A005,d10ffd5059deabaf79f8fb3f5b205bb338521c769a155239dd8227b75e091660,Admin,CarrieYyy,carrieyyy@gmail.com,0166666666,NA,false
-AL002,2357a63d6fc7e52fe73ea400c9e094224beca34a7f551f87e3e272950bd84d6e,AcademicLeader,Ricky,ricky@gmail.com,0215468952,NA,true
+L014,c123,Lecturer,Hanbin,hanbin@yahoo.com,0215489656,NA,false
+L001,b123,Lecturer,Zhang Hao,hao@gmail.com,0215998656,NA,true
+A004,CC,Admin,Han Yujin,yujin@yahoo.com,0215896589,NA,false
+AL001,d123,AcademicLeader,Jiwoong,jw@yahoo.com,0215986532,NA,true
+A003,e123,Admin,Matthew,matthew@gmail.com,0125689653,NA,true
+A005,f123,Admin,CarrieYyy,carrieyyy@gmail.com,0166666666,NA,false
+AL002,g123,AcademicLeader,Ricky,ricky@gmail.com,0215468952,NA,true
 AL004,samantha,Academic Leader,Samantha,ss@gmail.com,0127355913,NA,false
 L010,zhenkang,Lecturer,zhenkang,zhenkang&may@gmail.com,0127355913,M010,false
-L015,123,Lecturer,Amir,amir04@gmail.com,0198765432,NA,false
 L013,123,Lecturer,Aisyah,aisyah22@gmail.com,0147788990,NA,false
-S011,33f70889c0c1cdf53c616352a25a24eede38b43c0cc8fa5013d97dd2b86f4b5b,Student,Irfan,irfan19@gmail.com,0156677889,NA,true
-AL003,33b0440d49cf9be91761fd86bb2c41f255762dcacf8e7b0a20b3f4bd24c6722c,AcademicLeader,Gunwook,gunwook@gmail.com,0125489862,NA,true
-L012,fc627d98d6d9e578db4baf3dfba4dca966e3c8ac6bb7cedee56beee1cfd4cdb8,Lecturer,Zz,zz@yahoo.com,0124589653,NA,true
-S010,87c1822c6239c28fdd64c53486b3422b0d76ddb757780ccf5c62842a1b9c8fde,Student,Cc,cc@gmail.com,0124589656,NA,true
-S011,abc,Student,SS,sdfg@gmail.com,0127218442,M001,true
+S011,123,Student,Irfan,irfan19@gmail.com,0156677889,NA,false
+AL003,TT,AcademicLeader,Gunwook,gunwook@gmail.com,0125489862,NA,true
+L012,e123,Lecturer,Zz,zz@yahoo.com,0124589653,NA,true
+S010,vScDV*Tf,Student,Cc,cc@gmail.com,0124589656,NA,true
+A006,tan,Admin,Tan,tantan@gmail.com,2222222222,NA,false
+A007,cy123,Admin,Cy,ee@yahoo.com,1122334455,NA,false

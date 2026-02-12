@@ -8,17 +8,26 @@ import javax.swing.JOptionPane;
 
 public class AdminHomepage extends javax.swing.JFrame {
     
-    private String username;
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LecturerMenu.class.getName());
+
+    
+//    private String username;
     private String forceChange;
+    protected List<String[]> userArray;
+//    UserFunctions func = new UserFunctions();
+
+    public String Role = "";
+    public String UserID = "";
+
     private UserFunctions func = new UserFunctions();
     
     
     
     
-    public AdminHomepage(String username) {
-        this.username = username;
+    public AdminHomepage(String UserID) {
+        this.UserID = UserID;
         initComponents();
-        userID.setText(username);
+        userID.setText(UserID);
         
         
         // Read users to check forceChange
@@ -29,7 +38,7 @@ public class AdminHomepage extends javax.swing.JFrame {
             // Skip header
             if (row[0].equalsIgnoreCase("userID")) continue;
 
-            if (row[0].trim().equalsIgnoreCase(username.trim())) {
+            if (row[0].trim().equalsIgnoreCase(UserID.trim())) {
                 forceChange = row[7].trim();
                 break;
             }
@@ -221,59 +230,32 @@ public class AdminHomepage extends javax.swing.JFrame {
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
 
-        // Only show message when logout button is clicked
-        if (forceChange != null && forceChange.equalsIgnoreCase("true")) {
-
-            int choice = JOptionPane.showConfirmDialog(
-                    this,
-                    "You must change your password before logging out.\n\n"
-                    + "Press OK to change password now.\n"
-                    + "Press Cancel or close (X) to logout.",
-                    "Password Change Required",
-                    JOptionPane.OK_CANCEL_OPTION,
-                    JOptionPane.WARNING_MESSAGE
-            );
-
-            if (choice == JOptionPane.OK_OPTION) {
-                // Open profile
-                new AdminProfile(username).setVisible(true);
-                this.dispose();
-            } else {
-                // Cancel or X → logout normally
-                new UserLogin().setVisible(true);
-                this.dispose();
-            }
-
-        } else {
-            // Normal logout
-            new UserLogin().setVisible(true);
-            this.dispose();
-        }
+        func.logout(this, UserID);
 
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void AdminProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminProfileActionPerformed
-        new AdminProfile(username).setVisible(true);
+        new AdminProfile(UserID).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_AdminProfileActionPerformed
 
     private void UserManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserManagementActionPerformed
-        new UserManagement(username).setVisible(true);
+        new UserManagement(UserID).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_UserManagementActionPerformed
 
     private void AssignLecturerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AssignLecturerActionPerformed
-        new AssignLecturer(username).setVisible(true);
+        new AssignLecturer(UserID).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_AssignLecturerActionPerformed
 
     private void GradingSystemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GradingSystemActionPerformed
-        new GradingSystem(username).setVisible(true);
+        new GradingSystem(UserID).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_GradingSystemActionPerformed
 
     private void ClassManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClassManagementActionPerformed
-        new ClassManagement(username).setVisible(true);
+        new ClassManagement(UserID).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ClassManagementActionPerformed
 

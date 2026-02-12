@@ -380,34 +380,8 @@ public class StudentMainMenu extends javax.swing.JFrame {
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
 
-        // Only show message when logout button is clicked
-        if (forceChange != null && forceChange.equalsIgnoreCase("true")) {
+        func.logout(this, UserID);
 
-            int choice = JOptionPane.showConfirmDialog(
-                    this,
-                    "You must change your password before logging out.\n\n"
-                    + "Press OK to change password now.\n"
-                    + "Press Cancel or close (X) to logout.",
-                    "Password Change Required",
-                    JOptionPane.OK_CANCEL_OPTION,
-                    JOptionPane.WARNING_MESSAGE
-            );
-
-            if (choice == JOptionPane.OK_OPTION) {
-                // Open profile
-//                new StudentProfilePage(UserID).setVisible(true);
-                this.dispose();
-            } else {
-                // Cancel or X → logout normally
-                new UserLogin().setVisible(true);
-                this.dispose();
-            }
-
-        } else {
-            // Normal logout
-            new UserLogin().setVisible(true);
-            this.dispose();
-        }
     }//GEN-LAST:event_logOutActionPerformed
 
     private void viewResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewResultActionPerformed

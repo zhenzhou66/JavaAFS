@@ -3,8 +3,6 @@ package javaafs;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.*;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -72,9 +70,8 @@ public class UserFunctions {
 
     //Login page authenticate user
     public boolean authUser(List<String[]> userList, String userID, String password) {
-        String hashedPassword = hashPassword(password);
         for (String[] user : userList) {
-            if (user[0].equals(userID) && user[1].equals(hashedPassword)) {
+            if (user[0].equals(userID) && user[1].equals(password)) {
                 return true;
             }
         }
@@ -161,6 +158,166 @@ public class UserFunctions {
 //        model.addRow(rowData);
 //    }
     
+    
+//    public void logout(javax.swing.JFrame currentFrame, javax.swing.JFrame profilePage, String username) {
+//
+//        ArrayList<String[]> users = readCSV("users.txt");
+//        String forceChange = getForceChange(users, username);
+//
+//        if (forceChange != null && forceChange.equalsIgnoreCase("true")) {
+//
+//            Object[] options = {"OK", "Logout"};
+//
+//            int choice = JOptionPane.showOptionDialog(
+//                    currentFrame,
+//                    "You must change your password before logging out.\n\n"
+//                    + "Press OK to change password now.\n"
+//                    + "Press Logout to logout.",
+//                    "Password Change Required",
+//                    JOptionPane.DEFAULT_OPTION,
+//                    JOptionPane.WARNING_MESSAGE,
+//                    null,
+//                    options,
+//                    options[0]
+//            );
+//
+//            if (choice == 0) {
+//                profilePage.setVisible(true);
+////                currentFrame.dispose();
+//            } else {
+//                new UserLogin().setVisible(true);
+////                currentFrame.dispose();
+//            }
+//
+//        } else {
+//            new UserLogin().setVisible(true);
+////            currentFrame.dispose();
+//        }
+//    }
+    
+    
+    
+//    public void logout(javax.swing.JFrame currentFrame, String UserID) {
+//
+//        ArrayList<String[]> users = readCSV("users.txt");
+//        String forceChange = getForceChange(users, UserID);
+//
+//        // Determine role
+//        String role = "";
+//        for (String[] user : users) {
+//            if (user[0].equalsIgnoreCase(UserID)) {
+//                role = user[2]; // index 2 = role
+//                break;
+//            }
+//        }
+//
+//        Object[] options = {"OK", "Logout"};
+//        int choice = JOptionPane.showOptionDialog(
+//                currentFrame,
+//                "You must change your password before logging out.\n\n"
+//                + "Press OK to change password now.\n"
+//                + "Press Logout to logout.",
+//                "Password Change Required",
+//                JOptionPane.DEFAULT_OPTION,
+//                JOptionPane.WARNING_MESSAGE,
+//                null,
+//                options,
+//                options[0]
+//        );
+//
+//        if (choice == 0) { // OK → go to profile page
+//            switch (role.toLowerCase()) {
+//                case "admin":
+//                    new AdminProfile(UserID).setVisible(true);
+//                    break;
+//                case "student":
+//                    new StudentProfilePage(UserID).setVisible(true);
+//                    break;
+//                case "academicleader":
+//                    new AcadLeadProfile(UserID).setVisible(true);
+//                    break;
+//                case "lecturer":
+//                    new LecturerProfilePage(UserID).setVisible(true);
+//                    break;
+//                default:
+//                    JOptionPane.showMessageDialog(currentFrame, "Role not recognized!");
+//            }
+//            currentFrame.dispose();
+//        } else { // Logout → login page
+//            new UserLogin().setVisible(true);
+//            currentFrame.dispose();
+//        }
+//    }
+    
+    
+    
+    // Logout function
+    public void logout(javax.swing.JFrame currentFrame, String UserID) {
+        ArrayList<String[]> users = readCSV("users.txt");
+        String forceChange = getForceChange(users, UserID);
+
+        // Determine role
+        String role = "";
+        for (String[] user : users) {
+            if (user[0].equalsIgnoreCase(UserID)) {
+                role = user[2]; // index 2 = role
+                break;
+            }
+        }
+
+        // Only show force-change dialog if needed
+        if (forceChange.equalsIgnoreCase("true")) {
+            Object[] options = {"OK", "Logout"};
+            int choice = JOptionPane.showOptionDialog(
+                    currentFrame,
+                    "You must change your password before logging out.\n\n"
+                    + "Press OK to change password now.\n"
+                    + "Press Logout to logout.",
+                    "Password Change Required",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.WARNING_MESSAGE,
+                    null,
+                    options,
+                    options[0]
+            );
+
+            if (choice == 0) { // OK → go to profile page
+                redirectToProfile(role, UserID);
+                currentFrame.dispose();
+                return;
+            }
+            // If Logout pressed, continue to login page
+        }
+
+        // Normal logout
+        new UserLogin().setVisible(true);
+        currentFrame.dispose();
+    }
+
+    // Helper function to redirect to correct profile
+    private void redirectToProfile(String role, String UserID) {
+        switch (role.toLowerCase()) {
+            case "admin":
+                new AdminProfile(UserID).setVisible(true);
+                break;
+            case "student":
+                new StudentProfilePage(UserID).setVisible(true);
+                break;
+            case "academicleader":
+                new AcadLeadProfile(UserID).setVisible(true);
+                break;
+            case "lecturer":
+                new LecturerProfilePage(UserID).setVisible(true);
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Role not recognized!");
+        }
+    }
+
+
+
+
+    
     public void editRow(String filePath, JTable table, int idColumnIndex, int editColumnIndex) {
     int selectedRow = table.getSelectedRow();
     if (selectedRow == -1) {
@@ -241,18 +398,7 @@ public class UserFunctions {
     
     
     
-    public static String hashPassword(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hashedBytes = md.digest(password.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hashedBytes) sb.append(String.format("%02x", b));
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Hashing algorithm not found", e);
-        }
-    }
-    
+ 
     
     // ================== Profile Input Validations ==================
     public static boolean isValidUserName(String userName) {
@@ -395,11 +541,11 @@ public class UserFunctions {
                                 JOptionPane.WARNING_MESSAGE);
                         return;
                     }
-                    user[1] = hashPassword(rawPassword);
+                    user[1] = rawPassword;
                     user[7] = "false"; // forceChange done
                 } else {
                     if (!rawPassword.isEmpty() && !rawPassword.equals("********")) {
-                        user[1] = hashPassword(rawPassword);
+                        user[1] = rawPassword;
                     }
                 }
 
