@@ -96,32 +96,33 @@ public class StudentRegisterGroup extends javax.swing.JFrame {
         }
     }
 }
-private void loadGroup() {
-    DefaultListModel<String> model = new DefaultListModel<>();
+    
+    private void loadGroup() {
+        DefaultListModel<String> model = new DefaultListModel<>();
 
-    // Safety check: If the user has no ModuleID, don't try to find groups
-    if (ModuleID == null || ModuleID.isEmpty()) {
-        GroupList.setModel(model);
-        return;
-    }
-
-    // Loop through the data loaded from group.txt
-    for (String[] group : groupArray) {
-        // Skip header row if it exists
-        if (group[0].equalsIgnoreCase("groupID")) continue;
-
-        // group[2] is the moduleID column in your group.txt
-        String moduleInFile = group[2].trim();
-
-        // Check if the group's module matches the current user's module
-        if (moduleInFile.equalsIgnoreCase(ModuleID.trim())) {
-            
-            model.addElement(group[1]);
+        // Safety check: If the user has no ModuleID, don't try to find groups
+        if (ModuleID == null || ModuleID.isEmpty()) {
+            GroupList.setModel(model);
+            return;
         }
-    }
 
-    GroupList.setModel(model);
-}
+        // Loop through the data loaded from group.txt
+        for (String[] group : groupArray) {
+            // Skip header row if it exists
+            if (group[0].equalsIgnoreCase("groupID")) continue;
+
+            // group[2] is the moduleID column in your group.txt
+            String moduleInFile = group[2].trim();
+
+            // Check if the group's module matches the current user's module
+            if (moduleInFile.equalsIgnoreCase(ModuleID.trim())) {
+
+                model.addElement(group[1]);
+            }
+        }
+
+        GroupList.setModel(model);
+    }
 
 
 
@@ -346,6 +347,8 @@ private void loadGroup() {
         StudentProfilePage StuProfile = new StudentProfilePage(UserID);
         this.setVisible(false);
         StuProfile.setVisible(true);
+        
+        
     }//GEN-LAST:event_profilePageActionPerformed
 
     private void viewAssessmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAssessmentsActionPerformed
@@ -387,7 +390,7 @@ private void loadGroup() {
         }
         String selectedGroupID = "";
 
-        // 1. Search for the ID that matches the Name AND the ModuleID
+        //Search for the ID that matches the Name AND the ModuleID
         for (String[] row : groupArray) {
             String idInFile = row[0].trim();
             String nameInFile = row[1].trim();
@@ -397,15 +400,15 @@ private void loadGroup() {
                 moduleInFile.equalsIgnoreCase(this.ModuleID)) {
 
                 selectedGroupID = idInFile;
-                break; // Stop looking once we find the match
+                break; 
             }
         }
 
-        // 2. Now you have the ID, you can save the record
             if (!selectedGroupID.isEmpty()) {
                 String[] newRecord = {    
-                    this.UserID, // Encapsulation: using the getter
-                    selectedGroupID   // Storing G001, G004, etc.
+                    this.UserID,
+                    selectedGroupID,
+                    selectedGroupName
             };
 
             studentGroupRelationship.add(newRecord);

@@ -116,6 +116,7 @@ public class StudentViewResults extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         resultsTable = new javax.swing.JTable();
         CreateFeedback = new javax.swing.JButton();
+        mainmenubtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -214,6 +215,13 @@ public class StudentViewResults extends javax.swing.JFrame {
             }
         });
 
+        mainmenubtn.setText("Main Menu");
+        mainmenubtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mainmenubtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -240,7 +248,8 @@ public class StudentViewResults extends javax.swing.JFrame {
                             .addComponent(viewAssessments, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(viewClassSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(profilePage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(CreateFeedback, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(CreateFeedback, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(mainmenubtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
@@ -268,7 +277,9 @@ public class StudentViewResults extends javax.swing.JFrame {
                         .addComponent(viewClassSchedule)
                         .addGap(18, 18, 18)
                         .addComponent(CreateFeedback)
-                        .addGap(149, 149, 149)
+                        .addGap(18, 18, 18)
+                        .addComponent(mainmenubtn)
+                        .addGap(108, 108, 108)
                         .addComponent(logOut)
                         .addContainerGap())
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -320,6 +331,12 @@ public class StudentViewResults extends javax.swing.JFrame {
         stuCreateFB.setVisible(true);
     }//GEN-LAST:event_CreateFeedbackActionPerformed
 
+    private void mainmenubtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainmenubtnActionPerformed
+        StudentMainMenu stuMainMenu = new StudentMainMenu(UserID);
+        this.setVisible(false);
+        stuMainMenu.setVisible(true);
+    }//GEN-LAST:event_mainmenubtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -354,6 +371,7 @@ public class StudentViewResults extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lecturerName;
     private javax.swing.JButton logOut;
+    private javax.swing.JButton mainmenubtn;
     private javax.swing.JLabel pageTitle;
     private javax.swing.JButton profilePage;
     private javax.swing.JTable resultsTable;

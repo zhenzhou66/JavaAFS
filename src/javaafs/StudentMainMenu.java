@@ -26,6 +26,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
     protected List<String[]> moduleArray;
     protected List<String[]> assessmentQuestions;
     protected List<String[]> assessmentResult;
+    protected List<String[]> studentGroup;
     UserFunctions func = new UserFunctions();
 
     public String Role = "";
@@ -33,6 +34,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
     protected String ModuleID = "";
     public String ModuleName = "";
     public String AssessmentID = "";
+    public String GroupID = "";
     
     private String forceChange;
 
@@ -42,6 +44,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
         moduleArray = func.readCSV("modules.txt");
         assessmentQuestions = func.readCSV("assessmentQuestion.txt");
         assessmentResult = func.readCSV("assessmentResult.txt");
+        studentGroup = func.readCSV("studentGroup.txt");
         initComponents();
     }
     
@@ -72,20 +75,18 @@ public class StudentMainMenu extends javax.swing.JFrame {
     if (userArray == null || userArray.isEmpty()) 
         return;
 
-    String userModuleID = "";
-
     for (int i = 0; i < userArray.size(); i++) {
         String[] user = userArray.get(i);
         if (user[0].equalsIgnoreCase(userid)) {
             lecturerName.setText(user[3]);
             userRole.setText(user[2]); 
-            userModuleID = user[6];
+            this.ModuleID = user[6];
             break;
         }
     }
-    if (!userModuleID.isEmpty()) {
+    if (!ModuleID.isEmpty()) {
         for (String[] module : moduleArray) {
-            if (module[0].equalsIgnoreCase(userModuleID)) {
+            if (module[0].equalsIgnoreCase(ModuleID)) {
                 ModuleName = module[1]; // Index 1 is moduleName in modules.txt
                 courseName.setText(ModuleName); 
                 break;
@@ -359,9 +360,23 @@ public class StudentMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_viewAssessmentsActionPerformed
 
     private void viewClassScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewClassScheduleActionPerformed
-        StudentRegisterGroup ViewClassList = new StudentRegisterGroup(UserID);
+        boolean alreadyInGroup = false;
+        
+        
+        for (String[] record : studentGroup) {
+            if (record[0].trim().equalsIgnoreCase(UserID)) {
+                alreadyInGroup = true;
+                GroupID = record[1];
+                break;
+            }
+        }
+
+        if (alreadyInGroup) {
+            new StudentViewClasses(UserID, GroupID).setVisible(true);
+        } else {
+            new StudentRegisterGroup(UserID).setVisible(true);
+        }
         this.setVisible(false);
-        ViewClassList.setVisible(true);
     }//GEN-LAST:event_viewClassScheduleActionPerformed
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed

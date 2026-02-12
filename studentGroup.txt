@@ -1,1 +1,3 @@
 studentID,groupID,groupName
+S001,G001,Group A
+

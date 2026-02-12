@@ -1,16 +1,47 @@
 userID,password,role,name,email,phoneNumber,moduleID,forceChange
-L014,c123,Lecturer,Hanbin,hanbin@yahoo.com,0215489656,NA,false
-L001,b123,Lecturer,Zhang Hao,hao@gmail.com,0215998656,M001,true
-A004,EE,Admin,Han Yujin,yujin@yahoo.com,0215896589,NA,false
-AL001,d123,AcademicLeader,Jiwoong,jw@yahoo.com,0215986532,NA,true
-A003,e123,Admin,Matthew,matthew@gmail.com,0125689653,NA,true
-A005,f123,Admin,CarrieYyy,carrieyyy@gmail.com,0166666666,NA,false
-AL002,g123,AcademicLeader,Ricky,ricky@gmail.com,0215468952,NA,true
-AL004,samantha,Academic Leader,Samantha,ss@gmail.com,0127355913,NA,false
-L010,zhenkang,Lecturer,zhenkang,zhenkang&may@gmail.com,0127355913,M010,false
-L013,123,Lecturer,Aisyah,aisyah22@gmail.com,0147788990,NA,false
-S011,123,Student,Irfan,irfan19@gmail.com,0156677889,M010,false
-AL003,TT,AcademicLeader,Gunwook,gunwook@gmail.com,0125489862,NA,true
-L012,CC,Lecturer,Zz,zz@yahoo.com,0124589653,NA,false
-S010,vScDV*Tf,Student,Cc,cc@gmail.com,0124589656,M002,true
-A006,tan,Admin,Tan,tantan@gmail.com,2222222222,NA,false
+userID,password,role,name,email,phoneNumber,moduleID,forceChange
+A000,Admin123,Admin,Emily Tan,emily.tan@gmail.com,0123456789,M000,FALSE
+A001,Root4567,Admin,Daniel Lee,daniel.lee@yahoo.com,0123456790,M001,FALSE
+A002,Manage89,Admin,Sophia Wong,sophia.wong@gmail.com,0123456791,M002,FALSE
+A003,System12,Admin,James Lim,james.lim@yahoo.com,0123456792,M003,FALSE
+A004,Control3,Admin,Chloe Ng,chloe.ng@gmail.com,0123456793,M004,FALSE
+AL000,Leader01,AcademicLeader,Michael Tan,michael.tan@gmail.com,0123456794,M000,FALSE
+AL001,Leader02,AcademicLeader,Alice Chen,alice.chen@yahoo.com,0123456795,M001,FALSE
+AL002,Leader03,AcademicLeader,Kevin Lee,kevin.lee@gmail.com,0123456796,M002,FALSE
+AL003,Leader04,AcademicLeader,Jessica Lim,jessica.lim@yahoo.com,0123456797,M003,FALSE
+AL004,Leader05,AcademicLeader,David Wong,david.wong@gmail.com,0123456798,M004,FALSE
+AL005,Leader06,AcademicLeader,Sarah Ng,sarah.ng@yahoo.com,0123456799,M005,FALSE
+AL006,Leader07,AcademicLeader,Andrew Tan,andrew.tan@gmail.com,0123456700,M006,FALSE
+AL007,Leader08,AcademicLeader,Laura Chua,laura.chua@yahoo.com,0123456701,M007,FALSE
+AL008,Leader09,AcademicLeader,Eric Lim,eric.lim@gmail.com,0123456702,M008,FALSE
+AL009,Leader10,AcademicLeader,Rachel Lee,rachel.lee@yahoo.com,0123456703,M009,FALSE
+L000,Lect1234,Lecturer,Anthony Tan,lect1@gmail.com,0123456704,M001,FALSE
+L001,Lect2345,Lecturer,Brenda Wong,lect2@yahoo.com,0123456705,M002,FALSE
+L002,Lect3456,Lecturer,Carl Lee,lect3@gmail.com,0123456706,M003,FALSE
+L003,Lect4567,Lecturer,Diana Lim,lect4@yahoo.com,0123456707,M004,FALSE
+L004,Lect5678,Lecturer,Evan Ng,lect5@gmail.com,0123456708,M005,FALSE
+L005,Lect6789,Lecturer,Fiona Chua,lect6@yahoo.com,0123456709,M006,FALSE
+L006,Lect7890,Lecturer,George Tan,lect7@gmail.com,0123456710,M007,FALSE
+L007,Lect8901,Lecturer,Hannah Lee,lect8@yahoo.com,0123456711,M008,FALSE
+L008,Lect9012,Lecturer,Ian Lim,lect9@gmail.com,0123456712,M009,FALSE
+L009,Lect0123,Lecturer,Janet Wong,lect10@yahoo.com,0123456713,M010,FALSE
+L010,Lect1122,Lecturer,Kevin Ng,lect11@gmail.com,0123456714,M011,FALSE
+L011,Lect2233,Lecturer,Linda Tan,lect12@yahoo.com,0123456715,M012,FALSE
+L012,Lect3344,Lecturer,Mark Chen,lect13@gmail.com,0123456716,M013,FALSE
+L013,Lect4455,Lecturer,Nicole Lim,lect14@yahoo.com,0123456717,M014,FALSE
+L014,Lect5566,Lecturer,Oscar Lee,lect15@gmail.com,0123456718,M015,FALSE
+L015,Lect6677,Lecturer,Patricia Wong,lect16@yahoo.com,0123456719,M016,FALSE
+L016,Lect7788,Lecturer,Quentin Tan,lect17@gmail.com,0123456720,M017,FALSE
+L017,Lect8899,Lecturer,Rosie Ng,lect18@yahoo.com,0123456721,M018,FALSE
+L018,Lect9900,Lecturer,Simon Lim,lect19@gmail.com,0123456722,M019,FALSE
+L019,Lect1010,Lecturer,Tina Lee,lect20@yahoo.com,0123456723,M020,FALSE
+S000,Stud0001,Student,Adam Tan,student1@gmail.com,0123456724,M001,FALSE
+S001,Stud0002,Student,Bella Wong,student2@yahoo.com,0123456725,M002,FALSE
+S002,Stud0003,Student,Charles Lee,student3@gmail.com,0123456726,M003,FALSE
+S003,Stud0004,Student,Daphne Lim,student4@yahoo.com,0123456727,M004,FALSE
+S004,Stud0005,Student,Edward Ng,student5@gmail.com,0123456728,M005,FALSE
+S005,Stud0006,Student,Felicia Tan,student6@yahoo.com,0123456729,M006,FALSE
+S006,Stud0007,Student,George Chen,student7@gmail.com,0123456730,M007,FALSE
+S007,Stud0008,Student,Helen Wong,student8@yahoo.com,0123456731,M008,FALSE
+S008,Stud0009,Student,Ian Lim,student9@gmail.com,0123456732,M009,FALSE
+S009,Stud0010,Student,Julia Lee,student10@yahoo.com,0123456733,M010,FALSE
