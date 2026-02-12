@@ -633,6 +633,11 @@ public class UserManagement extends javax.swing.JFrame {
         jLabel8.setText("e.g., 0137589286");
 
         roleDropdown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Academic Leader", "Lecturer", "Student" }));
+        roleDropdown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roleDropdownActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 2, 10)); // NOI18N
         jLabel9.setText("cc@gmail.com / cc@yahoo.com");
@@ -928,6 +933,10 @@ public class UserManagement extends javax.swing.JFrame {
     private void emailTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailTextFieldActionPerformed
+
+    private void roleDropdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roleDropdownActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_roleDropdownActionPerformed
 
 
 //    public static void main(String args[]) {

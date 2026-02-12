@@ -1,7 +1,7 @@
 userID,password,role,name,email,phoneNumber,moduleID,forceChange
 L014,c123,Lecturer,Hanbin,hanbin@yahoo.com,0215489656,NA,false
 L001,b123,Lecturer,Zhang Hao,hao@gmail.com,0215998656,M001,true
-A004,CC,Admin,Han Yujin,yujin@yahoo.com,0215896589,NA,false
+A004,EE,Admin,Han Yujin,yujin@yahoo.com,0215896589,NA,false
 AL001,d123,AcademicLeader,Jiwoong,jw@yahoo.com,0215986532,NA,true
 A003,e123,Admin,Matthew,matthew@gmail.com,0125689653,NA,true
 A005,f123,Admin,CarrieYyy,carrieyyy@gmail.com,0166666666,NA,false
@@ -11,7 +11,6 @@ L010,zhenkang,Lecturer,zhenkang,zhenkang&may@gmail.com,0127355913,M010,false
 L013,123,Lecturer,Aisyah,aisyah22@gmail.com,0147788990,NA,false
 S011,123,Student,Irfan,irfan19@gmail.com,0156677889,NA,false
 AL003,TT,AcademicLeader,Gunwook,gunwook@gmail.com,0125489862,NA,true
-L012,e123,Lecturer,Zz,zz@yahoo.com,0124589653,NA,true
+L012,CC,Lecturer,Zz,zz@yahoo.com,0124589653,NA,false
 S010,vScDV*Tf,Student,Cc,cc@gmail.com,0124589656,M001,true
 A006,tan,Admin,Tan,tantan@gmail.com,2222222222,NA,false
-A007,cy123,Admin,Cy,ee@yahoo.com,1122334455,NA,false
