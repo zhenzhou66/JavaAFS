@@ -1,11 +1,11 @@
 moduleID,moduleName,lecturerID
-M001,Mathematics
-M002,Systems Analysis & Design
-M003,Science
-M004,Data Analysis
-M005,Biology
-M006,Academic English
-M007,Accounting Principles
-M008,Programming with Python
-M009,World History
-M010,Philosophy and Current Issues
+M001,aaa,L001
+M002,Systems Analysis & Design,L002
+M003,jjj,L003
+M004,ghg,L004
+M005,ggg,L005
+M006,Academic English,L006
+M007,Accounting Principles,L007
+M008,Programming with Python,L008
+M009,World History,L009
+M010,Philosophy and Current Issues,L010
