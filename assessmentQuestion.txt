@@ -1,6 +1,2 @@
 assessmentID,moduleID,q1,q2,q3,q4,q5,a1,a2,a3,a4,a5
-asmn001,M002,The apple is red. True or False?,The apple is orange. True or False?,The apple is sour. True or False?,The apple is bitter. True or False?,The apple is blue. True
-asmn002,M002,The apple is red. True or False?,123,123,jTextField212,123,False,True,False,True,False
-asmn003,M002,The apple is red. True or False?,123,123,jTextField212,123,True,False,True,False,True
-asmn004,M002,The apple is red. True or False?,123,123,jTextField212,123,True,False,True,False,True
-asmn005,M002,asdas,asdas,asdas,asdas,asdasdasd,True,True,True,False,False
+

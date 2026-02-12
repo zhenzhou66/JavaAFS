@@ -63,7 +63,7 @@ private void loadLecturerToTable() {
                 moduleID = row[2];
             }
         
-// load from users.txt
+        // load from users.txt
         if (!leaderID.equalsIgnoreCase(UserID)) continue; 
         String lecturerName = "";
         for (int j = 1; j < userArray.size(); j++) {
