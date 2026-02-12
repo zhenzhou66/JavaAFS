@@ -3,3 +3,5 @@ G001,Group A,M002
 G002,Group B,M002
 G004,Group A,M007
 G005,Group B,M007
+G006,Group C,M008
+G007,Group C,M007

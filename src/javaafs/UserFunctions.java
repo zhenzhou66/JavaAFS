@@ -14,6 +14,9 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class UserFunctions {
+    
+    private String filePath = "users.txt"; // default file path (if instance-wide usage)
+
 
     // Reusable Txt file reader
     public static ArrayList<String[]> readCSV(String filePath) {
@@ -97,6 +100,7 @@ public class UserFunctions {
         for (String[] user : userList) {
             if (user[0].equals(userID)) {
                 user[1] = newPassword;   
+                user[7] = "false";
                 return true;             
             }
         }
