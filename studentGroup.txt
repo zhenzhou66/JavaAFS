@@ -2,3 +2,4 @@ studentID,groupID,groupName
 S002,G001,Group A
 S002,G001,Group A
 S001,G001,Group A
+S000,G021,Group A

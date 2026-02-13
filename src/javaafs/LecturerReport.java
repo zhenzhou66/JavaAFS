@@ -85,23 +85,29 @@ public class LecturerReport extends javax.swing.JFrame {
     private void calculateAverageRating(String lecturerID) {
         int totalrating = 0;
         int studentcount = 0;
-        
-        for (int i = 1; i < feedbacks.size(); i++) {
+
+        for (int i = 1; i < feedbacks.size(); i++) { // start from 1 to skip header
             String[] feedback = feedbacks.get(i);
+
             if (feedback[2].equalsIgnoreCase(lecturerID)) {
-                int rating = Integer.parseInt(feedback[3]);
-                totalrating += rating;
-                studentcount++;
+                try {
+                    int rating = Integer.parseInt(feedback[5].trim()); // correct column for rating
+                    totalrating += rating;
+                    studentcount++;
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid rating value: " + feedback[5]);
+                }
             }
         }
 
         if (studentcount > 0) {
             double avgrating = (double) totalrating / studentcount;
-            ratingtxt.setText(String.format("%.2f / 5", avgrating));
+            ratingtxt.setText(String.format("%.2f / 5.00", avgrating));
         } else {
-            ratingtxt.setText("0");
+            ratingtxt.setText("0 / 5.00");
         }
     }
+
     
     private int calculateAssessment(String lecturerID) {
         if (lecturerID == null || lecturerID.isEmpty())
