@@ -2,3 +2,5 @@ groupID,groupName,moduleID
 G000,Group B,M002
 G001,Group A,M002
 G002,Group A,M001
+G003,Group A,M003
+G004,Group B,M003

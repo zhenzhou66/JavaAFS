@@ -20,3 +20,4 @@ AN018,AS018,S000,True,True,True,True,False
 AN019,AS019,S000,True,True,True,False,True
 AN020,AS020,S000,True,True,True,True,True
 AN021,AS021,S001,True,True,False,False,True
+AN022,AS022,S001,True,True,False,False,False
