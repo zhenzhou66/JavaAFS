@@ -512,7 +512,9 @@ private void changePassword() {
     }//GEN-LAST:event_resultAsgmnt1ActionPerformed
 
     private void viewFeedback1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewFeedback1ActionPerformed
-        // TODO add your handling code here:
+        LecturerViewFeedbackList lectFBlist = new LecturerViewFeedbackList(UserID);
+        this.setVisible(false);
+        lectFBlist.setVisible(true);
     }//GEN-LAST:event_viewFeedback1ActionPerformed
 
     /**

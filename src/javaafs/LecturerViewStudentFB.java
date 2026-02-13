@@ -324,7 +324,9 @@ public class LecturerViewStudentFB extends javax.swing.JFrame {
     }//GEN-LAST:event_resultAsgmntActionPerformed
 
     private void viewFeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewFeedbackActionPerformed
-        // TODO add your handling code here:
+        LecturerViewFeedbackList lectFBlist = new LecturerViewFeedbackList(UserID);
+        this.setVisible(false);
+        lectFBlist.setVisible(true);
     }//GEN-LAST:event_viewFeedbackActionPerformed
 
     /**
