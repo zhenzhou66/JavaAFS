@@ -37,7 +37,7 @@ L018,Lect9900,Lecturer,Simon Lim,lect19@gmail.com,0123456722,M019,FALSE
 L019,Lect1010,Lecturer,Tina Lee,lect20@yahoo.com,0123456723,M020,FALSE
 S000,Stud0001,Student,Adam Tan,student1@gmail.com,0123456724,M001,FALSE
 S001,Stud0002,Student,Bella Wong,student2@yahoo.com,0123456725,M002,FALSE
-S002,Stud0003,Student,Charles Lee,student3@gmail.com,0123456726,M003,FALSE
+S002,Stud0003,Student,Charles Lee,student3@gmail.com,0123456726,M002,FALSE
 S003,Stud0004,Student,Daphne Lim,student4@yahoo.com,0123456727,M004,FALSE
 S004,Stud0005,Student,Edward Ng,student5@gmail.com,0123456728,M005,FALSE
 S005,Stud0006,Student,Felicia Tan,student6@yahoo.com,0123456729,M006,FALSE

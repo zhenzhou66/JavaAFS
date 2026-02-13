@@ -20,6 +20,7 @@ public class StudentCreateFeedback extends javax.swing.JFrame {
     protected List<String[]> userArray;
     protected List<String[]> moduleArray;
     protected List<String[]> FeedbackArray;
+    protected List<String[]> studentGroup;
     UserFunctions func = new UserFunctions();
 
     public String Role = "";
@@ -28,11 +29,14 @@ public class StudentCreateFeedback extends javax.swing.JFrame {
     public String ModuleID = "";
     public String FeedbackID = "";
     public String lecturerID = "";
+    public String GroupID = "";
 
     public StudentCreateFeedback() {
         userArray = func.readCSV("users.txt");
         moduleArray = func.readCSV("modules.txt");
         FeedbackArray = func.readCSV("studentFeedback.txt");
+        studentGroup = func.readCSV("studentGroup.txt");
+        studentGroup = func.readCSV("studentGroup.txt");
         initComponents();
     }
 
@@ -316,7 +320,21 @@ public class StudentCreateFeedback extends javax.swing.JFrame {
     }//GEN-LAST:event_viewAssessmentsActionPerformed
 
     private void viewClassScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewClassScheduleActionPerformed
-        // TODO add your handling code here:
+        boolean alreadyInGroup = false;
+        for (String[] record : studentGroup) {
+            if (record[0].trim().equalsIgnoreCase(UserID)) {
+                alreadyInGroup = true;
+                GroupID = record[1];
+                break;
+            }
+        }
+
+        if (alreadyInGroup) {
+            new StudentViewClasses(UserID, GroupID).setVisible(true);
+        } else {
+            new StudentRegisterGroup(UserID).setVisible(true);
+        }
+        this.setVisible(false);
     }//GEN-LAST:event_viewClassScheduleActionPerformed
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed

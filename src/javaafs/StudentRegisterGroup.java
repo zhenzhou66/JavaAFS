@@ -381,17 +381,11 @@ public class StudentRegisterGroup extends javax.swing.JFrame {
 
     private void JoinGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JoinGroupActionPerformed
         String selectedGroupName = GroupList.getSelectedValue();
+        String selectedGroupID = "";
         if (selectedGroupName == null){
             JOptionPane.showMessageDialog(this, "Please select a Student first.");
         } else {
-            StudentViewClasses viewClass = new StudentViewClasses(UserID);
-            viewClass.setVisible(true);
-            this.dispose();
-        }
-        String selectedGroupID = "";
-
-        //Search for the ID that matches the Name AND the ModuleID
-        for (String[] row : groupArray) {
+            for (String[] row : groupArray) {
             String idInFile = row[0].trim();
             String nameInFile = row[1].trim();
             String moduleInFile = row[2].trim();
@@ -403,16 +397,20 @@ public class StudentRegisterGroup extends javax.swing.JFrame {
                 break; 
             }
         }
+            StudentViewClasses viewClass = new StudentViewClasses(UserID, selectedGroupID);
+            viewClass.setVisible(true);
+            this.dispose();
+        }
+        
+        if (!selectedGroupID.isEmpty()) {
+            String[] newRecord = {    
+                this.UserID,
+                selectedGroupID,
+                selectedGroupName
+        };
 
-            if (!selectedGroupID.isEmpty()) {
-                String[] newRecord = {    
-                    this.UserID,
-                    selectedGroupID,
-                    selectedGroupName
-            };
-
-            studentGroupRelationship.add(newRecord);
-            func.writeCSV("studentGroup.txt", studentGroupRelationship);
+        studentGroupRelationship.add(newRecord);
+        func.writeCSV("studentGroup.txt", studentGroupRelationship);
         }
     }//GEN-LAST:event_JoinGroupActionPerformed
 

@@ -361,8 +361,6 @@ public class StudentMainMenu extends javax.swing.JFrame {
 
     private void viewClassScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewClassScheduleActionPerformed
         boolean alreadyInGroup = false;
-        
-        
         for (String[] record : studentGroup) {
             if (record[0].trim().equalsIgnoreCase(UserID)) {
                 alreadyInGroup = true;
