@@ -74,71 +74,95 @@ public class ClassManagement extends javax.swing.JFrame {
     
     
     
+//    private void updateStartTimeOptions() {
+//
+//        Date selectedDate = jCalendar1.getDate();
+//        if (selectedDate == null) return;
+//
+//        Calendar today = Calendar.getInstance();
+//        Calendar selected = Calendar.getInstance();
+//        selected.setTime(selectedDate);
+//
+//        startTime.removeAllItems();
+//
+//        boolean isToday =
+//                today.get(Calendar.YEAR) == selected.get(Calendar.YEAR) &&
+//                today.get(Calendar.DAY_OF_YEAR) == selected.get(Calendar.DAY_OF_YEAR);
+//
+//        int currentMinutes =
+//                today.get(Calendar.HOUR_OF_DAY) * 60 +
+//                today.get(Calendar.MINUTE);
+//        
+//        // Minimum 1 hour duration
+//        // Last end time is 18:00
+//        // So latest start time allowed is 17:00
+//        int latestStartAllowed = 18 * 60 - 60; // 17:00
+//
+//        boolean hasAvailableTime = false;
+//
+//        for (String time : allTimes) {
+//            
+//            int timeMinutes = timeToMinutes(time);
+//            if (timeMinutes < 0) continue;
+//
+//            if (!isToday) {
+//                // Future date → allow any time that can still fit 1 hour
+//                if (timeMinutes <= latestStartAllowed) {
+//                    startTime.addItem(time);
+//                    hasAvailableTime = true;
+//                }
+//            } else {
+//                // Today → must be future time AND allow 1 hour
+//                if (timeMinutes > currentMinutes &&
+//                    timeMinutes <= latestStartAllowed) {
+//
+//                    startTime.addItem(time);
+//                    hasAvailableTime = true;
+//                }
+//            }
+//            
+//            
+//        // If no available time → disable Save button
+//        if (!hasAvailableTime) {
+//            saveButton.setEnabled(false);
+//
+//            if (isToday) {
+//                JOptionPane.showMessageDialog(this,
+//                    "No available class time remaining for today.\n" +
+//                    "Minimum class duration is 1 hour.");
+//            }
+//        } else {
+//            saveButton.setEnabled(true);
+//        }
+//    }
+//        
+//        
+//        
+//    }
+    
+    
+    
+    
     private void updateStartTimeOptions() {
-
-        Date selectedDate = jCalendar1.getDate();
-        if (selectedDate == null) return;
-
-        Calendar today = Calendar.getInstance();
-        Calendar selected = Calendar.getInstance();
-        selected.setTime(selectedDate);
 
         startTime.removeAllItems();
 
-        boolean isToday =
-                today.get(Calendar.YEAR) == selected.get(Calendar.YEAR) &&
-                today.get(Calendar.DAY_OF_YEAR) == selected.get(Calendar.DAY_OF_YEAR);
-
-        int currentMinutes =
-                today.get(Calendar.HOUR_OF_DAY) * 60 +
-                today.get(Calendar.MINUTE);
-        
-        // Minimum 1 hour duration
-        // Last end time is 18:00
-        // So latest start time allowed is 17:00
-        int latestStartAllowed = 18 * 60 - 60; // 17:00
-
-        boolean hasAvailableTime = false;
+        int latestStartAllowed = 18 * 60 - 60; // 17:00, since max end time = 18:00
 
         for (String time : allTimes) {
-            
             int timeMinutes = timeToMinutes(time);
             if (timeMinutes < 0) continue;
 
-            if (!isToday) {
-                // Future date → allow any time that can still fit 1 hour
-                if (timeMinutes <= latestStartAllowed) {
-                    startTime.addItem(time);
-                    hasAvailableTime = true;
-                }
-            } else {
-                // Today → must be future time AND allow 1 hour
-                if (timeMinutes > currentMinutes &&
-                    timeMinutes <= latestStartAllowed) {
-
-                    startTime.addItem(time);
-                    hasAvailableTime = true;
-                }
+            // Allow any time that can fit minimum 1-hour duration
+            if (timeMinutes <= latestStartAllowed) {
+                startTime.addItem(time);
             }
-            
-            
-        // If no available time → disable Save button
-        if (!hasAvailableTime) {
-            saveButton.setEnabled(false);
-
-            if (isToday) {
-                JOptionPane.showMessageDialog(this,
-                    "No available class time remaining for today.\n" +
-                    "Minimum class duration is 1 hour.");
-            }
-        } else {
-            saveButton.setEnabled(true);
         }
+
+        // Enable Save button if at least one start time exists
+        saveButton.setEnabled(startTime.getItemCount() > 0);
     }
-        
-        
-        
-    }
+
 
 
 
@@ -256,7 +280,8 @@ public class ClassManagement extends javax.swing.JFrame {
     private boolean hasModuleClassTypeOnDate(String moduleID, String classType, Date date) {
         ArrayList<String[]> classes = UserFunctions.readCSV("classes.txt");
 
-        for (String[] cls : classes) {
+        for (int i = 1; i < classes.size(); i++) { // skip first row if it's header
+            String[] cls = classes.get(i);
             if (cls.length < 7) continue;
 
             String existingModuleID = cls[4];
@@ -748,6 +773,29 @@ public class ClassManagement extends javax.swing.JFrame {
             return;
         }
         
+        
+        
+        // Validate selected start time against real-world current time
+        Calendar selectedDateTime = Calendar.getInstance();
+        selectedDateTime.setTime(selectedDate); // set calendar to the selected date
+
+        String[] timeParts = start.split(":");
+        selectedDateTime.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeParts[0]));
+        selectedDateTime.set(Calendar.MINUTE, Integer.parseInt(timeParts[1]));
+        selectedDateTime.set(Calendar.SECOND, 0);
+        selectedDateTime.set(Calendar.MILLISECOND, 0);
+
+        Date startTimeDate = selectedDateTime.getTime();
+        Date now = new Date();
+
+        if (startTimeDate.before(now)) {
+            JOptionPane.showMessageDialog(this, "Selected start time has already passed. Please choose a future time.");
+            return;
+        }
+    
+    
+    
+        
         // Validate Time
         if (!isValidDuration(start, end)) {
             return;
@@ -786,8 +834,6 @@ public class ClassManagement extends javax.swing.JFrame {
         }
 
         updateHistoryTable();
-        
-        JOptionPane.showMessageDialog(this, "Class created successfully!");
 
         // Refresh table
         updateHistoryTable();
