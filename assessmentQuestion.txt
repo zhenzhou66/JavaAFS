@@ -19,4 +19,4 @@ AS017,M017,Writing requires practice?,Draft improves content?,Editing removes er
 AS018,M018,Art expresses ideas?,Painting uses color?,Sculpture uses shape?,Modern art is style?,Creativity needed?,True,True,True,True,True
 AS019,M019,Ethics guides behavior?,Right vs wrong?,Morality matters?,Decision making needs ethics?,Values affect choices?,True,True,True,True,True
 AS020,M020,Cybersecurity protects data?,Password is key?,Firewall blocks attacks?,Encryption keeps safe?,Phishing is threat?,True,True,True,True,True
-
+AS021,M002,The apple is red. True or False?,jTextField2,jTextField2,jTextField2,jTextField2,True,True,True,True,True
