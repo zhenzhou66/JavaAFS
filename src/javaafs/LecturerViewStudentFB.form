@@ -152,11 +152,11 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="ratingTitle" min="-2" pref="271" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
+                              <Component id="Star1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="Star2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="Star3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="Star1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="Star4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -183,9 +183,9 @@
                       <Component id="ratingTitle" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="Star1" min="-2" max="-2" attributes="0"/>
                           <Component id="Star3" min="-2" max="-2" attributes="0"/>
                           <Component id="Star2" min="-2" max="-2" attributes="0"/>
+                          <Component id="Star1" min="-2" max="-2" attributes="0"/>
                           <Component id="Star5" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="Star4" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -223,6 +223,13 @@
                 <Property name="text" type="java.lang.String" value="Feedback Comment"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JLabel" name="Star3">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/blackStar.png"/>
+                </Property>
+              </Properties>
+            </Component>
             <Component class="javax.swing.JLabel" name="Star1">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -231,13 +238,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="Star2">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/images/blackStar.png"/>
-                </Property>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="Star3">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/images/blackStar.png"/>

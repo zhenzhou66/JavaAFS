@@ -9,3 +9,5 @@ F007,S006,L006,M007,Explains accounting clearly.,5
 F008,S007,L007,M008,Very patient and supportive.,5
 F009,S008,L008,M009,Enjoyable history classes.,4
 F010,S009,L009,M010,Interesting topics but needs more activities.,4
+F011,S001,L001,M002,I love my lecturer,1
+F012,S001,L001,M002,Enter feedback for your Lecturer,3
