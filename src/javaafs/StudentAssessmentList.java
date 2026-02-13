@@ -26,6 +26,8 @@ public class StudentAssessmentList extends javax.swing.JFrame {
     protected List<String[]> assessmentQuestions;
     protected List<String[]> assessmentResult;
     UserFunctions func = new UserFunctions();
+    protected List<String[]> studentGroup;
+    public String GroupID = "";
 
     //user information
     public String Role = "";
@@ -40,6 +42,7 @@ public class StudentAssessmentList extends javax.swing.JFrame {
         moduleArray = func.readCSV("modules.txt");
         assessmentQuestions = func.readCSV("assessmentQuestion.txt");
         assessmentResult = func.readCSV("assessmentResult.txt");
+        studentGroup = func.readCSV("studentGroup.txt");
         initComponents();
     }
     
@@ -346,7 +349,21 @@ public class StudentAssessmentList extends javax.swing.JFrame {
     }//GEN-LAST:event_viewAssessmentsActionPerformed
 
     private void viewClassScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewClassScheduleActionPerformed
-        // TODO add your handling code here:
+        boolean alreadyInGroup = false;
+        for (String[] record : studentGroup) {
+            if (record[0].trim().equalsIgnoreCase(UserID)) {
+                alreadyInGroup = true;
+                GroupID = record[1];
+                break;
+            }
+        }
+
+        if (alreadyInGroup) {
+            new StudentViewClasses(UserID, GroupID).setVisible(true);
+        } else {
+            new StudentRegisterGroup(UserID).setVisible(true);
+        }
+        this.setVisible(false);
     }//GEN-LAST:event_viewClassScheduleActionPerformed
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed

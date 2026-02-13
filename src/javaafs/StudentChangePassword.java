@@ -15,6 +15,8 @@ public class StudentChangePassword extends javax.swing.JFrame {
 
     protected List<String[]> userArray;
     UserFunctions func = new UserFunctions();
+    protected List<String[]> studentGroup;
+    public String GroupID = "";
 
     public String Role = "";
     public String UserID = "";
@@ -23,6 +25,7 @@ public class StudentChangePassword extends javax.swing.JFrame {
     
     public StudentChangePassword() {
         userArray = func.readCSV("users.txt");
+        studentGroup = func.readCSV("studentGroup.txt");
         initComponents();
     }
     
@@ -415,7 +418,21 @@ private void changePassword() {
     }//GEN-LAST:event_viewAssessmentsActionPerformed
 
     private void viewClassScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewClassScheduleActionPerformed
-        // TODO add your handling code here:
+        boolean alreadyInGroup = false;
+        for (String[] record : studentGroup) {
+            if (record[0].trim().equalsIgnoreCase(UserID)) {
+                alreadyInGroup = true;
+                GroupID = record[1];
+                break;
+            }
+        }
+
+        if (alreadyInGroup) {
+            new StudentViewClasses(UserID, GroupID).setVisible(true);
+        } else {
+            new StudentRegisterGroup(UserID).setVisible(true);
+        }
+        this.setVisible(false);
     }//GEN-LAST:event_viewClassScheduleActionPerformed
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed

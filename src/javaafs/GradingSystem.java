@@ -640,6 +640,16 @@ public class GradingSystem extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please select a row to delete.");
             return;
         }
+        
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to delete this grade?",
+                "Confirm Delete",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm != JOptionPane.YES_OPTION) {
+            return; // user clicked No, do nothing
+        }
+
 
         // Pass the values BEFORE removing the row
         deleteFromFile(selectedRow);
@@ -742,6 +752,9 @@ public class GradingSystem extends javax.swing.JFrame {
         // Clear input
         minMark.setText("");
         maxMark.setText("");
+        
+        JOptionPane.showMessageDialog(this, "Grade added successfully!");
+
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void UserManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserManagementActionPerformed
