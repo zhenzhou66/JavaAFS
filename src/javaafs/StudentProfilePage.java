@@ -18,6 +18,7 @@ public class StudentProfilePage extends javax.swing.JFrame {
      * Creates new form Lecturer
      */
     protected List<String[]> userArray;
+    protected List<String[]> studentGroup;
     UserFunctions func = new UserFunctions();
 
     public String Name = "";
@@ -25,10 +26,12 @@ public class StudentProfilePage extends javax.swing.JFrame {
     public String Phonenumber = "";
     public String Role = "";
     public String UserID = "";
+    public String GroupID = "";
     
     
     public StudentProfilePage() {
         userArray = func.readCSV("users.txt");
+        studentGroup = func.readCSV("studentGroup.txt");
         initComponents();
     }
     
@@ -391,7 +394,21 @@ public class StudentProfilePage extends javax.swing.JFrame {
     }//GEN-LAST:event_viewResultActionPerformed
 
     private void viewClassScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewClassScheduleActionPerformed
-        // TODO add your handling code here:
+        boolean alreadyInGroup = false;
+        for (String[] record : studentGroup) {
+            if (record[0].trim().equalsIgnoreCase(UserID)) {
+                alreadyInGroup = true;
+                GroupID = record[1];
+                break;
+            }
+        }
+
+        if (alreadyInGroup) {
+            new StudentViewClasses(UserID, GroupID).setVisible(true);
+        } else {
+            new StudentRegisterGroup(UserID).setVisible(true);
+        }
+        this.setVisible(false);
     }//GEN-LAST:event_viewClassScheduleActionPerformed
 
     private void statustxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statustxtActionPerformed

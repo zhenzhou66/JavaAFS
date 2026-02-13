@@ -5,75 +5,126 @@
 package javaafs;
 
 import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
  * @author zhenz
  */
-public class StudentCreateFeedback extends javax.swing.JFrame {
-
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(StudentCreateFeedback.class.getName());
+public class StudentViewClasses extends javax.swing.JFrame {
+    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(StudentViewClasses.class.getName());
 
     /**
      * Creates new form Lecturer
      */
     protected List<String[]> userArray;
     protected List<String[]> moduleArray;
-    protected List<String[]> FeedbackArray;
     protected List<String[]> studentGroup;
+    protected List<String[]> classSchedule;
     UserFunctions func = new UserFunctions();
 
-    public String Role = "";
     public String UserID = "";
+    protected String ModuleID = "";
     public String ModuleName = "";
-    public String ModuleID = "";
-    public String FeedbackID = "";
-    public String lecturerID = "";
     public String GroupID = "";
 
-    public StudentCreateFeedback() {
+    
+    private String forceChange;
+
+    
+    public StudentViewClasses() {
         userArray = func.readCSV("users.txt");
         moduleArray = func.readCSV("modules.txt");
-        FeedbackArray = func.readCSV("studentFeedback.txt");
-        studentGroup = func.readCSV("studentGroup.txt");
+        classSchedule = moduleArray = func.readCSV("classes.txt");
         studentGroup = func.readCSV("studentGroup.txt");
         initComponents();
     }
-
-    public StudentCreateFeedback(String UserID) {
-        this();
-        this.UserID = UserID;
+    
+    public StudentViewClasses(String UserID, String passedGroupID) {
+        this();               
+        this.UserID = UserID; 
+        this.GroupID = passedGroupID;
         loadUserData(UserID);
-    }
-
-    private void loadUserData(String userid) {
-        if (userArray == null || userArray.isEmpty()) {
-            return;
-        }
+        populateClassTable();
         
-        for (int i = 0; i < userArray.size(); i++) {
-            String[] user = userArray.get(i);
-            if (user[0].equalsIgnoreCase(userid)) {
-                studentName.setText(user[3]);
-                userRole.setText(user[2]);
-                ModuleID = user[6];
+        // Read users to check forceChange
+        List<String[]> users = UserFunctions.readCSV("users.txt");
+        forceChange = "false"; // default
+
+        for (String[] row : users) {
+            // Skip header
+            if (row[0].equalsIgnoreCase("userID")) continue;
+
+            if (row[0].trim().equalsIgnoreCase(UserID.trim())) {
+                forceChange = row[7].trim();
                 break;
             }
         }
-        if (!ModuleID.isEmpty()) {
-            for (String[] module : moduleArray) {
-                if (module[0].equalsIgnoreCase(ModuleID)) {
-                    this.ModuleName = module[1]; // 1 is moduleName
-                    this.lecturerID = module[2]; // 2 is lecturerID
-                    courseName.setText(this.ModuleName);
-                    
-                    break;
-                }
+    }
+
+    
+    private void loadUserData(String userid) {
+    if (userArray == null || userArray.isEmpty()) 
+        return;
+
+   ModuleID = "";
+
+    for (int i = 0; i < userArray.size(); i++) {
+        String[] user = userArray.get(i);
+        if (user[0].equalsIgnoreCase(userid)) {
+            lecturerName.setText(user[3]);
+            userRole.setText(user[2]); 
+            ModuleID = user[6];
+            
+            
+            break;
+        }
+    }
+    if (!ModuleID.isEmpty()) {
+        for (String[] module : moduleArray) {
+            if (module[0].equalsIgnoreCase(ModuleID)) {
+                ModuleName = module[1]; // Index 1 is moduleName in modules.txt
+                courseName.setText(ModuleName); 
+                break;
             }
         }
     }
+}
+    private void populateClassTable() {
+    DefaultTableModel model = (DefaultTableModel) classTable.getModel();
+    model.setRowCount(0); // Clear the table first
 
+    // 1. Ensure you have the class data loaded (e.g., from classArray)
+    if (classSchedule == null || classSchedule.isEmpty()) return;
+
+    for (String[] classData : classSchedule) {
+        
+        // 2. Skip the header row
+        if (classData[0].equalsIgnoreCase("classID")) continue;
+
+        // 3. Get the GroupID from the last column (index 5)
+        String groupIDInFile = classData[5].trim();
+
+        // 4. Compare with the current GroupID assigned to the student
+        if (groupIDInFile.equalsIgnoreCase(this.GroupID.trim())) {
+            
+            String name = classData[1];
+            String startTime = classData[2];
+            String endTime = classData[3];
+            String Date = classData[6];
+            
+
+            // 5. Add matching row to the table
+            model.addRow(new Object[]{ name, startTime, endTime, Date});
+        }
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -89,18 +140,14 @@ public class StudentCreateFeedback extends javax.swing.JFrame {
         viewAssessments = new javax.swing.JButton();
         viewClassSchedule = new javax.swing.JButton();
         logOut = new javax.swing.JButton();
-        studentName = new javax.swing.JLabel();
+        lecturerName = new javax.swing.JLabel();
         userRole = new javax.swing.JLabel();
         courseName = new javax.swing.JLabel();
         viewResult = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        FeedbackText = new javax.swing.JTextField();
-        SubmitButton = new javax.swing.JButton();
-        Rating = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
         CreateFeedback = new javax.swing.JButton();
-        mainmenubtn = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        classTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -137,9 +184,9 @@ public class StudentCreateFeedback extends javax.swing.JFrame {
             }
         });
 
-        studentName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        studentName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        studentName.setText("yourName");
+        lecturerName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lecturerName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lecturerName.setText("yourName");
 
         userRole.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         userRole.setText("yourRole");
@@ -155,68 +202,6 @@ public class StudentCreateFeedback extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Create Feedback");
-
-        FeedbackText.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        FeedbackText.setText("Enter Feedback for your Lecturer");
-        FeedbackText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FeedbackTextActionPerformed(evt);
-            }
-        });
-
-        SubmitButton.setText("Submit");
-        SubmitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SubmitButtonActionPerformed(evt);
-            }
-        });
-
-        Rating.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("Rating");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(SubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(FeedbackText)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(Rating, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addGap(24, 24, 24))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FeedbackText, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Rating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(SubmitButton)
-                .addGap(15, 15, 15))
-        );
-
         CreateFeedback.setText("Create Feedback");
         CreateFeedback.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,12 +209,46 @@ public class StudentCreateFeedback extends javax.swing.JFrame {
             }
         });
 
-        mainmenubtn.setText("Main Menu");
-        mainmenubtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mainmenubtnActionPerformed(evt);
+        classTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Class Name", "Start Time", "End Time", "Date"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        jScrollPane1.setViewportView(classTable);
+        if (classTable.getColumnModel().getColumnCount() > 0) {
+            classTable.getColumnModel().getColumn(0).setPreferredWidth(100);
+        }
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -242,9 +261,9 @@ public class StudentCreateFeedback extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(pageTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 331, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(studentName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lecturerName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(userRole, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
@@ -257,8 +276,7 @@ public class StudentCreateFeedback extends javax.swing.JFrame {
                             .addComponent(viewAssessments, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(viewClassSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(profilePage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(CreateFeedback, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(mainmenubtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(CreateFeedback, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
@@ -268,7 +286,7 @@ public class StudentCreateFeedback extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(studentName)
+                        .addComponent(lecturerName)
                         .addGap(1, 1, 1)
                         .addComponent(userRole))
                     .addComponent(pageTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -286,9 +304,7 @@ public class StudentCreateFeedback extends javax.swing.JFrame {
                         .addComponent(viewClassSchedule)
                         .addGap(18, 18, 18)
                         .addComponent(CreateFeedback)
-                        .addGap(18, 18, 18)
-                        .addComponent(mainmenubtn)
-                        .addGap(108, 108, 108)
+                        .addGap(149, 149, 149)
                         .addComponent(logOut)
                         .addContainerGap())
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -321,21 +337,7 @@ public class StudentCreateFeedback extends javax.swing.JFrame {
     }//GEN-LAST:event_viewAssessmentsActionPerformed
 
     private void viewClassScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewClassScheduleActionPerformed
-        boolean alreadyInGroup = false;
-        for (String[] record : studentGroup) {
-            if (record[0].trim().equalsIgnoreCase(UserID)) {
-                alreadyInGroup = true;
-                GroupID = record[1];
-                break;
-            }
-        }
-
-        if (alreadyInGroup) {
-            new StudentViewClasses(UserID, GroupID).setVisible(true);
-        } else {
-            new StudentRegisterGroup(UserID).setVisible(true);
-        }
-        this.setVisible(false);
+        // TODO add your handling code here:
     }//GEN-LAST:event_viewClassScheduleActionPerformed
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
@@ -351,43 +353,10 @@ public class StudentCreateFeedback extends javax.swing.JFrame {
     }//GEN-LAST:event_viewResultActionPerformed
 
     private void CreateFeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateFeedbackActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CreateFeedbackActionPerformed
-
-    private void FeedbackTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FeedbackTextActionPerformed
-       StudentCreateFeedback stuCreateFB = new StudentCreateFeedback(UserID);
+        StudentCreateFeedback stuCreateFB = new StudentCreateFeedback(UserID);
         this.setVisible(false);
         stuCreateFB.setVisible(true);
-    }//GEN-LAST:event_FeedbackTextActionPerformed
-
-    private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
-
-        // 2. generate new ID
-        String FeedbackID = func.generateNextID("studentFeedback.txt", "F");
-
-        // 3. create new answer row
-        String[] newRecord = {
-            FeedbackID,
-            this.UserID,
-            this.lecturerID,
-            this.ModuleID,
-            FeedbackText.getText(),
-            Rating.getSelectedItem().toString()
-        };
-
-        // 4. update array and write to the text file
-        FeedbackArray.add(newRecord);
-        func.writeCSV("studentFeedback.txt", FeedbackArray);
-        JOptionPane.showMessageDialog(this, "Submitted successfully!");
-        FeedbackText.setText("Enter feedback for your Lecturer");
-        Rating.setSelectedIndex(0);
-    }//GEN-LAST:event_SubmitButtonActionPerformed
-
-    private void mainmenubtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainmenubtnActionPerformed
-        StudentMainMenu stuMainMenu = new StudentMainMenu(UserID);
-        this.setVisible(false);
-        stuMainMenu.setVisible(true);
-    }//GEN-LAST:event_mainmenubtnActionPerformed
+    }//GEN-LAST:event_CreateFeedbackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -411,24 +380,20 @@ public class StudentCreateFeedback extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new StudentCreateFeedback().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new StudentViewClasses().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CreateFeedback;
-    private javax.swing.JTextField FeedbackText;
-    private javax.swing.JComboBox<String> Rating;
-    private javax.swing.JButton SubmitButton;
+    private javax.swing.JTable classTable;
     private javax.swing.JLabel courseName;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lecturerName;
     private javax.swing.JButton logOut;
-    private javax.swing.JButton mainmenubtn;
     private javax.swing.JLabel pageTitle;
     private javax.swing.JButton profilePage;
-    private javax.swing.JLabel studentName;
     private javax.swing.JLabel userRole;
     private javax.swing.JButton viewAssessments;
     private javax.swing.JButton viewClassSchedule;
