@@ -79,7 +79,7 @@ public class LecturerViewStudentFB extends javax.swing.JFrame {
     ImageIcon black = new ImageIcon("src/images/blackStar.png");
 
     // Put your JLabels into an array for easy looping
-    JLabel[] stars = {Star1, Star2, Star3, Star4, Star5};
+    JLabel[] stars = {Star3, Star1, Star2, Star4, Star5};
 
     for (int i = 0; i < stars.length; i++) {
         // If the current index is less than the rating, make it yellow
@@ -110,9 +110,9 @@ public class LecturerViewStudentFB extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         feedbackText = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
+        Star3 = new javax.swing.JLabel();
         Star1 = new javax.swing.JLabel();
         Star2 = new javax.swing.JLabel();
-        Star3 = new javax.swing.JLabel();
         Star4 = new javax.swing.JLabel();
         Star5 = new javax.swing.JLabel();
         ratingTitle = new javax.swing.JLabel();
@@ -157,11 +157,11 @@ public class LecturerViewStudentFB extends javax.swing.JFrame {
 
         jLabel1.setText("Feedback Comment");
 
+        Star3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/blackStar.png"))); // NOI18N
+
         Star1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/blackStar.png"))); // NOI18N
 
         Star2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/blackStar.png"))); // NOI18N
-
-        Star3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/blackStar.png"))); // NOI18N
 
         Star4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/blackStar.png"))); // NOI18N
 
@@ -179,11 +179,11 @@ public class LecturerViewStudentFB extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ratingTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(Star1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Star2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Star3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Star1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Star4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -206,9 +206,9 @@ public class LecturerViewStudentFB extends javax.swing.JFrame {
                 .addComponent(ratingTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(2, 2, 2)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Star1)
                     .addComponent(Star3)
                     .addComponent(Star2)
+                    .addComponent(Star1)
                     .addComponent(Star5)
                     .addComponent(Star4))
                 .addGap(678, 678, 678))
@@ -281,7 +281,7 @@ public class LecturerViewStudentFB extends javax.swing.JFrame {
                         .addComponent(viewFeedback)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
                         .addComponent(logOut))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 342, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -324,7 +324,9 @@ public class LecturerViewStudentFB extends javax.swing.JFrame {
     }//GEN-LAST:event_resultAsgmntActionPerformed
 
     private void viewFeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewFeedbackActionPerformed
-        // TODO add your handling code here:
+        LecturerViewFeedbackList lectFBlist = new LecturerViewFeedbackList(UserID);
+        this.setVisible(false);
+        lectFBlist.setVisible(true);
     }//GEN-LAST:event_viewFeedbackActionPerformed
 
     /**

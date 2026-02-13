@@ -83,6 +83,7 @@ public class StudentRegisterGroup extends javax.swing.JFrame {
             lecturerName.setText(user[3]);
             userRole.setText(user[2]); 
             ModuleID = user[6];
+            courseName.setText(ModuleName);
             break;
         }
     }

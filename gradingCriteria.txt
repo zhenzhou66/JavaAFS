@@ -1,6 +1,6 @@
 Grade,Min Mark Range,Max Mark Range,Description
-A,80,100,Distinction
-B,60,79,Credit
-C,45,59,Pass
-D,40,44,Pass
-F,0,39,Fail
+A,80,100,Well Done good student
+B,60,79,Not bad keep improving
+C,49,59,OKOK only
+D,35,48,Very Terrible please work harder
+F,0,34,tskt tsk 

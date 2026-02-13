@@ -75,23 +75,36 @@ public class StudentViewResults extends javax.swing.JFrame {
 }
     private void populateResultsTable() {
     DefaultTableModel model = (DefaultTableModel) resultsTable.getModel();
-    model.setRowCount(0); // Clear existing data
+    model.setRowCount(0);
 
     for (String[] result : resultArray) {
-        
-        if (result[3].equalsIgnoreCase("mark")) {
-        continue; 
+        // 1. Skip the header row
+        if (result[0].equalsIgnoreCase("resultID")) {
+            continue; 
         }
-        
-        String assessmentID = result[2];
-        String markStr = result[3];
-        int mark = Integer.parseInt(markStr);
-        
-        //assign grade according to marks
-        String grade = func.calculateGrade(mark, gradingCriteria);
-        
-        //add everything into table
-        model.addRow(new Object[]{assessmentID, mark, grade});
+
+        // 2. Check if the result belongs to the logged-in student
+        // Using result[1] because studentID is the second column
+        if (result[1].trim().equalsIgnoreCase(this.UserID.trim())) {
+            
+            String assessmentID = result[2];
+            String markStr = result[3];
+            int mark = Integer.parseInt(markStr);
+            
+            // Calculate grade and find feedback
+            String grade = func.calculateGrade(mark, gradingCriteria);
+            String feedback = "No Feedback"; 
+            
+            for (String[] criteria : gradingCriteria) {
+                if (criteria[0].trim().equalsIgnoreCase(grade.trim())) {
+                    feedback = criteria[3];
+                    break;
+                }
+            }
+            
+            // Add to table only if the ID matched
+            model.addRow(new Object[]{assessmentID, mark, grade, feedback});
+        }
     }
 }
 
@@ -179,16 +192,22 @@ public class StudentViewResults extends javax.swing.JFrame {
 
         resultsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "AssessmentID", "Marks", "Grade"
+                "AssessmentID", "Marks", "Grade", "Feedback"
             }
         ));
         jScrollPane1.setViewportView(resultsTable);
+        if (resultsTable.getColumnModel().getColumnCount() > 0) {
+            resultsTable.getColumnModel().getColumn(0).setPreferredWidth(60);
+            resultsTable.getColumnModel().getColumn(1).setPreferredWidth(50);
+            resultsTable.getColumnModel().getColumn(2).setPreferredWidth(40);
+            resultsTable.getColumnModel().getColumn(3).setPreferredWidth(150);
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -198,8 +217,8 @@ public class StudentViewResults extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(asmnTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 661, Short.MAX_VALUE))
+                .addGap(17, 17, 17))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,7 +255,7 @@ public class StudentViewResults extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(pageTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 331, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lecturerName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(userRole, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -269,7 +288,7 @@ public class StudentViewResults extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addComponent(courseName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(profilePage)
                         .addGap(18, 18, 18)
@@ -282,17 +301,18 @@ public class StudentViewResults extends javax.swing.JFrame {
                         .addComponent(CreateFeedback)
                         .addGap(18, 18, 18)
                         .addComponent(mainmenubtn)
-                        .addGap(108, 108, 108)
-                        .addComponent(logOut)
-                        .addContainerGap())
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(100, 100, 100)
+                        .addComponent(logOut))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

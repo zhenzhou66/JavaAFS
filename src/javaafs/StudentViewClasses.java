@@ -41,8 +41,9 @@ public class StudentViewClasses extends javax.swing.JFrame {
     public StudentViewClasses() {
         userArray = func.readCSV("users.txt");
         moduleArray = func.readCSV("modules.txt");
-        classSchedule = moduleArray = func.readCSV("classes.txt");
+        classSchedule  = func.readCSV("classes.txt");
         studentGroup = func.readCSV("studentGroup.txt");
+        
         initComponents();
     }
     
@@ -82,7 +83,6 @@ public class StudentViewClasses extends javax.swing.JFrame {
             userRole.setText(user[2]); 
             ModuleID = user[6];
             
-            
             break;
         }
     }
@@ -90,7 +90,7 @@ public class StudentViewClasses extends javax.swing.JFrame {
         for (String[] module : moduleArray) {
             if (module[0].equalsIgnoreCase(ModuleID)) {
                 ModuleName = module[1]; // Index 1 is moduleName in modules.txt
-                courseName.setText(ModuleName); 
+                courseName.setText(this.ModuleName); 
                 break;
             }
         }

@@ -35,109 +35,140 @@ public class AcadLeadAssignModules extends javax.swing.JFrame {
         relationships = func.readCSV("leaderLecturerRelationship.txt");
 
         initComponents();
+        // Add listeners so names display automatically
+        lectureridcbx.addItemListener(e -> {
+            if (e.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+                showLecturerName();
+            }
+        });
+
+        moduleidcbx.addItemListener(e -> {
+            if (e.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+                showModuleName();
+            }
+        });
+        
         this.UserID = userid;        
         loadUserData(userid); 
         loadLecturerComboBox();
         loadModulesComboBox();
     }
 
-private void loadUserData(String userid) {
-    if (leaderlecturer == null || leaderlecturer.isEmpty()) 
-        return;
+    private void loadUserData(String userid) {
+        if (leaderlecturer == null || leaderlecturer.isEmpty()) 
+            return;
 
-    for (int i = 0; i < leaderlecturer.size(); i++) {
-        String[] user = leaderlecturer.get(i);
-        if (user[0].equalsIgnoreCase(userid)) {
-            AcadLeadName.setText(user[3]);
-            userRole.setText(user[2]);
-            break;
-            }
-        }
-    }
-
-private void loadLecturerComboBox() {
-    lectureridcbx.removeAllItems();
-    
-    relationships = func.readCSV("leaderLecturerRelationship.txt");
-
-    boolean hasLecturerToAssign = false;
-
-    for (int i = 1; i < relationships.size(); i++) {
-        String[] row = relationships.get(i);
-        if (row.length < 3) continue;
-        String leaderID = row[0];
-        String lecturerID = row[1];
-        String moduleID = row[2];
-        
-        if (leaderID.equalsIgnoreCase(UserID) && (moduleID == null || moduleID.isEmpty())) {
-            lectureridcbx.addItem(lecturerID);
-            hasLecturerToAssign = true;
-        }
-    }
-    if (!hasLecturerToAssign) {
-        lectureridcbx.addItem("None");
-        JOptionPane.showMessageDialog(this, "All lecturers under you already have modules assigned.");
-        //JOptionPane.showMessageDialog(this, "All lecturers under you already have modules assigned.");
-    }
-}
-    
-private void showLecturerName() {
-    String selectedLecturerID = (String) lectureridcbx.getSelectedItem();
-    if (selectedLecturerID != null) {
-        for (int i = 1; i < leaderlecturer.size(); i++) {
+        for (int i = 0; i < leaderlecturer.size(); i++) {
             String[] user = leaderlecturer.get(i);
-            if (user[0].equalsIgnoreCase(selectedLecturerID)) {
-                lecturernametxt.setText(user[3]);
+            if (user[0].equalsIgnoreCase(userid)) {
+                AcadLeadName.setText(user[3]);
+                userRole.setText(user[2]);
                 break;
             }
         }
-    }  
-}
+    }
 
-private void loadModulesComboBox() {
-    moduleidcbx.removeAllItems();
-    
-    modules = func.readCSV("modules.txt");
-    relationships = func.readCSV("leaderLecturerRelationship.txt");
-    List<String> assignedModules = new ArrayList<>();
-   
-    for (int i = 1; i < relationships.size(); i++) {
-        String[] row = relationships.get(i);
-        if (row.length < 3) continue;
-            String moduleID = row[2].trim();
-            if (!moduleID.isEmpty()) {
-            assignedModules.add(moduleID);
+    private void loadLecturerComboBox() {
+        lectureridcbx.removeAllItems();
+        boolean hasLecturerToAssign = false;
+
+        for (int i = 1; i < relationships.size(); i++) { // skip header
+            String[] row = relationships.get(i);
+            if (row.length < 2) continue;
+
+            String leaderID = row[0].trim();
+            String lecturerID = row[1].trim();
+            String moduleID = row.length >= 3 ? row[2].trim() : "";
+
+            if (leaderID.equalsIgnoreCase(UserID) && (moduleID == null || moduleID.isEmpty())) {
+                lectureridcbx.addItem(lecturerID);
+                hasLecturerToAssign = true;
+            }
+        }
+
+        if (!hasLecturerToAssign) {
+            lectureridcbx.addItem("None");
+            lecturernametxt.setText("");
+            JOptionPane.showMessageDialog(this, "All lecturers under you already have modules assigned.");
         }
     }
-    boolean hasModuleToAssign = false;
-    for (int i = 1; i < modules.size(); i++) {
-        String[] module = modules.get(i);
-        String moduleID = module[0].trim();
 
-        if (!assignedModules.contains(moduleID)) {
-            moduleidcbx.addItem(moduleID);
-            hasModuleToAssign = true;
+    private void loadModulesComboBox() {
+        moduleidcbx.removeAllItems();
+
+        if (modules == null || modules.isEmpty()) {
+            moduleidcbx.addItem("None");
+            return;
         }
-    }
-    if (!hasModuleToAssign) {
-        moduleidcbx.addItem("None");
-        JOptionPane.showMessageDialog(this, "All modules already assigned.");
-    }
-}
-    
-private void showModuleName() {
-    String selectedModuleID = (String) moduleidcbx.getSelectedItem();
-    if (selectedModuleID != null) {
-        
-        for (int i = 1; i < modules.size(); i++) {
+
+        // Find all modules that already have a lecturer
+        List<String> assignedModules = new ArrayList<>();
+        for (int i = 1; i < relationships.size(); i++) { // skip header
+            String[] row = relationships.get(i);
+            if (row.length >= 3) {
+                String moduleID = row[2].trim();
+                if (!moduleID.isEmpty() && !assignedModules.contains(moduleID)) {
+                    assignedModules.add(moduleID);
+                }
+            }
+        }
+
+        boolean hasModuleToAssign = false;
+        for (int i = 1; i < modules.size(); i++) { // skip header
             String[] module = modules.get(i);
-            if (module[0].equalsIgnoreCase(selectedModuleID)) {
-                modulenametxt.setText(module[1]); 
+            String moduleID = module[0].trim();
+
+            // Only show modules that are not assigned
+            if (!assignedModules.contains(moduleID)) {
+                moduleidcbx.addItem(moduleID);
+                hasModuleToAssign = true;
+            }
+        }
+
+        if (!hasModuleToAssign) {
+            moduleidcbx.addItem("None");
+            modulenametxt.setText("");
+            // Only show message if user tries to assign
+            // JOptionPane.showMessageDialog(this, "All modules already assigned.");
+        }
+    }
+
+
+    
+    private void showLecturerName() {
+        String selectedLecturerID = (String) lectureridcbx.getSelectedItem();
+        if (selectedLecturerID == null || selectedLecturerID.equals("None")) {
+            lecturernametxt.setText("");
+            return;
+        }
+
+        for (int i = 1; i < leaderlecturer.size(); i++) { // skip header
+            String[] user = leaderlecturer.get(i);
+            if (user.length < 4) continue;
+            if (user[0].trim().equalsIgnoreCase(selectedLecturerID)) {
+                lecturernametxt.setText(user[3]); // display name
                 break;
             }
         }
-    }  
-}
+    }
+
+    private void showModuleName() {
+        String selectedModuleID = (String) moduleidcbx.getSelectedItem();
+        if (selectedModuleID == null || selectedModuleID.equals("None")) {
+            modulenametxt.setText("");
+            return;
+        }
+
+        for (int i = 1; i < modules.size(); i++) { // skip header
+            String[] module = modules.get(i);
+            if (module.length < 2) continue;
+            if (module[0].trim().equalsIgnoreCase(selectedModuleID)) {
+                modulenametxt.setText(module[1]); // display module name
+                break;
+            }
+        }
+    }
+
 
 private void saveAssignedModule() {
     String selectedLecturerID = (String) lectureridcbx.getSelectedItem();

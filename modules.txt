@@ -11,11 +11,11 @@ M009,World History,L008
 M010,Philosophy and Current Issues,L009
 M011,Digital Marketing,L010
 M012,Software Engineering,L011
-M013,Environmental Studies,L012
-M014,Statistics,L013
-M015,Artificial Intelligence,L014
-M016,Entrepreneurship,
-M017,Creative Writing,
-M018,Modern Art,
-M019,Ethics and Society,
-M020,Cybersecurity,
+M013,Environmental Studies
+M014,Statistics
+M015,Artificial Intelligence
+M016,Entrepreneurship
+M017,Creative Writing
+M018,Modern Art
+M019,Ethics and Society
+M020,Cybersecurity
