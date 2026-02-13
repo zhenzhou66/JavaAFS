@@ -211,7 +211,7 @@ public class UserManagement extends javax.swing.JFrame {
 
 
     
-    private String generateUserID(UserManage user) {
+    private String generateUserID(User user) {
 
         String prefix = user.getPrefix();   // polymorphism here 🔥
         int maxNumber = 0;
@@ -348,7 +348,7 @@ public class UserManagement extends javax.swing.JFrame {
 //        String hashedPassword = UserFunctions.hashPassword(tempPassword);
 
         // Create user dynamically
-        UserManage newUser;
+        User newUser;
         String userID;
         switch (selectedRole) {
             case "Admin":
@@ -427,7 +427,7 @@ public class UserManagement extends javax.swing.JFrame {
 
                     // Update userID if role changed
                     if (!oldRole.equals(newRole)) {
-                        UserManage tempUser;
+                        User tempUser;
                         switch (newRole) {
                             case "Admin": tempUser = new Admin("", newName, newEmail, newPhone, "NA"); break;
                             case "Lecturer": tempUser = new Lecturer("", newName, newEmail, newPhone, "NA"); break;

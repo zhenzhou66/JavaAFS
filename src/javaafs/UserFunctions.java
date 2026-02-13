@@ -9,6 +9,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 
 
 
@@ -264,7 +267,7 @@ public class UserFunctions {
         String role = "";
         for (String[] user : users) {
             if (user[0].equalsIgnoreCase(UserID)) {
-                role = user[2]; // index 2 = role
+                role = user[2]; 
                 break;
             }
         }
@@ -664,6 +667,32 @@ public class UserFunctions {
     }
     
 
+    // Converts a Date object to "yyyy-MM-dd" string format
+    public static String formatDateToString(Date date) {
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(date);
+    }
+   
+    
+    
+    public static Date getClassDate(String classID) {
+        ArrayList<String[]> classes = readCSV("classes.txt"); // assuming readCSV is already defined
+        for (String[] data : classes) {
+            if (data.length >= 6 && data[0].equals(classID)) {
+                try {
+                    // data[6] should be the date in yyyy-MM-dd format
+                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+                    return sdf.parse(data[6]);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        }
+        return null; 
+    }
+    
+    
     
 }
 

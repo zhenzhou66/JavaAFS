@@ -116,10 +116,11 @@ public class StudentViewClasses extends javax.swing.JFrame {
             String name = classData[1];
             String startTime = classData[2];
             String endTime = classData[3];
-            // You can also get ModuleID from index 4 if needed
+            String Date = classData[6];
+            
 
             // 5. Add matching row to the table
-            model.addRow(new Object[]{ name, startTime, endTime});
+            model.addRow(new Object[]{ name, startTime, endTime, Date});
         }
     }
 }

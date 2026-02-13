@@ -1,2 +1,11 @@
 feedbackID,studentID,lecturerID,moduleID,feedback,rating
-
+F001,S000,L000,M001,Great explanation of concepts.,5
+F002,S001,L001,M002,Good lecturer but fast-paced.,4
+F003,S002,L002,M003,Very helpful during labs.,5
+F004,S003,L003,M004,Needs more examples.,3
+F005,S004,L004,M005,Clear and engaging lectures.,5
+F006,S005,L005,M006,Sometimes hard to follow.,4
+F007,S006,L006,M007,Explains accounting clearly.,5
+F008,S007,L007,M008,Very patient and supportive.,5
+F009,S008,L008,M009,Enjoyable history classes.,4
+F010,S009,L009,M010,Interesting topics but needs more activities.,4
