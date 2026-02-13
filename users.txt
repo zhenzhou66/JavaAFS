@@ -46,3 +46,4 @@ S008,Stud0009%,Student,Ian Lim,student9@gmail.com,0123456732,M009,false
 S009,Stud0010%,Student,Julia Lee,student10@yahoo.com,0123456733,M010,false
 L020,P%0%ENjz,Lecturer,Zhang Hao,zhanghao@gmail.com,0156855596,NA,true
 L021,v&7oejlR,Lecturer,Sung Hanbin,hanbin@yahoo.com,0126351255,NA,true
+L022,uq1y1iX&,Lecturer,Matthew,matthew@gmail.com,0124589862,NA,true
