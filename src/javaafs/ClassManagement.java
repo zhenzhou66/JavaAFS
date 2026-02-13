@@ -354,13 +354,30 @@ public class ClassManagement extends javax.swing.JFrame {
     
     // ================= SAVE GROUP =================
     private String saveGroup(String groupNameText, String moduleID, String classType) {
-        
-        // Always generate a NEW group ID
+
+        ArrayList<String[]> groups = UserFunctions.readCSV("group.txt");
+
+        // STEP 1: Check if group already exists
+        for (String[] group : groups) {
+            if (group.length >= 3) {
+
+                String existingGroupID = group[0];
+                String existingGroupName = group[1];
+                String existingModuleID = group[2];
+
+                // If same group name + same module → reuse ID
+                if (existingGroupName.equalsIgnoreCase(groupNameText.trim())
+                        && existingModuleID.equals(moduleID)) {
+
+                    return existingGroupID; // reuse existing groupID
+                }
+            }
+        }
+
+        // STEP 2: If not found → create new group
         String groupID = UserFunctions.generateNextID("group.txt", "G");
 
         try {
-            ArrayList<String[]> groups = UserFunctions.readCSV("group.txt");
-
             groups.add(new String[]{
                 groupID,
                 groupNameText.trim(),
@@ -375,7 +392,12 @@ public class ClassManagement extends javax.swing.JFrame {
         }
 
         return groupID;
-    }    
+    }
+
+
+
+
+
     
     
     
