@@ -117,44 +117,44 @@ public class ModuleReport extends javax.swing.JFrame {
         }
     }
     
-    private void calculatePassRate(){
-        int passCount = 0;
-        int totalCount = 0;
+    private void calculatePassRate() {
+    int passCount = 0;
+    int totalCount = 0;
 
-        for (int i = 1; i < assessmentResult.size(); i++) {
-            String[] result = assessmentResult.get(i);
-            if (result[4].equalsIgnoreCase(moduleID)) { // column 4 = moduleID
-                double mark = Double.parseDouble(result[3]); // column 3 = mark
-                totalCount++;
-                if (mark >= 40) { // passing mark
-                    passCount++;
+    for (int i = 1; i < assessmentResult.size(); i++) {
+        String[] result = assessmentResult.get(i);
+
+        if (result[4].equalsIgnoreCase(moduleID)) { // module ID column
+            double mark = Double.parseDouble(result[3]); // mark column
+            totalCount++;
+
+            String grade = "F"; // default
+            for (String[] g : gradingCriteria) {
+                if (g[0].equalsIgnoreCase("Grade")) continue; // skip header
+
+                int min = Integer.parseInt(g[1]);
+                int max = Integer.parseInt(g[2]);
+
+                if (mark >= min && mark <= max) {
+                    grade = g[0];
+                    break;
                 }
+            }
 
-                String grade = "F"; // default
-                for (String[] g : gradingCriteria) {
-                    if (g[0].equalsIgnoreCase("Grade")) continue; // skip header
-                    int min = Integer.parseInt(g[1]);
-                    int max = Integer.parseInt(g[2]);
-                    if (mark >= min && mark <= max) {
-                        grade = g[0];
-                        break;
-                        }
-                    }
-
-                    // Count as pass if grade is not F
-                    if (!grade.equalsIgnoreCase("F")) {
-                        passCount++;
-                    }
-                }
-            }   
-        if (totalCount > 0) {
-            double passRate = (double) passCount / totalCount;
-            passratetxt.setText(String.format("%.2f%%", passRate));
-        }
-        else {
-            passratetxt.setText("0%");
+            // Count as pass if grade is NOT F
+            if (!grade.equalsIgnoreCase("F")) {
+                passCount++;
+            }
         }
     }
+
+    if (totalCount > 0) {
+        double passRate = ((double) passCount / totalCount) * 100;
+        passratetxt.setText(String.format("%.2f%%", passRate));
+    } else {
+        passratetxt.setText("0%");
+    }
+}
     
     private void loadModuleReport() {
         moduleidtxt.setText(moduleID);
