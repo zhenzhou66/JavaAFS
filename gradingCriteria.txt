@@ -1,6 +1,7 @@
 Grade,Min Mark Range,Max Mark Range,Description
-A,80,100,Well Done good student
-B,60,79,Not bad keep improving
+A,79,89,Well Done good student
+B,60,78,Not bad keep improving
 C,49,59,OKOK only
 D,35,48,Very Terrible please work harder
-F,0,34,tskt tsk 
+F,0,34,tskt tsk
+A+,90,100,Perfect! Keep It Up!
