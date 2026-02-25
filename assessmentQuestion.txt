@@ -21,3 +21,8 @@ AS019,M019,Ethics guides behavior?,Right vs wrong?,Morality matters?,Decision ma
 AS020,M020,Cybersecurity protects data?,Password is key?,Firewall blocks attacks?,Encryption keeps safe?,Phishing is threat?,True,True,True,True,True
 AS021,M002,The apple is red. True or False?,jTextField2,jTextField2,jTextField2,jTextField2,True,True,True,True,True
 AS022,M002,The apple is red. True or False?,jTextField2,jTextField2,jTextField2,jTextField2,True,True,True,True,True
+AS023,M001,The sum of two even numbers is always even.,Zero is a positive number.,The square root of 16 is 4.,A triangle can have two right angles.,The sum of angles in a triangle is always 180 degrees.,True,False,True,False,True
+AS024,M001,Multiplying any number by zero results in zero.,A prime number has exactly two factors.,1 is a prime number.,The area of a rectangle is length × width.,Division by zero is undefined.,True,True,False,True,True
+AS025,M001,The product of two negative numbers is positive.,A square is a type of rectangle.,The perimeter of a shape is the total distance around it.,Pi (π) is an exact rational number.,The sum of two odd numbers is always even.,True,True,True,False,True
+AS026,M001,A straight angle measures 180 degrees.,The hypotenuse is the longest side of a right-angled triangle.,Fractions represent parts of a whole.,0.5 is greater than 1.,Every rectangle is a square.,True,True,True,False,False
+AS027,M001,The commutative property applies to addition and multiplication.,The value of x in equation 2x = 10 is 5.,An isosceles triangle has at least two equal sides.,The cube of 2 is 6.,A number divisible by 3 will have a sum of digits divisible by 3.,True,True,True,False,True
