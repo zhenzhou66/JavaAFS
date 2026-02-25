@@ -34,7 +34,7 @@ L016,Lect7788%,Lecturer,Quentin Tan,lect17@gmail.com,0123456720,M017,false
 L017,Lect8899%,Lecturer,Rosie Ng,lect18@yahoo.com,0123456721,M018,false
 L018,Lect9900%,Lecturer,Simon Lim,lect19@gmail.com,0123456722,M019,false
 L019,Lect1010%,Lecturer,Tina Lee,lect20@yahoo.com,0123456723,M020,false
-S000,Stud0001%,Student,Adam Tan,student1@gmail.com,0123456724,M001,false
+S000,Stud0001%,Student,Adam Tan,student1@gmail.com,0123456724,M001,true
 S001,Stud0002%,Student,Bella Wong,student2@yahoo.com,0123456725,M001,false
 S002,Stud0003%,Student,Charles Lee,student3@gmail.com,0123456726,M001,false
 S003,Stud0004%,Student,Daphne Lim,student4@yahoo.com,0123456727,M001,false
