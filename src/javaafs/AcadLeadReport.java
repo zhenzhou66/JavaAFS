@@ -129,17 +129,20 @@ private void loadSelectedName() {
 }
 
     private void openModuleReport(String moduleID) {
-        ModuleReport report = new ModuleReport(moduleID);
+        ModuleReport report = new ModuleReport(UserID, moduleID);
+        this.setVisible(false);
         report.setVisible(true);
        }
 
     private void openLecturerReport(String lecturerID) {
-        LecturerReport report = new LecturerReport(lecturerID);
+        LecturerReport report = new LecturerReport(lecturerID, UserID);
+        this.setVisible(false);
         report.setVisible(true);
         }
 
     private void openStudentReport(String studentID) {
-        StudentReport report = new StudentReport(studentID);
+        StudentReport report = new StudentReport(studentID, UserID);
+        this.setVisible(false);
         report.setVisible(true);
     }
 
